@@ -68,7 +68,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                           className="h-32 rounded-md"
                         />
                       </div>
-                      <dd className="block sm:hidden text-base mt-2 font-medium leading-6 text-gray-500 dark:text-gray-400">
+                      <dd className="block sm:hidden text-base mt-2 mb-1 font-medium leading-6 text-gray-500 dark:text-gray-400">
                         <time dateTime={date}>{formatDate(date)}</time>
                       </dd>
                     </dl>
@@ -95,12 +95,12 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                         {/* 모바일용 포스트 읽기 버튼 */}
                         <Link
                           href={`/blog/${slug}`}
-                          className="block sm:hidden text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                          className="block sm:hidden text-right pr-3 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                           aria-label={`Read "${title}"`}
                         >
                           포스트 읽기 &rarr;
                         </Link>
-                        {/* 모바일용 작성일 블록 */}
+                        {/* 데스크탑용 작성일 블록 */}
                         <dd className="hidden sm:block lg:ml-auto text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                           <time dateTime={date} className="mr-4">
                             {formatDate(date)}
