@@ -1,6 +1,7 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
+import Image from 'next/image'
 import { useState } from 'react'
 import Pagination from '@/components/Pagination'
 import formatDate from '@/lib/utils/formatDate'
@@ -48,34 +49,71 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
           </div>
         </div>
         <ul>
-          {!filteredBlogPosts.length && 'No posts found.'}
+          {!filteredBlogPosts.length && '검색 결과가 없습니다.'}
           {displayPosts.map((frontMatter) => {
             const { slug, date, title, summary, tags, image } = frontMatter
             return (
-              <li key={slug} className="py-4">
-                <article className="space-y-2 xl:grid xl:grid-cols-4 xl:space-y-0 xl:items-baseline">
-                  <dl>
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date)}</time>
-                    </dd>
-                  </dl>
-                  <div className="space-y-3 xl:col-span-3">
-                    <div>
-                      <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                        <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
-                          {title}
-                        </Link>
-                      </h3>
-
-                      <div className="flex flex-wrap">
-                        {tags.map((tag) => (
-                          <Tag key={tag} text={tag} />
-                        ))}
+              <li key={slug} className="px-4">
+                <article>
+                  <div className="py-6 pl-0 block sm:flex items-start xl:space-y-0">
+                    <dl className="mr-8 xl:mr-10 lg:flex flex-col justify-start items-center">
+                      <dt className="sr-only">Published on</dt>
+                      <div className="hidden sm:inline-block">
+                        <Image
+                          src={image[0]}
+                          width="128"
+                          height="128"
+                          layout="intrinsic"
+                          alt="thumbnail"
+                          className="h-32 rounded-md"
+                        />
                       </div>
-                    </div>
-                    <div className="prose text-gray-500 max-w-none dark:text-gray-400">
-                      {summary}
+                      <dd className="block sm:hidden text-base mt-2 font-medium leading-6 text-gray-500 dark:text-gray-400">
+                        <time dateTime={date}>{formatDate(date)}</time>
+                      </dd>
+                    </dl>
+                    <div className="space-y-5 xl:col-span-3">
+                      <div className="space-y-3">
+                        <div>
+                          <h2 className="text-2xl font-bold leading-8 tracking-tight">
+                            <Link
+                              href={`/blog/${slug}`}
+                              className="text-gray-900 dark:text-gray-100"
+                            >
+                              {title}
+                            </Link>
+                          </h2>
+                          <div className="flex flex-wrap mt-1">
+                            {tags.map((tag) => (
+                              <Tag key={tag} text={tag} />
+                            ))}
+                          </div>
+                        </div>
+                        <div className="prose text-gray-500 max-w-none dark:text-gray-400">
+                          {summary}
+                        </div>
+                        {/* 모바일용 포스트 읽기 버튼 */}
+                        <Link
+                          href={`/blog/${slug}`}
+                          className="block sm:hidden text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                          aria-label={`Read "${title}"`}
+                        >
+                          포스트 읽기 &rarr;
+                        </Link>
+                        {/* 모바일용 작성일 블록 */}
+                        <dd className="hidden sm:block lg:ml-auto text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                          <time dateTime={date} className="mr-4">
+                            {formatDate(date)}
+                          </time>
+                          <Link
+                            href={`/blog/${slug}`}
+                            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                            aria-label={`Read "${title}"`}
+                          >
+                            포스트 읽기 &rarr;
+                          </Link>
+                        </dd>
+                      </div>
                     </div>
                   </div>
                 </article>

@@ -10,7 +10,7 @@ export default function AuthorLayout({ children, frontMatter }) {
       <PageSeo title={`About - ${name}`} description={`About me - ${name}`} />
       <div className="divide-y">
         <div className="pt-2 pb-4 md:pt-4 md:pb-8 space-y-2 md:space-y-5">
-          <h1 className="text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
+          <h1 className="text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
             <span role="img" aria-label="emoji">
               👋🏻
             </span>{' '}
@@ -33,7 +33,6 @@ export default function AuthorLayout({ children, frontMatter }) {
               <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="github" href={github} />
               <SocialIcon kind="linkedin" href={linkedin} />
-              <SocialIcon kind="twitter" href={twitter} />
             </div>
           </div>
           <div className="pt-8 pb-8 prose dark:prose-dark max-w-none xl:col-span-2">{children}</div>

@@ -4,6 +4,7 @@ date: '2021-08-12'
 tags: ['Vue.js', 'Front-End']
 draft: false
 summary: 'Vue.js의 조건부 렌더링을 위한 두 방법을 비교합니다.'
+image: ['/static/images/logos/vue.png']
 ---
 
 ## 목차
