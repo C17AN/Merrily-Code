@@ -9,9 +9,12 @@ export default function AuthorLayout({ children, frontMatter }) {
     <>
       <PageSeo title={`About - ${name}`} description={`About me - ${name}`} />
       <div className="divide-y">
-        <div className="pt-6 pb-8 space-y-2 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            About
+        <div className="pt-2 pb-4 md:pt-4 md:pb-8 space-y-2 md:space-y-5">
+          <h1 className="text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
+            <span role="img" aria-label="emoji">
+              👋🏻
+            </span>{' '}
+            안녕하세요, 찬민입니다!
           </h1>
         </div>
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">

@@ -20,7 +20,7 @@ module.exports = {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        primary: colors.teal,
+        primary: colors.sky,
         gray: colors.trueGray,
         code: {
           green: '#b5f4a5',
@@ -51,6 +51,7 @@ module.exports = {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
               color: theme('colors.gray.900'),
+              marginBottom: '1rem',
             },
             h3: {
               fontWeight: '600',
