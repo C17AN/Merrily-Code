@@ -17,6 +17,10 @@ class MyDocument extends Document {
             sizes="16x16"
             href="/static/favicons/favicon-16x16.png"
           />
+          <meta
+            name="google-site-verification"
+            content="V6Aq4cGdyXO058zAE6bQI9kgZdzD8j_sHuJbL_t3XjM"
+          />
           <link rel="manifest" href="/static/favicons/site.webmanifest" />
           <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5" />
           <meta name="msapplication-TileColor" content="#000000" />
