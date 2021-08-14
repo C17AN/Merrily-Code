@@ -95,6 +95,7 @@ module.exports = {
             blockquote: {
               color: theme('colors.gray.900'),
               borderLeftColor: theme('colors.gray.200'),
+              fontStyle: 'normal',
             },
           },
         },
