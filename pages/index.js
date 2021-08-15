@@ -44,7 +44,7 @@ export default function Home({ posts }) {
                           height="128"
                           layout="intrinsic"
                           alt="thumbnail"
-                          className="h-32 rounded-md"
+                          className="h-32 rounded-md object-cover"
                         />
                       </div>
                       <dd className="block sm:hidden text-base mt-2 mb-1 font-medium leading-6 text-gray-500 dark:text-gray-400">
