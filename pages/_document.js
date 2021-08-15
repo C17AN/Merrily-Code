@@ -17,6 +17,7 @@ class MyDocument extends Document {
             sizes="16x16"
             href="/static/favicons/favicon-16x16.png"
           />
+          <meta name="naver-site-verification" content="831abb50ab83249d876a2da3e8a3abed1010809d" />
           <meta
             name="google-site-verification"
             content="V6Aq4cGdyXO058zAE6bQI9kgZdzD8j_sHuJbL_t3XjM"
