@@ -4,12 +4,15 @@ import { palette } from "styles/palette";
 
 interface Props {}
 
-const TechStackItem = (props: Props) => {
+const SchoolInfoCard = (props: Props) => {
   return <Container></Container>;
 };
 
 const Container = styled.div`
-  border-radius: 8px;
+  padding: 1rem;
+  width: 300px;
+  height: 200px;
+  border: 1px solid ${palette.grey[50]};
 `;
 
-export default TechStackItem;
+export default SchoolInfoCard;

@@ -23,6 +23,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   font-size: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: white;
 `;
 
 const IconContainer = styled.div`

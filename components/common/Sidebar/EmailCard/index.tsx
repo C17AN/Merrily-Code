@@ -1,18 +1,21 @@
 import styled from "@emotion/styled";
 import React from "react";
+import Link from "next/link";
 import { palette } from "styles/palette";
 
 interface Props {}
 
 const EmailCard = (props: Props) => {
   return (
-    <Container>
-      <InitialBox>찬</InitialBox>
-      <InfoContainer>
-        <Name>찬민</Name>
-        <Email>kimchanmin1@gmail.com</Email>
-      </InfoContainer>
-    </Container>
+    <Link href="/" passHref>
+      <Container>
+        <InitialBox>찬</InitialBox>
+        <InfoContainer>
+          <Name>찬민</Name>
+          <Email>kimchanmin1@gmail.com</Email>
+        </InfoContainer>
+      </Container>
+    </Link>
   );
 };
 

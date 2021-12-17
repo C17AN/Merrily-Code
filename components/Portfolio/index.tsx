@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Talk from "components/common/Talk";
 import React from "react";
 import About from "./About";
 import Hero from "./Hero";
@@ -10,6 +11,7 @@ const Portfolio = (props: Props) => {
     <Container>
       <Hero />
       <About />
+      <Talk />
     </Container>
   );
 };
