@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "target": "es6" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */, // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "module": "commonjs" /* Specify what module code is generated. */, // "rootDir": "./",                                  /* Specify the root folder within your source files. */
+    "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
+    "paths": {
+      "@components/*": ["./components"],
+      "@constants/*": ["./constants"],
+      "@styles/*": ["./styles"],
+      "@public/*": ["./public"]
+    } /* Specify a set of entries that re-map imports to additional lookup locations. */,
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */, // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */ /* Type Checking */,
+    "strict": true /* Enable all strict type-checking options. */, // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_app.jsx"],
+  "exclude": ["node_modules"]
+}
