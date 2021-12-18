@@ -4,9 +4,7 @@ import React from "react";
 import About from "./About";
 import Hero from "./Hero";
 
-interface Props {}
-
-const Portfolio = (props: Props) => {
+const Portfolio = () => {
   return (
     <Container>
       <Hero />

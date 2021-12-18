@@ -90,6 +90,9 @@ export const palette = {
       hover: "#37352f14",
       initialBox: "#37352f4D",
     },
+    portfolio: {
+      codeBackground: "#87837826",
+    },
   },
 };
 
