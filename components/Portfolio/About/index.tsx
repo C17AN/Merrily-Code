@@ -4,6 +4,7 @@ import Divider from "../common/Divider";
 import SubTitle from "../common/SubTitle";
 import Career from "./Career";
 import Challenge from "./Challenge";
+import CodeTime from "./CodeTime";
 import Education from "./Education";
 
 interface Props {}
@@ -11,8 +12,7 @@ interface Props {}
 const About = (props: Props) => {
   return (
     <Container>
-      <SubTitle>👉🏻 내 정보</SubTitle>
-      <Divider />
+      <CodeTime />
       <Education />
       <Career />
       <Challenge />
