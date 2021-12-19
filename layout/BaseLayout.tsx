@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Header from "components/common/Header";
 import Sidebar from "../components/common/Sidebar";
 import Footer from "components/common/Footer";
+import BasePageLayout from "./BasePageLayout";
 
 type BaseLayoutProps = {
   children: ReactNode;
@@ -20,7 +21,7 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebarVisible} />
       <Content>
         <Header toggleSidebar={toggleSidebarVisible} />
-        <>{children}</>
+        <BasePageLayout>{children}</BasePageLayout>
         <Footer />
       </Content>
     </Container>

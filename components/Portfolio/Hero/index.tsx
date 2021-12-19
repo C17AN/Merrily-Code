@@ -39,14 +39,7 @@ const Hero = (props: Props) => {
 };
 
 const Container = styled.div`
-  padding: 3rem 5rem 3rem 5rem;
-  @media (max-width: 768px) {
-    & {
-      display: flex;
-      flex-direction: column;
-      padding: 1rem 1.5rem 1rem 1.5rem;
-    }
-  }
+  margin-bottom: 3rem;
 `;
 
 const Title = styled.h1`

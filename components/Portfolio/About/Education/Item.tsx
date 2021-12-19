@@ -24,7 +24,7 @@ const Container = styled.div`
   padding: 0.375rem 1rem 0.375rem 0.5rem;
   gap: 0.5rem;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0.5rem;
   transition: 0.2s ease-in-out background-color;
 
   &:hover {

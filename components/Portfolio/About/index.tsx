@@ -22,15 +22,7 @@ const About = (props: Props) => {
   );
 };
 
-const Container = styled.div`
-  padding: 0 5rem 5rem 5rem;
-
-  @media (max-width: 768px) {
-    & {
-      padding: 1rem 1.5rem 1rem 1.5rem;
-    }
-  }
-`;
+const Container = styled.div``;
 
 const MultiItemContainer = styled.div`
   margin-top: 3rem;

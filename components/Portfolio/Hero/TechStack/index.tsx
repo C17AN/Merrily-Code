@@ -3,6 +3,7 @@ import SubTitle from "components/Portfolio/common/SubTitle";
 import React from "react";
 import TeckStackList from "./List";
 import Image from "next/image";
+import Divider from "components/Portfolio/common/Divider";
 
 interface Props {}
 

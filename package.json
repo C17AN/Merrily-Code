@@ -18,6 +18,8 @@
     "react-countup": "^6.1.0",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
+    "react-naver-maps": "^0.0.13",
+    "react-slick": "^0.28.1",
     "react-syntax-highlighter": "^15.4.5"
   },
   "devDependencies": {
