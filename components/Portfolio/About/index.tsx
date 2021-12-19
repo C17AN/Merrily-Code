@@ -13,8 +13,10 @@ const About = (props: Props) => {
   return (
     <Container>
       <CodeTime />
-      <Education />
-      <Career />
+      <MultiItemContainer>
+        <Education />
+        <Career />
+      </MultiItemContainer>
       <Challenge />
     </Container>
   );
@@ -26,6 +28,31 @@ const Container = styled.div`
   @media (max-width: 768px) {
     & {
       padding: 1rem 1.5rem 1rem 1.5rem;
+    }
+  }
+`;
+
+const MultiItemContainer = styled.div`
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+
+  div {
+    flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    & {
+      margin-top: 2rem;
+      justify-content: center;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    div {
+      width: 100%;
     }
   }
 `;
