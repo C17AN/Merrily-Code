@@ -3,6 +3,7 @@ import matter from "gray-matter";
 import fs from "fs";
 import path from "path";
 import PostList from "components/Post/List";
+import getCategoryNameList from "lib/utils/getCategoryNameList";
 
 interface Props {}
 
@@ -11,17 +12,20 @@ const PostListPage = ({ posts }: Props) => {
 };
 
 export async function getStaticPaths() {
+  const categoryList = getCategoryNameList();
+  const categoryPathList = categoryList.map((category) => ({
+    params: {
+      category,
+    },
+  }));
   return {
-    paths: [
-      {
-        params: { category: "react" },
-      },
-    ],
+    paths: categoryPathList,
     fallback: false,
   };
 }
 
 export async function getStaticProps() {
+  console.log(getCategoryNameList());
   const postsDirectory = path.join(process.cwd(), "pages/posts/[category]");
   const filenames = fs.readdirSync(postsDirectory);
 
