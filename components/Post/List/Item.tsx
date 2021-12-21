@@ -1,9 +1,11 @@
 import React from "react";
 
-interface Props {}
+interface Props {
+  title: string;
+}
 
-const PostItem = (props: Props) => {
-  return <div></div>;
+const PostItem = ({ title }: Props) => {
+  return <div>{title}</div>;
 };
 
 export default PostItem;

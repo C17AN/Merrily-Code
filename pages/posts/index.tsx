@@ -2,24 +2,12 @@ import React from "react";
 import matter from "gray-matter";
 import fs from "fs";
 import path from "path";
-import PostList from "components/Post/List";
 
 interface Props {}
 
 const PostListPage = ({ posts }: Props) => {
-  return <PostList postList={posts} />;
+  return <div></div>;
 };
-
-export async function getStaticPaths() {
-  return {
-    paths: [
-      {
-        params: { category: "react" },
-      },
-    ],
-    fallback: false,
-  };
-}
 
 export async function getStaticProps() {
   const postsDirectory = path.join(process.cwd(), "pages/posts/[category]");

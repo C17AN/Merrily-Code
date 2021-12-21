@@ -1,5 +1,5 @@
 import Portfolio from "components/Portfolio";
-import BaseLayout from "layout";
+import BaseLayout from "layout/BaseLayout";
 import React from "react";
 
 interface Props {}
