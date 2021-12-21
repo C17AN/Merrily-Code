@@ -4,10 +4,15 @@ import fs from "fs";
 import path from "path";
 import PostList from "components/Post/List";
 import getCategoryNameList from "lib/utils/getCategoryNameList";
+import getCategoryDataList from "lib/utils/getCategoryDataList";
+import { useRouter } from "next/router";
 
 interface Props {}
 
 const PostListPage = ({ posts }: Props) => {
+  const router = useRouter();
+  console.log(router);
+  console.log(getCategoryDataList());
   return <PostList postList={posts} />;
 };
 
@@ -25,7 +30,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps() {
-  console.log(getCategoryNameList());
   const postsDirectory = path.join(process.cwd(), "pages/posts/[category]");
   const filenames = fs.readdirSync(postsDirectory);
 

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import PostItem from "./Item";
-import { palette } from "styles/palette";
 
 interface Props {
   postList: any;
@@ -10,9 +9,10 @@ interface Props {
 const PostList = ({ postList }: Props) => {
   return (
     <Container>
-      {postList.map((post: any) => {
+      <PostListHeader></PostListHeader>
+      {postList.map((post: any, index: number) => {
         const { title, description } = post.frontMatter;
-        return <PostItem key={title} title={title} description={description} />;
+        return <PostItem key={title} postIndex={index} title={title} description={description} />;
       })}
     </Container>
   );
@@ -23,5 +23,7 @@ const Container = styled.ul`
   flex-direction: column;
   gap: 1rem;
 `;
+
+const PostListHeader = styled.header``;
 
 export default PostList;

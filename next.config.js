@@ -2,7 +2,7 @@ const frontmatterRemarkPlugin = require('./frontmatter')
 
 const mdxPlugin = require('@next/mdx')({
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [frontmatterRemarkPlugin],
   },
 })
 
