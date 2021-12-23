@@ -8,8 +8,12 @@ interface Props {}
 const RestaurantList = (props: Props) => {
   return (
     <div>
-      <Title>전체 목록</Title>
-      <Divider />
+      <ListTitle>
+        <Title>전체 목록</Title>
+        <Divider />
+      </ListTitle>
+      <RestaurantListItem />
+      <RestaurantListItem />
       <RestaurantListItem />
     </div>
   );
@@ -18,5 +22,7 @@ const RestaurantList = (props: Props) => {
 const Title = styled.h2`
   font-size: 1.4rem;
 `;
+
+const ListTitle = styled.div``;
 
 export default RestaurantList;

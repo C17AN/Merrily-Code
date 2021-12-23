@@ -1,12 +1,15 @@
-import styled from "@emotion/styled";
-import { motion } from "framer-motion";
 import React from "react";
+import styled from "@emotion/styled";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import { palette } from "styles/palette";
+import { useRouter } from "next/router";
 
 interface Props {
   title: string;
+  filename: string;
   description: string;
-  postIndex: number;
+  postId: number;
 }
 
 const variants = {
@@ -19,12 +22,14 @@ const variants = {
   hidden: { opacity: 0 },
 };
 
-const PostItem = ({ title, description, postIndex }: Props) => {
+const PostItem = ({ filename, title, description, postId }: Props) => {
   return (
-    <Container custom={postIndex} variants={variants} initial="hidden" animate="visible">
-      <h2 className="post-title">{title}</h2>
-      <h3 className="post-description">{description}</h3>
-    </Container>
+    <Link href={`/blog/${filename}`} passHref>
+      <Container custom={postId} variants={variants} initial="hidden" animate="visible">
+        <h2 className="post-title">{title}</h2>
+        <h3 className="post-description">{description}</h3>
+      </Container>
+    </Link>
   );
 };
 
