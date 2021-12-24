@@ -4,7 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import { Div, H1, H2, Code, P } from "components/Post/Template";
+import { Div, H1, H2, Code, P, Image } from "components/Post/Template";
 
 type PostPageProps = {
   mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>;
@@ -16,6 +16,7 @@ const components = {
   h2: H2,
   div: Div,
   p: P,
+  img: Image,
   // p: (props: PostPageProps) => <Heading2 {...props} />,
 };
 
