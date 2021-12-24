@@ -1,20 +1,22 @@
 import React, { ReactPropTypes } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import Heading2 from "components/Blog/Heading2";
+import { Div, H1, H2, Code, P } from "components/Post/Template";
 
 type PostPageProps = {
   mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>;
 };
 
 const components = {
-  SyntaxHighlighter,
-  h2: (props: PostPageProps) => <Heading2 {...props} />,
-  p: (props: PostPageProps) => <Heading2 {...props} />,
+  code: Code,
+  h1: H1,
+  h2: H2,
+  div: Div,
+  p: P,
+  // p: (props: PostPageProps) => <Heading2 {...props} />,
 };
 
 const PostPage = ({ mdxSource }: PostPageProps) => {

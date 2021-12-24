@@ -38,6 +38,7 @@ const Container = styled.div<{ isOpen: boolean }>`
 
 const Content = styled.div`
   display: flex;
+  max-width: 100%;
   flex: 1;
   flex-direction: column;
 `;

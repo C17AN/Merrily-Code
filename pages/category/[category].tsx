@@ -2,7 +2,7 @@ import React from "react";
 import matter from "gray-matter";
 import fs from "fs";
 import path from "path";
-import PostList from "components/Posts/List";
+import PostList from "components/Post/List";
 import getCategoryDataList from "lib/utils/getCategoryDataList";
 
 type Props = {

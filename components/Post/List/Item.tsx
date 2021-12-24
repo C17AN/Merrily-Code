@@ -24,7 +24,7 @@ const variants = {
 
 const PostItem = ({ filename, title, description, postId }: Props) => {
   return (
-    <Link href={`/blog/${filename}`} passHref>
+    <Link href={`/post/${filename}`} passHref>
       <Container custom={postId} variants={variants} initial="hidden" animate="visible">
         <h2 className="post-title">{title}</h2>
         <h3 className="post-description">{description}</h3>

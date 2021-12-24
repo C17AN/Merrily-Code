@@ -9,7 +9,7 @@ const SubCategoryItem = ({ icon, displayName, categoryName }: SubCategoryItemPro
   const pathName = categoryName.toLowerCase();
 
   return (
-    <Link href={`/posts/${categoryName}`} passHref>
+    <Link href={`/category/${categoryName}`} passHref>
       <Container>
         <>{icon}</>
         <p>{displayName}</p>
