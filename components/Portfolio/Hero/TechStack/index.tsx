@@ -24,6 +24,7 @@ const TitleContainer = styled.div`
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  height: 100%;
 
   & > h2 {
     margin-bottom: 0;

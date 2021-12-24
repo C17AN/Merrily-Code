@@ -7,7 +7,7 @@ interface Props {}
 const Footer = (props: Props) => {
   return (
     <Container>
-      <p>Motivated By Notion / Designed By @C17AN, 2021</p>
+      <p>Motivated By Notion / Created By @C17AN, 2021</p>
     </Container>
   );
 };

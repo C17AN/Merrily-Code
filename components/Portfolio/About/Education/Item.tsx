@@ -35,6 +35,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    margin-left: 0.25rem;
 
     h2 {
       font-size: 1rem;
@@ -44,6 +45,7 @@ const Container = styled.div`
       font-size: 0.75rem;
       font-weight: 400;
       color: ${palette.grey[400]};
+      white-space: nowrap;
     }
   }
 

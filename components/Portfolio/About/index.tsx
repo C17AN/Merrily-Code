@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import Divider from "../common/Divider";
 import SubTitle from "../common/SubTitle";
+import Activity from "./Activity";
 import Career from "./Career";
 import Challenge from "./Challenge";
 import CodeTime from "./CodeTime";
@@ -17,7 +18,10 @@ const About = (props: Props) => {
         <Education />
         <Career />
       </MultiItemContainer>
-      <Challenge />
+      <MultiItemContainer>
+        <Activity />
+        <Challenge />
+      </MultiItemContainer>
     </Container>
   );
 };

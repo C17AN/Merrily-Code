@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 import SubTitle from "components/Portfolio/common/SubTitle";
 import Image from "next/image";
 import Divider from "components/Portfolio/common/Divider";
-import EducationList from "./List";
+import InfoList from "../common/InfoList";
+import CareerData from "data/About/CareerData";
 
 const Career = () => {
   return (
@@ -13,7 +14,7 @@ const Career = () => {
         <SubTitle>경력 정보</SubTitle>
       </TitleContainer>
       <Divider />
-      <EducationList />
+      <InfoList itemList={CareerData} />
     </Container>
   );
 };

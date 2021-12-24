@@ -43,11 +43,27 @@ const Container = styled(motion.li)`
     color: ${palette.grey[700]};
     font-size: 1.4rem;
     margin-bottom: 0.625rem;
+    line-height: 1.4;
   }
 
   .post-description {
     font-weight: 400;
     color: ${palette.grey[400]};
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    margin-bottom: 0.375rem;
+    font-size: 1.2rem;
+
+    .post-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.375rem;
+    }
+
+    .post-description {
+      font-size: 0.75rem;
+    }
   }
 `;
 

@@ -1,17 +1,27 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import { palette } from "styles/palette";
 
-const CareerItem = () => {
+export type InfoItemProps = {
+  icon: string;
+  title: string;
+  description?: string;
+  startedAt?: string;
+  endedAt?: string;
+};
+
+const InfoItem = ({ icon, title, description, startedAt, endedAt }: InfoItemProps) => {
   return (
     <Container>
-      <Image src="/images/travelflan-logo.jpg" width={48} height={48} alt="프리디그룹엘티디" />
-      <div className="company-info">
-        <h2 className="company-name">프리디그룹엘티디</h2>
-        <h3>프론트엔드 ICT 인턴십 인턴</h3>
+      {icon && <Image src={icon} width={48} height={48} alt={title} />}
+      <div className="information-content">
+        <h2 className="information-name">{title}</h2>
+        <h3>{description}</h3>
       </div>
-      <div className="company-year">2021.09 ~ 2022.03</div>
+      <div className="information-year">
+        {startedAt} ~ {endedAt}
+      </div>
     </Container>
   );
 };
@@ -29,10 +39,11 @@ const Container = styled.div`
     background-color: ${palette.grey[50]};
   }
 
-  .company-info {
+  .information-content {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    margin-left: 0.25rem;
 
     h2 {
       font-size: 1rem;
@@ -42,17 +53,18 @@ const Container = styled.div`
       font-size: 0.75rem;
       font-weight: 400;
       color: ${palette.grey[400]};
+      white-space: nowrap;
     }
   }
 
-  .company-name {
+  .information-name {
   }
 
-  .company-year {
+  .information-year {
     text-align: right;
     font-size: 0.875rem;
     color: ${palette.grey[500]};
   }
 `;
 
-export default CareerItem;
+export default InfoItem;

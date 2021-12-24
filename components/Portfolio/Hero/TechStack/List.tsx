@@ -14,7 +14,8 @@ const TeckStackList = () => {
 const Container = styled.div`
   padding: 3rem;
   border: 1px solid ${palette.grey[50]};
-  border-radius: 4px;
+  background-color: ${palette.grey[800]};
+  border-radius: 8px;
 `;
 
 export default TeckStackList;
