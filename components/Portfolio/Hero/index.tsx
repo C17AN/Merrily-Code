@@ -71,6 +71,11 @@ const Profile = styled.div`
       max-width: 400px;
       margin: 0 auto;
     }
+
+    > .profile-description {
+      font-size: 0.875rem;
+      text-align: center;
+    }
   }
 `;
 

@@ -31,12 +31,23 @@ const Container = styled.div`
   display: flex;
   align-items: baseline;
   position: relative;
+  @media (max-width: 768px) {
+    & {
+      margin-top: 1.5rem;
+    }
+  }
 `;
 
 const Road = styled.div`
   width: 300px;
   height: 2px;
   border-bottom: 2px solid ${palette.grey.primary};
+
+  @media (max-width: 768px) {
+    & {
+      width: 240px;
+    }
+  }
 `;
 
 const Flag = styled.div`

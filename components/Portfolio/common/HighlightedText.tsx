@@ -27,6 +27,10 @@ const Container = styled.p<HighlightedTextProps>`
   background-color: ${({ backgroundColor }) =>
     backgroundColor || palette.notion.portfolio.codeBackground};
   color: ${({ color }) => color};
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
 `;
 
 export default HighlightedText;
