@@ -1,0 +1,184 @@
+---
+title: 너 누구랑 닮은 것 같은데? - 퓨처 클래스 알아보기
+date: "December 4, 2021"
+description: 다트와 자바스크립트의 비동기 처리 객체를 비교해봅시다..
+category: dart
+thumbnailUrl: "/javascript-functions-thumbnail.jpeg"
+tags: ["Dart", "다트"]
+---
+
+개발자를 콜백 지옥에서 구하기 위해 등장한 자바스크립트의 `Promise`를 기억하시나요?
+
+구글의 차세대 언어로 주목받는 언어인 다트에도 비동기 처리를 위한 클래스가 존재하는데요, 바로 `Future` 입니다.
+
+오늘은 프라미스와 다트를 비교해보며 다트의 퓨처 클래스 사용법을 간단히 알아보도록 하겠습니다.
+
+### 자바스크립트의 프라미스
+
+자바스크립트를 배워보신 분들이라면 비동기 동작이 무엇인지 대략적으로라도 알고 계실 것입니다.
+
+```
+const waitOneSecond = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Task 1 : finished after one second.")
+    }, 1000)
+  })
+}
+
+const waitTwoSecond = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Task 2 : finished after two second.")
+    }, 2000)
+  })
+}
+
+waitTwoSecond()
+waitOneSecond()
+
+// "Task 1 : finished after one second."
+// "Task 2 : finished after two second."
+```
+
+위 코드는 자바스크립트에서 비동기 동작을 구현하는 일반적인 예시인데요, `Promise` 객체 내에서는 다음 순서대로 비동기 로직을 작성합니다.
+
+1\. Promise 내부에 `resolve`, `reject` 함수를 인자로 받는 콜백을 선언합니다.
+
+```
+new Promise((resolve, reject) => {})
+```
+
+2. 해당 콜백 내에 실행할 비동기 작업을 정의합니다.
+
+```
+new Promise((resolve, reject) => {
+        // setTimeout은 비동기적으로 동작합니다.
+      setTimeout(() => {
+
+    }, 2000)
+})
+```
+
+3. 만약 비동기적으로 리턴할 값이 있다면, 인자로 주어진 `resolve` 함수에 전달합니다.
+
+```
+new Promise((resolve, reject) => {
+      setTimeout(() => {
+            // 해당 프라미스는 10을 리턴합니다.
+            resolve(10)
+    }, 2000)
+})
+```
+
+4. 리턴한 값을 사용하려면, `Promise.then` 메서드를 통해 전달받아 사용합니다.
+
+```
+const asyncData = new Promise((resolve, reject) => {
+      setTimeout(() => {
+            resolve(10)
+    }, 2000)
+})
+
+// 2초 후, 10을 출력합니다.
+asyncData.then(data => console.log(data));
+```
+
+자바스크립트를 배워본 분이라면 이 로직이 어느 정도 익숙하겠지만, 처음 보는 사람에게는 `resolve` 가 무엇이며... 왜 이 데이터는 `then` 으로 받는지... 등등 머리 위에 물음표가 생길 수밖에 없는 모습입니다.
+
+다트에서는 프라미스의 이러한 점을 인식해서인지 사용법이 조금 간단해졌는데요, 이제 한번 다트의 퓨처를 만나보도록 하겠습니다.
+
+### 다트의 퓨처
+
+프라미스를 소개할 때 사용했던 코드를 다트로 작성한 결과물입니다.
+
+```
+void main() {
+  waitTwoSecond();
+  waitOneSecond();
+}
+
+void waitOneSecond() {
+  Duration oneSecond = Duration(seconds: 1);
+  Future.delayed(oneSecond, () {
+    print("Task 1 : finished after one second");
+  });
+}
+
+void waitTwoSecond() {
+  Duration twoSecond = Duration(seconds: 2);
+  Future.delayed(twoSecond, () {
+    print("Task 2 : finished after two second");
+  });
+}
+```
+
+다트에서는 자바스크립트의 프라미스와 유사한 퓨처(Future)라는 클래스를 활용하는데요, 퓨처는 프라미스와 어떤 차이가 있을까요?
+
+제가 느꼈을 때 가장 큰 차이는 값을 반환하는 방식이었는데요, 잠깐 다시 프라미스를 짚어보면 프라미스에서는 `resolve` 함수와 `then` 메서드를 통해 리턴할 값을 주고받아 사용했습니다.
+
+```
+new Promise((resolve, _) => {
+    setTimeout(() => {
+        // 이 프라미스는 1초 후에 "Hello, Promise!" 문자열을 반환합니다.
+        resolve("Hello, Promise!");
+    }, 1000)
+}).then(res => console.log(res));
+// "Hello, Promise!"
+```
+
+하지만 퓨처에서는 `then` 메서드를 사용하는 것은 동일하지만 `resolve` 함수를 사용하지는 않는데요, 먼저 `then` 메서드를 통해 값을 사용하는 방법을 알아보도록 하겠습니다.
+
+1\. 퓨처 인스턴스 내의 콜백에서 값을 리턴합니다.
+
+```
+// Future<String>은 이 함수가 반환할 자료형으로, String 타입의 값을 비동기적으로 반환한다는 의미입니다.
+Future<String> returnString () {
+    Duration oneSecond = Duration(seconds: 1);
+    // Future.delayed는 주어진 시간이 흐른 후 콜백을 실행하는 메서드입니다.
+  // 다트에서의 화살표 함수는 우변의 값을 곧바로 리턴할때 사용됩니다.
+    Future.delayed(oneSecond, () => "Hello, Future!");
+}
+```
+
+2\. 사용한 퓨처 인스턴스를 리턴합니다.
+
+```
+Future<String> returnString () {
+    Duration oneSecond = Duration(seconds: 1);
+    return Future.delayed(oneSecond, () => "Hello, Future!");
+}
+```
+
+3. `then` 키워드를 활용해 퓨처에서 리턴한 값을 사용할 수 있습니다.
+
+```
+Future<String> returnString() {
+  Duration oneSecond = Duration(seconds: 1);
+  return Future.delayed(oneSecond, () => "Hello, Future!");
+}
+
+void main() {
+  returnString().then((value) {
+    print(value);
+  }); // "Hello, Future!"
+}
+```
+
+어떤가요? `resolve-reject` 함수를 활용하는 것보다는 퓨처를 직접 리턴하는 것이 조금 더 직관적이지 않나요?  
+이뿐만 아니라, `async-await` 문법을 활용해 퓨처 내부의 값을 읽어오는 것도 자바스크립트와 동일하게 동작합니다.
+
+> 🎯 Tip : 다트의 await 키워드는 자바스크립트처럼 async 함수 내에서만 사용될 수 있습니다!
+
+```
+Future<String> returnString () {
+    Duration oneSecond = Duration(seconds: 1);
+    return Future.delayed(oneSecond, () => "Hello, Future!");
+}
+
+void main() async {
+    print(await returnString()); // "Hello, Future!"
+}
+```
+
+이걸로 다트의 퓨처와 자바스크립트의 프라미스가 어느 정도 비슷하다는 것을 확인했는데요, 다음 글에서는 `Future.delayed` 등 퓨처와 함께 사용하는 메서드들에 대해 알아보도록 하겠습니다!

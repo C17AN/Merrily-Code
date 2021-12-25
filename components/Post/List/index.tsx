@@ -10,7 +10,7 @@ interface Props {
 }
 
 const PostList = ({ postList }: Props) => {
-  const { icon, displayName } = useCategoryHeader();
+  const { icon, categoryName, displayName } = useCategoryHeader();
 
   return (
     <Container>
@@ -21,15 +21,18 @@ const PostList = ({ postList }: Props) => {
       <Divider />
       {postList.map((post: any, index: number) => {
         const { filename } = post;
-        const { postId, title, description } = post.frontMatter;
+        const { postId, date, title, description, category } = post.frontMatter;
         return (
-          <PostItem
-            key={title}
-            postId={postId}
-            filename={filename}
-            title={title}
-            description={description}
-          />
+          categoryName === category && (
+            <PostItem
+              key={title}
+              postId={postId}
+              date={date}
+              filename={filename}
+              title={title}
+              description={description}
+            />
+          )
         );
       })}
     </Container>

@@ -5,5 +5,6 @@ import Div from "./Div";
 import Code from "./Code";
 import P from "./P";
 import Image from "./Image";
+import Strong from "./Strong";
 
-export { H1, H2, H3, Div, Code, P, Image };
+export { H1, H2, H3, Div, Code, P, Image, Strong };

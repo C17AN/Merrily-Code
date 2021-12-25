@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 interface Props {
   title: string;
   filename: string;
+  date: string;
   description: string;
   postId: number;
 }
@@ -20,14 +21,22 @@ const variants = {
     },
   }),
   hidden: { opacity: 0 },
+  moveRight: { scale: 1.03, backgroundColor: palette.notion.common.divider },
 };
 
-const PostItem = ({ filename, title, description, postId }: Props) => {
+const PostItem = ({ filename, date, title, description, postId }: Props) => {
   return (
     <Link href={`/post/${filename}`} passHref>
-      <Container custom={postId} variants={variants} initial="hidden" animate="visible">
+      <Container
+        custom={postId}
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+        whileHover="moveRight"
+      >
         <h2 className="post-title">{title}</h2>
         <h3 className="post-description">{description}</h3>
+        <p className="post-date">{date}</p>
       </Container>
     </Link>
   );
@@ -36,7 +45,6 @@ const PostItem = ({ filename, title, description, postId }: Props) => {
 const Container = styled(motion.li)`
   padding: 2rem;
   border-radius: 4px;
-  border: 1px solid ${palette.grey[100]};
   cursor: pointer;
 
   .post-title {
@@ -49,6 +57,11 @@ const Container = styled(motion.li)`
   .post-description {
     font-weight: 400;
     color: ${palette.grey[400]};
+  }
+
+  .post-date {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
   }
 
   @media (max-width: 768px) {

@@ -48,6 +48,7 @@ const Container = styled.div`
     h2 {
       font-size: 1rem;
       margin-bottom: 0.125rem;
+      white-space: nowrap;
     }
     h3 {
       font-size: 0.75rem;
