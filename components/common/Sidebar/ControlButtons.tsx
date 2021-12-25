@@ -11,13 +11,21 @@ enum Button {
   SKYBLUE,
 }
 
+const ButtonType = {
+  red: "RED",
+  yellow: "YELLOW",
+  green: "GREEN",
+  blue: "BLUE",
+  skyblue: "SKYBLUE",
+};
+
 const ControlButtons = () => {
   return (
     <Container>
       <ButtonContainer>
-        <ControlButton color={Button.RED} />
-        <ControlButton color={Button.YELLOW} />
-        <ControlButton color={Button.GREEN} />
+        <ControlButton color={ButtonType.red} />
+        <ControlButton color={ButtonType.yellow} />
+        <ControlButton color={ButtonType.green} />
       </ButtonContainer>
       {/* FIXME: 불필요하다고 생각될 시 제거 */}
       {/* <IoIosArrowRoundBack size={22} /> */}
@@ -25,17 +33,17 @@ const ControlButtons = () => {
   );
 };
 
-const setButtonColor = (color: Button) => {
+const setButtonColor = (color: string) => {
   switch (color) {
-    case Button.RED:
+    case "RED":
       return `${palette.red[200]}`;
-    case Button.YELLOW:
+    case "YELLOW":
       return `${palette.yellow.primary}`;
-    case Button.GREEN:
+    case "GREEN":
       return `${palette.green.primary}`;
-    case Button.BLUE:
+    case "BLUE":
       return `${palette.blue.primary}`;
-    case Button.SKYBLUE:
+    case "SKYBLUE":
       return `${palette.skyBlue.primary}`;
     default:
       return;
@@ -54,7 +62,7 @@ const ButtonContainer = styled.div`
   display: flex;
 `;
 
-const ControlButton = styled.p<{ color: Button }>`
+const ControlButton = styled.p<{ color: any }>`
   width: 12px;
   height: 12px;
   border-radius: 50%;

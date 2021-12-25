@@ -12,11 +12,11 @@ import { palette } from "styles/palette";
 import { SNSName } from "type/user";
 
 type SNSItemProps = {
-  name: SNSName;
+  name: string;
   link: string;
 };
 
-const setSNSIcon = (name: SNSName) => {
+const setSNSIcon = (name: string) => {
   switch (name) {
     case "github":
       return <AiFillGithub color={"#000"} />;

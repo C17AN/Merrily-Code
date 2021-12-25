@@ -5,7 +5,7 @@ import { SNS } from "type/user";
 
 const SNSList = () => {
   const { sns } = user.profile;
-  const snsList = Object.entries(sns) as Array<SNS>;
+  const snsList = Object.entries(sns);
 
   return (
     <ul>
