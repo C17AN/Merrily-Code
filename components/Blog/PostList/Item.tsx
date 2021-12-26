@@ -4,14 +4,18 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { palette } from "styles/palette";
 import { useRouter } from "next/router";
+import { Post } from "type/post";
+import Image from "next/image";
+import PostTag from "./common/Tag";
 
-interface Props {
+type PostItemProps = {
   title: string;
   filename: string;
+  thumbnail: string;
   date: string;
   description: string;
-  postId: number;
-}
+  tagList?: string[];
+} & { postIndex: number };
 
 const variants = {
   visible: (sequence: number) => ({
@@ -24,19 +28,41 @@ const variants = {
   moveRight: { scale: 1.03, backgroundColor: palette.notion.common.divider },
 };
 
-const PostItem = ({ filename, date, title, description, postId }: Props) => {
+const PostItem = ({
+  filename,
+  date,
+  title,
+  thumbnail,
+  tagList,
+  description,
+  postIndex,
+}: PostItemProps) => {
   return (
     <Link href={`/post/${filename}`} passHref>
       <Container
-        custom={postId}
+        custom={postIndex}
         variants={variants}
         initial="hidden"
         animate="visible"
         whileHover="moveRight"
       >
-        <h2 className="post-title">{title}</h2>
-        <h3 className="post-description">{description}</h3>
-        <p className="post-date">{date}</p>
+        <Image
+          src={thumbnail}
+          width={96}
+          height={96}
+          layout="fixed"
+          objectFit="cover"
+          alt={title}
+          className="post-thumbnail"
+        />
+        <Content>
+          <h2 className="post-title">{title}</h2>
+          <h3 className="post-description">{description}</h3>
+          <p className="post-date">{date}</p>
+          {/* {tagList?.map((tag) => (
+            <PostTag key={tag} tagName={tag} />
+          ))} */}
+        </Content>
       </Container>
     </Link>
   );
@@ -44,8 +70,25 @@ const PostItem = ({ filename, date, title, description, postId }: Props) => {
 
 const Container = styled(motion.li)`
   padding: 2rem;
-  border-radius: 4px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
+
+  .post-thumbnail {
+    border-radius: 8px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+    & > span {
+      display: none !important;
+    }
+  }
+`;
+
+const Content = styled.section`
+  margin-left: 2.5rem;
 
   .post-title {
     color: ${palette.grey[700]};
@@ -67,6 +110,7 @@ const Container = styled(motion.li)`
   @media (max-width: 768px) {
     padding: 1.5rem;
     margin-bottom: 0.375rem;
+    margin-left: 0;
     font-size: 1.2rem;
 
     .post-title {
@@ -76,6 +120,11 @@ const Container = styled(motion.li)`
 
     .post-description {
       font-size: 0.75rem;
+    }
+
+    .post-date {
+      font-size: 0.625rem;
+      margin-top: 0.5rem;
     }
   }
 `;

@@ -4,6 +4,7 @@ import PostItem from "./Item";
 import useCategoryHeader from "hooks/useCategoryHeader";
 import { palette } from "styles/palette";
 import Divider from "components/Portfolio/common/Divider";
+import { Post } from "type/post";
 
 interface Props {
   postList: any;
@@ -19,20 +20,20 @@ const PostList = ({ postList }: Props) => {
         <h2>{displayName}</h2>
       </PostListHeader>
       <Divider />
-      {postList.map((post: any, index: number) => {
-        const { filename } = post;
-        const { postId, date, title, description, category } = post.frontMatter;
+      {postList.map((post: Post, index: number) => {
+        const { filename, frontMatter } = post;
+        const { date, title, description, tags, thumbnailUrl } = frontMatter;
         return (
-          categoryName === category && (
-            <PostItem
-              key={title}
-              postId={postId}
-              date={date}
-              filename={filename}
-              title={title}
-              description={description}
-            />
-          )
+          <PostItem
+            key={title}
+            postIndex={index}
+            thumbnail={thumbnailUrl}
+            date={date}
+            filename={filename}
+            title={title}
+            tagList={tags}
+            description={description}
+          />
         );
       })}
     </Container>

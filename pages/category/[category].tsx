@@ -2,15 +2,24 @@ import React from "react";
 import matter from "gray-matter";
 import fs from "fs";
 import path from "path";
-import PostList from "components/Post/List";
+import PostList from "components/Blog/PostList";
+import useCategoryHeader from "hooks/useCategoryHeader";
 import getCategoryDataList from "lib/utils/getCategoryDataList";
+import PostEmpty from "components/Blog/Empty";
+import { Post } from "type/post";
 
-type Props = {
-  posts: any;
+type PostListPageProps = {
+  posts: Post[];
 };
 
-const PostListPage = ({ posts }: Props) => {
-  return <PostList postList={posts} />;
+const PostListPage = ({ posts }: PostListPageProps) => {
+  const { categoryName } = useCategoryHeader();
+  const postList = posts.filter((post) => {
+    const { category } = post.frontMatter;
+    return category === categoryName;
+  });
+
+  return postList.length ? <PostList postList={postList} /> : <PostEmpty />;
 };
 
 export async function getStaticPaths() {

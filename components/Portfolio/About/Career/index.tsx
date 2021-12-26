@@ -5,14 +5,12 @@ import Image from "next/image";
 import Divider from "components/Portfolio/common/Divider";
 import InfoList from "../common/InfoList";
 import CareerData from "data/About/CareerData";
+import Title from "components/Portfolio/common/Title";
 
 const Career = () => {
   return (
     <Container>
-      <TitleContainer>
-        <Image src="/icons/rocket.gif" width={28} height={28} layout="intrinsic" alt="교육 정보" />
-        <SubTitle>경력 정보</SubTitle>
-      </TitleContainer>
+      <Title iconPath={"/icons/rocket.gif"} title={"경력 정보"}></Title>
       <Divider />
       <InfoList itemList={CareerData} />
     </Container>
