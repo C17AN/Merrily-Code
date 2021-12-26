@@ -11,13 +11,17 @@ interface Props {
 }
 
 const PostList = ({ postList }: Props) => {
+  const postCountText = `현재 ${postList.length}건의 글이 있어요!`;
   const { icon, categoryName, displayName } = useCategoryHeader();
 
   return (
     <Container>
       <PostListHeader>
-        <>{icon}</>
-        <h2>{displayName}</h2>
+        <CategoryTitle>
+          <>{icon}</>
+          <h2>{displayName}</h2>
+        </CategoryTitle>
+        <p>{postCountText}</p>
       </PostListHeader>
       <Divider />
       {postList.map((post: Post, index: number) => {
@@ -47,9 +51,19 @@ const Container = styled.ul`
 `;
 
 const PostListHeader = styled.header`
-  display: flex;
   align-items: center;
+
+  & > p {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: ${palette.grey[400]};
+  }
+`;
+
+const CategoryTitle = styled.div`
+  display: flex;
   font-size: 2rem;
+  margin-bottom: 0.875rem;
   font-weight: 700;
 
   & > svg {

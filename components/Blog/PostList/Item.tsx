@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { palette } from "styles/palette";
-import { useRouter } from "next/router";
-import { Post } from "type/post";
 import Image from "next/image";
-import PostTag from "./common/Tag";
+import TagList from "./common/TagList";
+import { palette } from "styles/palette";
+import { motion } from "framer-motion";
 
 type PostItemProps = {
   title: string;
@@ -58,10 +56,10 @@ const PostItem = ({
         <Content>
           <h2 className="post-title">{title}</h2>
           <h3 className="post-description">{description}</h3>
-          <p className="post-date">{date}</p>
-          {/* {tagList?.map((tag) => (
-            <PostTag key={tag} tagName={tag} />
-          ))} */}
+          <MetaData>
+            <p className="post-date">{date}</p>
+            {tagList?.length && <TagList tagList={tagList} />}
+          </MetaData>
         </Content>
       </Container>
     </Link>
@@ -102,11 +100,6 @@ const Content = styled.section`
     color: ${palette.grey[400]};
   }
 
-  .post-date {
-    margin-top: 0.75rem;
-    font-size: 0.875rem;
-  }
-
   @media (max-width: 768px) {
     padding: 1.5rem;
     margin-bottom: 0.375rem;
@@ -121,10 +114,24 @@ const Content = styled.section`
     .post-description {
       font-size: 0.75rem;
     }
+  }
+`;
+
+const MetaData = styled.div`
+  display: flex;
+  margin-top: 0.75rem;
+  gap: 1rem;
+  align-items: center;
+
+  .post-date {
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 0.5rem;
 
     .post-date {
       font-size: 0.625rem;
-      margin-top: 0.5rem;
     }
   }
 `;

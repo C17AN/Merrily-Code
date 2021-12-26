@@ -7,8 +7,7 @@ import Title from "components/Portfolio/common/Title";
 const Challenge = () => {
   return (
     <Container>
-      <Title title={"챌린지 정보"} />
-      <Divider />
+      <Title title={"챌린지 정보"} iconPath={"/icons/prize.gif"} />
     </Container>
   );
 };

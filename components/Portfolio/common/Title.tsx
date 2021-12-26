@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import SubTitle from "components/Portfolio/common/SubTitle";
+import Divider from "./Divider";
 
 type TitleProps = {
   iconPath?: string;
@@ -12,18 +13,21 @@ type TitleProps = {
 
 const Title = ({ iconPath, title, iconWidth = 28, iconHeight = 28 }: TitleProps) => {
   return (
-    <TitleContainer>
-      {iconPath && (
-        <Image
-          src={iconPath}
-          width={iconWidth}
-          height={iconHeight}
-          layout="intrinsic"
-          alt={title}
-        />
-      )}
-      <SubTitle>{title}</SubTitle>
-    </TitleContainer>
+    <>
+      <TitleContainer>
+        {iconPath && (
+          <Image
+            src={iconPath}
+            width={iconWidth}
+            height={iconHeight}
+            layout="intrinsic"
+            alt={title}
+          />
+        )}
+        <SubTitle>{title}</SubTitle>
+      </TitleContainer>
+      <Divider />
+    </>
   );
 };
 
