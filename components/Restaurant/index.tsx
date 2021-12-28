@@ -3,11 +3,13 @@ import styled from "@emotion/styled";
 import RestaurantSearch from "./Search";
 import RestaurantCategoryList from "./Category/List";
 import RestaurantList from "./List";
+import Map from "./Map";
 
 const Restaurant = () => {
   return (
     <Container>
       <Title>🍖 막간을 틈탄 맛집 소개!</Title>
+      <Map />
       <RestaurantSearch />
       <RestaurantCategoryList />
       <RestaurantList />

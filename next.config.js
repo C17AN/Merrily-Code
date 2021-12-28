@@ -9,4 +9,7 @@ const mdxPlugin = require('@next/mdx')({
 // export the configuration
 module.exports = mdxPlugin({
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  images: {
+    domains: ['drive.google.com']
+  }
 })

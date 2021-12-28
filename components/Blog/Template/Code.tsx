@@ -16,7 +16,6 @@ const Container = styled.div`
   font-size: 0.8rem;
   border-radius: 4px;
   margin: 1rem 0;
-
   & > pre {
     border-radius: 6px;
   }

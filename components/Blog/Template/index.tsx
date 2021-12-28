@@ -6,5 +6,6 @@ import Code from "./Code";
 import P from "./P";
 import Image from "./Image";
 import Strong from "./Strong";
+import Hr from "./Hr";
 
-export { H1, H2, H3, Div, Code, P, Image, Strong };
+export { H1, H2, H3, Div, Code, P, Image, Strong, Hr };

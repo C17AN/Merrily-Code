@@ -4,6 +4,7 @@ import Link from "next/link";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { IoMdRestaurant } from "react-icons/io";
 import { palette } from "styles/palette";
+import { AiFillIdcard } from "react-icons/ai";
 
 type HeaderProps = {
   toggleSidebar: () => void;
@@ -18,11 +19,18 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
         </IconContainer>
         <p>👋🏻 안녕하세요, 찬민입니다!</p>
       </div>
-      <Link href="/restaurants" passHref>
-        <div className="restaurant-icon">
-          <IoMdRestaurant size={20} color={palette.grey[600]} />
-        </div>
-      </Link>
+      <LinkContainer>
+        <Link href="/guestbook" passHref>
+          <div className="navigate-icon">
+            <AiFillIdcard size={20} color={palette.grey[600]} />
+          </div>
+        </Link>
+        <Link href="/restaurant" passHref>
+          <div className="navigate-icon">
+            <IoMdRestaurant size={20} color={palette.grey[600]} />
+          </div>
+        </Link>
+      </LinkContainer>
     </Container>
   );
 };
@@ -43,7 +51,7 @@ const Container = styled.div`
     align-items: center;
   }
 
-  .restaurant-icon {
+  .navigate-icon {
     cursor: pointer;
     border-radius: 25%;
     padding: 0.25rem;
@@ -53,6 +61,11 @@ const Container = styled.div`
       background-color: ${palette.notion.sidebar.hover};
     }
   }
+`;
+
+const LinkContainer = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
 
 const IconContainer = styled.div`
