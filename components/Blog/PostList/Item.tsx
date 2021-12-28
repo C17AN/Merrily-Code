@@ -16,7 +16,7 @@ type PostItemProps = {
 } & { postIndex: number };
 
 const variants = {
-  visible: (sequence: number) => ({
+  fadeIn: (sequence: number) => ({
     opacity: 1,
     transition: {
       delay: sequence * 0.3,
@@ -24,6 +24,9 @@ const variants = {
   }),
   hidden: { opacity: 0 },
   moveRight: { scale: 1.03, backgroundColor: palette.notion.common.divider },
+  visible: {
+    opacity: 1,
+  },
 };
 
 const PostItem = ({
@@ -41,7 +44,7 @@ const PostItem = ({
         custom={postIndex}
         variants={variants}
         initial="hidden"
-        animate="visible"
+        animate="fadeIn"
         whileHover="moveRight"
       >
         <Image
@@ -61,6 +64,7 @@ const PostItem = ({
             {tagList?.length && <TagList tagList={tagList} />}
           </MetaData>
         </Content>
+        {/* <ReadMoreButton /> */}
       </Container>
     </Link>
   );

@@ -9,7 +9,7 @@ const Restaurant = () => {
   return (
     <Container>
       <Title>🍖 막간을 틈탄 맛집 소개!</Title>
-      <Map />
+      {/* <Map /> */}
       <RestaurantSearch />
       <RestaurantCategoryList />
       <RestaurantList />

@@ -2,11 +2,14 @@ import React from "react";
 import styled from "@emotion/styled";
 import { palette } from "styles/palette";
 
-const Footer = () => (
-  <Container>
-    <p>@NoteFolio / Created By @C17AN, 2021</p>
-  </Container>
-);
+const Footer = () => {
+  const navigateToProfile = () => {};
+  return (
+    <Container>
+      <p>@NoteFolio / Created By @C17AN, 2021</p>
+    </Container>
+  );
+};
 
 const Container = styled.footer`
   margin-top: auto;
