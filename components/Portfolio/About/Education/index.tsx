@@ -4,15 +4,12 @@ import SubTitle from "components/Portfolio/common/SubTitle";
 import Image from "next/image";
 import Divider from "components/Portfolio/common/Divider";
 import EducationList from "./List";
+import Title from "components/Portfolio/common/Title";
 
 const Education = () => {
   return (
     <Container>
-      <TitleContainer>
-        <Image src="/icons/book.gif" width={24} height={24} layout="intrinsic" alt="교육 정보" />
-        <SubTitle>교육 정보</SubTitle>
-      </TitleContainer>
-      <Divider />
+      <Title title="Education & Certification" iconPath="/icons/book.gif" />
       <EducationList />
     </Container>
   );

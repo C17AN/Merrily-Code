@@ -3,7 +3,9 @@ import styled from "@emotion/styled";
 import { palette } from "styles/palette";
 
 const Footer = () => {
-  const navigateToProfile = () => {};
+  const navigateToProfile = () => {
+
+  };
   return (
     <Container>
       <p>@NoteFolio / Created By @C17AN, 2021</p>

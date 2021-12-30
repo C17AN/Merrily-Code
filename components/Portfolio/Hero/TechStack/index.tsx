@@ -11,7 +11,7 @@ const TechStack = (props: Props) => {
   return (
     <div>
       <TitleContainer>
-        <Image src="/icons/tech.gif" width={24} height={24} layout="intrinsic" alt="교육 정보" />
+        <Image src="/icons/tech.gif" width={24} height={24} layout="intrinsic" alt="기술 스택" />
         <SubTitle>Tech Stacks</SubTitle>
       </TitleContainer>
       <TeckStackList />

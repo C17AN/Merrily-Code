@@ -2,8 +2,8 @@ import React from "react";
 import styled from "@emotion/styled";
 import Divider from "components/Portfolio/common/Divider";
 import ProfileCard from "./ProfileCard";
+import Button from "components/common/Button";
 import { palette } from "styles/palette";
-import SubTitle from "components/Portfolio/common/SubTitle";
 
 const Guestbook = () => {
   return (
@@ -12,6 +12,7 @@ const Guestbook = () => {
       <TitleDescription>
         {"들러 주셔서 감사드려요!\n이곳에 방문 기록을 남기실 수 있어요!"}
       </TitleDescription>
+      <Button>방명록 추가하기</Button>
       <Divider />
       <GlassDisplayContainer>
         <ProfileCard
@@ -29,7 +30,7 @@ const Guestbook = () => {
         <ProfileCard
           image="/images/avatar.png"
           name="찬민"
-          description="안녕하세요, 찬민입니다 alndalkndalkndasldlndlaadlskdlnaksdlnask"
+          description="안녕하세요, 찬민입니다"
           color="red"
         />
         <ProfileCard name="찬민" description="안녕하세요, 찬민입니다" color="red" />

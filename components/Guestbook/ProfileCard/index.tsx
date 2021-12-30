@@ -3,8 +3,15 @@ import React from "react";
 import Image from "next/image";
 import GuestbookProfile from "type/GuestbookProfile";
 import RoundImageWrapper from "components/common/RoundImageWrapper";
-import { palette } from "styles/palette";
 import ProfileLabel from "../ProfileLabel";
+import { palette } from "styles/palette";
+import { motion } from "framer-motion";
+
+const variants = {
+  zoom: {
+    scale: 1.05,
+  },
+};
 
 const ProfileCard = ({
   image = "/images/avatar-blank.png",
@@ -13,7 +20,7 @@ const ProfileCard = ({
   description,
 }: GuestbookProfile) => {
   return (
-    <Container>
+    <Container variants={variants} whileHover={"zoom"}>
       <RoundImageWrapper>
         <Image src={image} width={64} height={64} alt={name} />
       </RoundImageWrapper>
@@ -26,7 +33,7 @@ const ProfileCard = ({
   );
 };
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;
@@ -44,6 +51,7 @@ const Container = styled.div`
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
+  cursor: pointer;
 
   .profile-name {
     font-weight: 700;

@@ -7,7 +7,7 @@ import Title from "components/Portfolio/common/Title";
 const Career = () => {
   return (
     <Container>
-      <Title iconPath={"/icons/rocket.gif"} title={"경력 정보"} />
+      <Title iconPath={"/icons/rocket.gif"} title={"Career"} />
       <InfoList itemList={CareerData} />
     </Container>
   );

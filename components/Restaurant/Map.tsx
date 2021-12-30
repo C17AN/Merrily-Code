@@ -13,7 +13,7 @@ const Map = (props: Props) => {
 
   const getNaverMap = async () => {
     const map = await import("react-naver-maps");
-    setTemp(map.RenderAfterNavermapsLoaded());
+    setTemp(map.RenderAfterNavermapsLoaded);
   };
 
   console.log(temp);
