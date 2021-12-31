@@ -99,8 +99,9 @@ const Description = styled.div`
   @media (max-width: 768px) {
     & {
       font-size: 13px;
-    .newline {
-      margin: 0.25rem;
+      .newline {
+        margin: 0.25rem;
+      }
     }
   }
 `;

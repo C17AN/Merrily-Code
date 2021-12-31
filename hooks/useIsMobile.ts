@@ -7,7 +7,7 @@ const useIsMobile = () => {
   const handleScreenResize = () => {
     setScreenWidth(window.innerWidth);
     screenWidth > 768 ? setIsMobile(false) : setIsMobile(true);
-    // window.removeEventListener("resize", handleScreenResize);
+    window.removeEventListener("resize", handleScreenResize);
     // console.log(screenWidth);
   };
 
