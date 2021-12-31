@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 const variants = {
   zoom: {
-    scale: 1.05,
+    scale: 1.08,
   },
 };
 

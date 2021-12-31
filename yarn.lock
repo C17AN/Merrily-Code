@@ -641,6 +641,11 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.31.tgz#31b7ca6407128a3d2bbc27fe2d21b345397f6197"
   integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
+"@types/navermaps@^3.0.11":
+  version "3.0.11"
+  resolved "https://registry.yarnpkg.com/@types/navermaps/-/navermaps-3.0.11.tgz#0673ac5f9e8dfd9985c786bbfca818ad9e9681c3"
+  integrity sha512-CeM7OcnpjMQG6ZHTlbnJ6G39xAdW2IKJN6k219p2PgCj37kKHMDdcbOxbon5UME+WAxxz5T/Ssf52iw/e4SmzA==
+
 "@types/node@*":
   version "16.11.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.6.tgz#6bef7a2a0ad684cf6e90fcfe31cecabd9ce0a3ae"

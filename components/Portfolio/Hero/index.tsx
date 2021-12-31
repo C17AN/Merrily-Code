@@ -4,8 +4,8 @@ import Image from "next/image";
 import Divider from "components/Portfolio/common/Divider";
 import TechStack from "./TechStack";
 import ProfileImage from "public/images/profile.png";
-import { palette } from "styles/palette";
 import HighlightedText from "../common/HighlightedText";
+import { palette } from "styles/palette";
 
 interface Props {}
 
@@ -21,12 +21,12 @@ const Hero = (props: Props) => {
           <p className="profile-description">2021년 11월, 서울숲에 놀러갔을 때에요! 😆</p>
         </Profile>
         <div>
+          <HighlightedText
+            color={palette.skyBlue.primary}
+          >{`data: {name: "찬민", message: "Hello, World!"}`}</HighlightedText>
           <Description>
-            <HighlightedText
-              color={palette.skyBlue.primary}
-            >{`data: {name: "찬민", message: "Hello, World!"}`}</HighlightedText>
             성장과 공유를 기쁨으로 생각하며, 새로운 기술을 배우는 데 주저하지 않습니다.
-            <br />
+            <p className="newline" />
             현재는 주로 웹 프론트엔드 개발을 하고 있지만, 모바일과 데브옵스까지 정복하는 것이
             목표입니다!
           </Description>
@@ -96,6 +96,13 @@ const Description = styled.div`
   margin-bottom: 1.5rem;
   line-height: 1.5;
   font-size: 14px;
+  @media (max-width: 768px) {
+    & {
+      font-size: 13px;
+    .newline {
+      margin: 0.25rem;
+    }
+  }
 `;
 
 export default Hero;

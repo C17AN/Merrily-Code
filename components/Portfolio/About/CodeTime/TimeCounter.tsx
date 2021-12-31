@@ -38,6 +38,14 @@ const Container = styled.div`
     align-items: center;
     gap: 1rem;
   }
+
+  @media (max-width: 768px) {
+    & > .wakatime-text {
+      font-size: 0.375rem;
+      text-align: start;
+      line-height: 1.2;
+    }
+  }
 `;
 
 const TimeCountText = styled.p`
@@ -57,7 +65,10 @@ const TimeCountText = styled.p`
 
   @media (max-width: 768px) {
     & {
-      font-size: 1.3rem;
+      font-size: 1.125rem;
+    }
+    & > p {
+      margin-right: 0.5rem;
     }
   }
 `;

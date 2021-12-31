@@ -17,19 +17,22 @@ const HighlightedText = ({ color, backgroundColor, children }: HighlightedTextPr
 };
 
 const Container = styled.p<HighlightedTextProps>`
-  width: max-content;
-  padding: 0.125rem 0.4rem;
-  margin-bottom: 0.375rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
+  max-width: 100%;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
   font-weight: 700;
   font-family: Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+  line-height: 1.5;
   background-color: ${({ backgroundColor }) =>
     backgroundColor || palette.notion.portfolio.codeBackground};
   color: ${({ color }) => color};
 
   @media (max-width: 768px) {
-    font-size: 0.75rem;
+    font-size: 0.675rem;
+    white-space: nowrap;
+    overflow-y: scroll;
   }
 `;
 

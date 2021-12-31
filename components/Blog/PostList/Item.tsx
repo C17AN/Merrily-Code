@@ -101,6 +101,7 @@ const Content = styled.section`
 
   .post-description {
     font-weight: 400;
+    line-height: 1.4;
     color: ${palette.grey[400]};
   }
 

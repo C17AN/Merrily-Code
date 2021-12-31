@@ -4,13 +4,15 @@ import Header from "components/common/Header";
 import Sidebar from "../components/common/Sidebar";
 import Footer from "components/common/Footer";
 import { palette } from "styles/palette";
+import useIsMobile from "hooks/useIsMobile";
 
 type BaseLayoutProps = {
   children: ReactNode;
 };
 
 const BaseLayout = ({ children }: BaseLayoutProps) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const isMobile = useIsMobile();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(isMobile);
 
   const toggleSidebarVisible = () => {
     setIsSidebarOpen((isOpen) => !isOpen);
