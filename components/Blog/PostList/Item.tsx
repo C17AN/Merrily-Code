@@ -106,7 +106,7 @@ const Content = styled.section`
   }
 
   @media (max-width: 768px) {
-    padding: 1.5rem;
+    padding: 0.5rem;
     margin-bottom: 0.375rem;
     margin-left: 0;
     font-size: 1.2rem;

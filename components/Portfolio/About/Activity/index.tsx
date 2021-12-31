@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
-import SubTitle from "components/Portfolio/common/SubTitle";
-import Divider from "components/Portfolio/common/Divider";
 import Title from "components/Portfolio/common/Title";
+import InfoList from "../common/InfoList";
+import CareerData from "data/About/CareerData";
 
 const Activity = () => {
   return (
     <Container>
-      <Title title="활동 정보" iconPath="" />
+      <Title title="Other Activities" iconPath="" />
+      <InfoList itemList={CareerData} />
     </Container>
   );
 };

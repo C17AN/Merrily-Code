@@ -1,16 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
-import SubTitle from "components/Portfolio/common/SubTitle";
-import Image from "next/image";
-import Divider from "components/Portfolio/common/Divider";
-import EducationList from "./List";
 import Title from "components/Portfolio/common/Title";
+import InfoList from "../common/InfoList";
+import EducationData from "data/About/EducationData";
 
 const Education = () => {
   return (
     <Container>
       <Title title="Education & Certification" iconPath="/icons/book.gif" />
-      <EducationList />
+      <InfoList itemList={EducationData} />
     </Container>
   );
 };

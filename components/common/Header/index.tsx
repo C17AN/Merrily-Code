@@ -17,7 +17,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
         <IconContainer>
           <HiOutlineMenuAlt1 onClick={toggleSidebar} />
         </IconContainer>
-        <p>👋🏻 안녕하세요, 찬민입니다!</p>
+        <p>🎶 즐겁게, 코드 👨‍💻</p>
       </div>
       <LinkContainer>
         <Link href="/guestbook" passHref>

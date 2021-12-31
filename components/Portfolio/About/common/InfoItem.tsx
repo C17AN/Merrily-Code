@@ -12,6 +12,16 @@ export type InfoItemProps = {
 };
 
 const InfoItem = ({ icon, title, description, startedAt, endedAt }: InfoItemProps) => {
+  const setInfoYearText = (): string => {
+    if (startedAt && endedAt) {
+      return `${startedAt} ~ ${endedAt}`;
+    } else if (startedAt) {
+      return `${startedAt} ~ 현재`;
+    } else {
+      return `${endedAt}`;
+    }
+  };
+
   return (
     <Container>
       {icon && <Image src={icon} width={48} height={48} alt={title} />}
@@ -19,9 +29,7 @@ const InfoItem = ({ icon, title, description, startedAt, endedAt }: InfoItemProp
         <h2 className="information-name">{title}</h2>
         <h3>{description}</h3>
       </div>
-      <div className="information-year">
-        {startedAt} ~ {endedAt}
-      </div>
+      <div className="information-year">{setInfoYearText()}</div>
     </Container>
   );
 };
@@ -29,7 +37,7 @@ const InfoItem = ({ icon, title, description, startedAt, endedAt }: InfoItemProp
 const Container = styled.div`
   display: flex;
   align-items: center;
-  padding: 0.375rem 1rem 0.375rem 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
   gap: 0.5rem;
   cursor: pointer;
   border-radius: 0.5rem;

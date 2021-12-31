@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
-import SubTitle from "components/Portfolio/common/SubTitle";
-import Divider from "components/Portfolio/common/Divider";
 import Title from "components/Portfolio/common/Title";
+import InfoList from "../common/InfoList";
+import CareerData from "data/About/CareerData";
 
 const Challenge = () => {
   return (
     <Container>
-      <Title title={"Prize & Challenge"} iconPath={"/icons/prize.gif"} />
+      <Title title={"Prize & Challenges"} iconPath={"/icons/prize.gif"} />
+      <InfoList itemList={CareerData} />
     </Container>
   );
 };
