@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Header from "components/common/Header";
 import Sidebar from "../components/common/Sidebar";
@@ -12,7 +12,12 @@ type BaseLayoutProps = {
 
 const BaseLayout = ({ children }: BaseLayoutProps) => {
   const isMobile = useIsMobile();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(isMobile);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
+  console.log("mobile: ", isMobile, " sidebar open: ", isSidebarOpen);
+
+  useEffect(() => {
+    setIsSidebarOpen(!isMobile);
+  }, [isMobile]);
 
   const toggleSidebarVisible = () => {
     setIsSidebarOpen((isOpen) => !isOpen);
