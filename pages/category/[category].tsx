@@ -6,7 +6,7 @@ import PostList from "components/Blog/PostList";
 import useCategoryHeader from "hooks/useCategoryHeader";
 import getCategoryDataList from "lib/utils/getCategoryDataList";
 import PostEmpty from "components/Blog/Empty";
-import { Post } from "type/post";
+import Post from "type/post";
 
 type PostListPageProps = {
   posts: Post[];

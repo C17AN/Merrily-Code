@@ -4,7 +4,7 @@ import PostItem from "./Item";
 import useCategoryHeader from "hooks/useCategoryHeader";
 import { palette } from "styles/palette";
 import Divider from "components/Portfolio/common/Divider";
-import { Post } from "type/post";
+import Post from "type/post";
 
 interface Props {
   postList: any;

@@ -3,12 +3,17 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import styled from "@emotion/styled";
+import FrontMatter from "type/FrontMatter";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { Div, H1, H2, H3, Code, P, Image, Strong, Hr, Blockquote } from "components/Blog/Template";
 import { palette } from "styles/palette";
+import Divider from "components/Portfolio/common/Divider";
+import Tag from "components/Blog/PostList/common/Tag";
+import TagList from "components/Blog/PostList/common/TagList";
 
 type PostPageProps = {
+  frontMatter: FrontMatter;
   mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>;
 };
 
@@ -25,9 +30,14 @@ const components = {
   blockquote: Blockquote,
 };
 
-const PostPage = ({ mdxSource }: PostPageProps) => {
+const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
+  const { title, tags, date, description, category, thumbnailUrl } = frontMatter;
   return (
     <Container>
+      <Title>{title}</Title>
+      <Description>{description}</Description>
+      <TagList tagList={tags} />
+      <Divider />
       <MDXRemote {...mdxSource} components={components} />
     </Container>
   );
@@ -47,6 +57,31 @@ const Container = styled.div`
     border-radius: 0.25rem;
     font-family: menlo, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
   }
+`;
+
+const Title = styled.h1`
+  font-size: 2rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+    line-height: 1.25;
+  }
+`;
+
+const Description = styled.h3`
+  color: ${palette.grey[300]};
+  font-weight: 400;
+  margin: 0.875rem 0;
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    line-height: 1.25;
+    margin: 0.5rem 0 0.75rem 0;
+  }
+`;
+
+const MetaData = styled.section`
+  margin: 1rem 0;
 `;
 
 export const getStaticPaths = async () => {

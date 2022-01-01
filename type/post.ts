@@ -1,4 +1,4 @@
-export type Post = {
+type Post = {
   filename: string;
   frontMatter: {
     title: string;
@@ -9,3 +9,5 @@ export type Post = {
     thumbnailUrl: string;
   };
 };
+
+export default Post;
