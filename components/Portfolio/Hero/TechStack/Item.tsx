@@ -5,7 +5,7 @@ import { palette } from "styles/palette";
 interface Props {}
 
 const TechStackItem = (props: Props) => {
-  return <Container></Container>;
+  return <Container>dddd</Container>;
 };
 
 const Container = styled.div`

@@ -5,7 +5,7 @@ import matter from "gray-matter";
 import styled from "@emotion/styled";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import { Div, H1, H2, H3, Code, P, Image, Strong, Hr } from "components/Blog/Template";
+import { Div, H1, H2, H3, Code, P, Image, Strong, Hr, Blockquote } from "components/Blog/Template";
 import { palette } from "styles/palette";
 
 type PostPageProps = {
@@ -22,6 +22,7 @@ const components = {
   img: Image,
   strong: Strong,
   hr: Hr,
+  blockquote: Blockquote,
 };
 
 const PostPage = ({ mdxSource }: PostPageProps) => {

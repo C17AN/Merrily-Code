@@ -95,7 +95,7 @@ const Content = styled.section`
   .post-title {
     color: ${palette.grey[700]};
     font-size: 1.4rem;
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.375rem;
     line-height: 1.4;
   }
 

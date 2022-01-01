@@ -7,5 +7,6 @@ import P from "./P";
 import Image from "./Image";
 import Strong from "./Strong";
 import Hr from "./Hr";
+import Blockquote from "./Blockquote";
 
-export { H1, H2, H3, Div, Code, P, Image, Strong, Hr };
+export { H1, H2, H3, Div, Code, P, Image, Strong, Hr, Blockquote };

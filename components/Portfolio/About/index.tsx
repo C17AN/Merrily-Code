@@ -43,7 +43,7 @@ const MultiItemContainer = styled.div`
       margin-top: 2rem;
       justify-content: center;
       flex-direction: column;
-      gap: 3rem;
+      gap: 2rem;
     }
 
     div {
