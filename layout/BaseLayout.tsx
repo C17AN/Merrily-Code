@@ -12,7 +12,6 @@ type BaseLayoutProps = {
 
 const BaseLayout = ({ children }: BaseLayoutProps) => {
   const isMobile = useIsMobile();
-  console.log(isMobile);
   const [isSidebarOpen, setIsSidebarOpen] = useState(isMobile);
 
   const toggleSidebarVisible = () => {

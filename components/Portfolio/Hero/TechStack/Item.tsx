@@ -2,15 +2,26 @@ import styled from "@emotion/styled";
 import React from "react";
 import TechStack from "type/TechStack";
 import Image from "next/image";
-import { palette } from "styles/palette";
 import useIsMobile from "hooks/useIsMobile";
+import { palette } from "styles/palette";
+import { motion } from "framer-motion";
 
-const TechStackItem = ({ icon, name }: TechStack) => {
+const variants = {
+  hover: {
+    scale: 1.04,
+    transition: {
+      duration: 0.2,
+    },
+    backgroundColor: palette.grey[50],
+  },
+};
+
+const TechStackItem = ({ icon, name, index }: TechStack & { index: number }) => {
   const isMobile = useIsMobile();
-  const responsiveImageSize = isMobile ? 46 : 64;
+  const responsiveImageSize = isMobile ? 48 : 64;
 
   return (
-    <Container>
+    <Container variants={variants} whileHover="hover" animate="fadeIn">
       <RoundedImage
         src={icon}
         width={responsiveImageSize}
@@ -22,7 +33,7 @@ const TechStackItem = ({ icon, name }: TechStack) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   border-radius: 8px;
   border: 1px solid ${palette.grey[50]};
   padding: 1rem;
@@ -30,6 +41,13 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   flex: 1 20%;
+
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(110, 110, 110, 0.37);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 
   .techstack-name {
     color: ${palette.grey[300]};

@@ -48,7 +48,7 @@ const Container = styled.div`
   }
 `;
 
-const TimeCountText = styled.p`
+const TimeCountText = styled.div`
   margin: 0.75rem 0;
   flex: 1;
   text-align: right;

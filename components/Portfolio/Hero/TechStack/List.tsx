@@ -1,21 +1,27 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { palette } from "styles/palette";
 import Slider from "react-slick";
 import Slide from "./Slide";
+import TechStackData from "data/About/TechStackData";
+import { palette } from "styles/palette";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import TechStackData from "data/About/TechStackData";
 
-const TeckStackList = () => {
+type TeckStackListProps = {
+  setTechSlideIndex: (slideIndex: any) => void;
+};
+
+const TeckStackList = ({ setTechSlideIndex }: TeckStackListProps) => {
   const { frontEnd, backEnd, mobile, cloud, devOps } = TechStackData;
 
-  const print = (e) => {
-    console.log(e);
-  };
   return (
     <Container>
-      <Slider afterChange={print}>
+      <Slider
+        afterChange={(index) => {
+          console.log(index);
+          setTechSlideIndex(index);
+        }}
+      >
         <Slide name="프론트엔드" itemList={frontEnd} />
         <Slide name="백엔드" itemList={backEnd} />
         <Slide name="클라우드" itemList={cloud} />
