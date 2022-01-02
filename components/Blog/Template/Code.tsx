@@ -18,6 +18,10 @@ const Container = styled.div`
   margin: 1rem 0;
   & > pre {
     border-radius: 6px;
+    code {
+      font-weight: 400;
+      font-size: 0.8rem !important;
+    }
   }
 
   * {

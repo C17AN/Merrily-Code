@@ -70,6 +70,10 @@ const CategoryTitle = styled.div`
     margin-right: 0.75rem;
     fill: ${palette.grey[500]};
   }
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
 `;
 
 export default PostList;
