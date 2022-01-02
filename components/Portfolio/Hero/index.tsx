@@ -25,7 +25,7 @@ const Hero = (props: Props) => {
             color={palette.skyBlue.primary}
           >{`data: {name: "찬민", message: "Hello, World!"}`}</HighlightedText>
           <Description>
-            성장과 공유를 기쁨으로 생각하며, 새로운 기술을 배우는 데 주저하지 않습니다.
+            성장과 공유를 기쁨으로 생각하며, 새로운 기술을 향한 도전을 주저하지 않습니다.
             <p className="newline" />
             현재는 주로 웹 프론트엔드 개발을 하고 있지만, 모바일과 데브옵스까지 정복하는 것이
             목표입니다!

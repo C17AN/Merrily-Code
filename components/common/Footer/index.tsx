@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <Container>
       <p>
-        Design motivated by Notion & Built By{" "}
+        즐겁게, 코드 / Built By{" "}
         <a
           href="https://github.com/C17AN"
           target="_blank"
