@@ -1,12 +1,11 @@
-import styled from "@emotion/styled";
 import React from "react";
-import Divider from "../common/Divider";
-import SubTitle from "../common/SubTitle";
+import styled from "@emotion/styled";
 import Activity from "./Activity";
 import Career from "./Career";
 import Challenge from "./Challenge";
 import CodeTime from "./CodeTime";
 import Education from "./Education";
+import Project from "./Project";
 
 interface Props {}
 
@@ -22,11 +21,18 @@ const About = (props: Props) => {
         <Activity />
         <Challenge />
       </MultiItemContainer>
+      <SingleItemContainer>
+        <Project />
+      </SingleItemContainer>
     </Container>
   );
 };
 
 const Container = styled.div``;
+
+const SingleItemContainer = styled.div`
+  margin-top: 3rem;
+`;
 
 const MultiItemContainer = styled.div`
   margin-top: 3rem;

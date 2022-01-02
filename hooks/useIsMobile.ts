@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
@@ -10,7 +10,7 @@ const useIsMobile = () => {
     window.removeEventListener("resize", handleScreenResize);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     handleScreenResize();
     window.addEventListener("resize", handleScreenResize);
   }, [screenWidth]);

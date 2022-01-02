@@ -15,7 +15,7 @@
     "@types/react": "^17.0.34",
     "axios": "^0.24.0",
     "framer-motion": "^5.5.4",
-    "next": "12.0.2",
+    "next": "12.0.5",
     "next-mdx-remote": "^3.0.8",
     "react": "17.0.2",
     "react-countup": "^6.1.0",

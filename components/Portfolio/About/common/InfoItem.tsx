@@ -10,9 +10,10 @@ export type InfoItemProps = {
   description?: string;
   startedAt?: string;
   endedAt?: string;
+  targetUrl?: string;
 };
 
-const InfoItem = ({ icon, title, description, startedAt, endedAt }: InfoItemProps) => {
+const InfoItem = ({ icon, title, description, startedAt, endedAt, targetUrl }: InfoItemProps) => {
   const isMobile = useIsMobile();
   const responsiveLogoSize = isMobile ? 36 : 48;
 

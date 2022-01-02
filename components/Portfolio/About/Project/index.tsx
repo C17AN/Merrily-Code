@@ -2,19 +2,18 @@ import React from "react";
 import styled from "@emotion/styled";
 import Title from "components/Portfolio/common/Title";
 import InfoList from "../common/InfoList";
-import ActivityData from "data/About/ActivityData";
 
-const Activity = () => {
+const Project = () => {
   return (
     <Container>
-      <Title title="Other Activities" iconPath="" />
-      <InfoList itemList={ActivityData} />
+      <Title title="Projects" iconPath="/icons/book.gif" />
+      {/* <InfoList itemList={EducationData} /> */}
     </Container>
   );
 };
 
 const Container = styled.div`
-  margin-top: 2rem;
+  @media (max-width: 768px) {
+  }
 `;
-
-export default Activity;
+export default Project;
