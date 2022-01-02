@@ -1,13 +1,19 @@
-# 즐겁게, 코드
+# 🎶 즐겁게, 코드
+
+---
+
+## 테마 미리보기
 
 ![image](https://user-images.githubusercontent.com/26535030/147866505-72403419-824e-4a6d-8cf4-41dbf9fa8c45.png)
 
 ![image](https://user-images.githubusercontent.com/26535030/147866500-b1dbd877-e266-453e-8950-d349f9ff8327.png)
 
+---
+
 ## 소개
 
-노션 스타일로 제작한 새로운 개인 블로그입니다. 🙂
-티스토리는 편리하고 SEO가 뛰어나지만 테마 커스터마이징에 아쉬움을 느꼈고, Gatsby는 개츠비에 종속된 플러그인 의존성이 높아 `Next.js` 기반으로 테마를 제작했습니다.
+노션 스타일로 제작한 새로운 개인 블로그입니다. 🙂  
+기존에 사용하던 [티스토리](https://merrily-code.tistory.com)는 편리하고 SEO가 뛰어나지만 테마 커스터마이징에 아쉬움을 느꼈고, Gatsby는 개츠비에 종속된 플러그인 의존성이 높아 `Next.js` 기반으로 제작한 테마입니다.
 
 ## 사용 기술
 
