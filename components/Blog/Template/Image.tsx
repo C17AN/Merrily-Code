@@ -9,7 +9,6 @@ type Image = {
 };
 
 const Image = ({ src, alt, title: size }: Image) => {
-  console.log(src, alt, size);
   return (
     <Container width={size}>
       <NextImage

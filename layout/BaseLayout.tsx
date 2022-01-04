@@ -13,7 +13,6 @@ type BaseLayoutProps = {
 const BaseLayout = ({ children }: BaseLayoutProps) => {
   const isMobile = useIsMobile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
-  console.log("mobile: ", isMobile, " sidebar open: ", isSidebarOpen);
 
   useEffect(() => {
     setIsSidebarOpen(!isMobile);
