@@ -20,6 +20,12 @@ const EducationData: InfoItemProps[] = [
     description: "한국산업인력공단",
     endedAt: "2019.03",
   },
+  {
+    icon: "/images/az-900-logo.png",
+    title: "Azure Fundamentals (AZ-900)",
+    description: "Microsoft",
+    endedAt: "2022.01",
+  },
 ];
 
 export default EducationData;
