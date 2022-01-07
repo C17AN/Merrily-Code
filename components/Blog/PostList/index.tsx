@@ -2,9 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import PostItem from "./Item";
 import useCategoryHeader from "hooks/useCategoryHeader";
+import { palette, shadow } from "styles/palette";
 import Divider from "components/Portfolio/common/Divider";
 import Post from "type/Post";
-import { palette } from "styles/palette";
 
 type PostListProps = {
   postList: Post[];
@@ -52,6 +52,10 @@ const PostList = ({ postList }: PostListProps) => {
 const Container = styled.ul`
   display: flex;
   flex-direction: column;
+  border-radius: 1rem;
+  background-color: white;
+  padding: 3rem;
+  box-shadow: ${shadow.card};
   gap: 1rem;
 `;
 
