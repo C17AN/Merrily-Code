@@ -54,7 +54,7 @@ const Content = styled.div`
 `;
 
 const PageContent = styled.div`
-  padding: 3rem 5rem;
+  padding: 3rem 3rem;
   color: ${palette.grey[700]};
 
   @media (max-width: 768px) {
