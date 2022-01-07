@@ -6,6 +6,7 @@ import Button from "components/common/Button";
 import { palette } from "styles/palette";
 import Modal from "components/common/Modal";
 import CreateGuestbook from "./CreateGuestbook";
+import { FiUserCheck } from "react-icons/fi";
 
 const Guestbook = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -25,7 +26,9 @@ const Guestbook = () => {
         <TitleDescription>
           {"들러 주셔서 감사드려요!\n이곳에 방문 기록을 남기실 수 있어요!"}
         </TitleDescription>
-        <Button onClick={openCreateModal}>방명록 추가하기</Button>
+        <Button onClick={openCreateModal} icon={<FiUserCheck />}>
+          방명록 추가하기
+        </Button>
       </SubTitle>
       <Divider />
       <GlassDisplayContainer>
@@ -58,6 +61,8 @@ const Guestbook = () => {
           width={450}
           height={360}
           closeModal={closeCreateModal}
+          cancelText="취소하기"
+          confirmText="방명록 남기기"
         />
       )}
     </Container>

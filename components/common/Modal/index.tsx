@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import computeSize from "lib/utils/computeSize";
-import React, { ReactNode } from "react";
+import React, { MouseEvent, ReactNode } from "react";
+import Button from "../Button";
 
 type ModalProps = {
   title: string;
@@ -10,6 +11,8 @@ type ModalProps = {
   width?: string | number;
   height?: string | number;
   closeModal: () => void;
+  cancelText?: string;
+  confirmText?: string;
 };
 
 const variants = {
@@ -18,9 +21,17 @@ const variants = {
   },
 };
 
-const Modal = ({ title, body, answerType, closeModal, width = 300, height = 300 }: ModalProps) => {
-  const handleClose = (e: MouseEvent) => {
-    e.stopPropagation();
+const Modal = ({
+  title,
+  body,
+  answerType,
+  closeModal,
+  width = 300,
+  height = 300,
+  cancelText = "취소",
+  confirmText = "확인",
+}: ModalProps) => {
+  const handleClose = (e: MouseEvent<HTMLElement>) => {
     closeModal();
   };
 
@@ -28,7 +39,6 @@ const Modal = ({ title, body, answerType, closeModal, width = 300, height = 300 
     <>
       <BackDrop onClick={handleClose} />
       <Container
-        onClick={() => alert("a")}
         width={width}
         height={height}
         animate={"open"}
@@ -38,6 +48,16 @@ const Modal = ({ title, body, answerType, closeModal, width = 300, height = 300 
       >
         <h2>{title}</h2>
         <>{body}</>
+        <ModalFooter>
+          {answerType === "single" ? (
+            <Button>{confirmText}</Button>
+          ) : (
+            <>
+              <Button>{cancelText}</Button>
+              <Button>{confirmText}</Button>
+            </>
+          )}
+        </ModalFooter>
       </Container>
     </>
   );
@@ -64,7 +84,15 @@ const Container = styled(motion.div)<{ height: number | string; width: number | 
   border-radius: 0.75rem;
   padding: 1.5rem;
   z-index: 15;
-  pointer-events: none;
+`;
+
+const ModalFooter = styled.footer`
+  position: absolute;
+  display: flex;
+  gap: 1rem;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  margin-top: auto;
 `;
 
 export default Modal;
