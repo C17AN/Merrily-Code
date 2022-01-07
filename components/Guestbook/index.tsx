@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 import Divider from "components/Portfolio/common/Divider";
 import ProfileCard from "./ProfileCard";
 import Button from "components/common/Button";
-import { palette } from "styles/palette";
 import Modal from "components/common/Modal";
 import CreateGuestbook from "./CreateGuestbook";
 import { FiUserCheck } from "react-icons/fi";
+import { palette } from "styles/palette";
 
 const Guestbook = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -24,7 +24,7 @@ const Guestbook = () => {
       <Title>📋 방명록</Title>
       <SubTitle>
         <TitleDescription>
-          {"들러 주셔서 감사드려요!\n이곳에 방문 기록을 남기실 수 있어요!"}
+          {"들러주셔서 감사드려요!\n이곳에서 멋진 카드로 방문 기록을 남겨보세요!"}
         </TitleDescription>
         <Button onClick={openCreateModal} icon={<FiUserCheck />}>
           방명록 추가하기
@@ -88,6 +88,16 @@ const Title = styled.h1`
 const SubTitle = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 768px) {
+    & {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    & > button {
+    }
+  }
 `;
 
 const TitleDescription = styled.h6`
