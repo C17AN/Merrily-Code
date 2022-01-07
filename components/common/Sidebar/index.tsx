@@ -55,7 +55,7 @@ const Container = styled(motion.div)`
   left: 0;
   height: 100vh;
   padding-bottom: 1rem;
-  background-color: ${palette.notion.sidebar.primary};
+  background-color: ${palette.white};
   color: ${palette.notion.sidebar.text};
   overflow-y: scroll;
 
