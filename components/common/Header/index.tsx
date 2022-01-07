@@ -36,6 +36,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
 };
 
 const Container = styled.div`
+  background-color: ${palette.background.primary};
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -44,7 +45,6 @@ const Container = styled.div`
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: white;
 
   .header-title {
     display: flex;

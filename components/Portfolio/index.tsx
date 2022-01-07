@@ -3,6 +3,7 @@ import Talk from "components/common/Talk";
 import React from "react";
 import About from "./About";
 import Hero from "./Hero";
+import { palette } from "styles/palette";
 
 const Portfolio = () => {
   return (
@@ -15,7 +16,7 @@ const Portfolio = () => {
 };
 
 const Container = styled.div`
-  background-color: white;
+  background-color: ${palette.background.primary};
   display: flex;
   flex-direction: column;
 `;

@@ -6,21 +6,25 @@ import TechStack from "./TechStack";
 import ProfileImage from "public/images/profile.png";
 import HighlightedText from "../common/HighlightedText";
 import { palette } from "styles/palette";
+import Card from "components/common/Card";
 
 interface Props {}
 
 const Hero = (props: Props) => {
   return (
     <Container>
-      <Title>
-        <span className="greeting-hand">👋🏻</span> 안녕하세요, 찬민입니다!
-      </Title>
       <Content>
-        <Profile>
+        {/* <Profile>
           <Image src={ProfileImage} alt="프로필 이미지" />
           <p className="profile-description">2021년 11월, 서울숲에 놀러갔을 때에요! 😆</p>
-        </Profile>
-        <div>
+        </Profile> */}
+        <Card>
+          <Title>
+            <span className="greeting-hand">👋🏻</span> 안녕하세요, 찬민입니다!
+          </Title>
+          <Image src={"/images/greeting-image.png"} width={128} height={128} />
+        </Card>
+        <Card>
           <HighlightedText
             color={palette.skyBlue.primary}
           >{`data: {name: "찬민", message: "Hello, World!"}`}</HighlightedText>
@@ -32,7 +36,7 @@ const Hero = (props: Props) => {
           </Description>
           <Divider />
           <TechStack />
-        </div>
+        </Card>
       </Content>
     </Container>
   );
@@ -43,9 +47,11 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 1.4rem;
+  flex: 1;
   font-weight: 700;
   margin-bottom: 3rem;
+  white-space: nowrap;
 
   @media (max-width: 768px) {
     & {

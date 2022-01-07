@@ -32,10 +32,10 @@ const TeckStackList = ({ setTechSlideIndex }: TeckStackListProps) => {
 };
 
 const Container = styled.div`
-  border: 3px solid ${palette.grey[50]};
   max-width: 600px;
   height: 100%;
-  border-radius: 8px;
+  border-radius: 1rem;
+  overflow: hidden;
 `;
 
 export default TeckStackList;

@@ -29,7 +29,7 @@ const CodeTime = () => {
   }, []);
 
   return (
-    <>
+    <MainContainer>
       <SubTitle>👉🏻 Code Journey</SubTitle>
       <Divider />
       <Container>
@@ -46,18 +46,23 @@ const CodeTime = () => {
           <></>
         )}
       </Container>
-    </>
+    </MainContainer>
   );
 };
+
+const MainContainer = styled.div`
+  background-color: ${palette.white};
+  border-radius: 1rem;
+  padding: 2rem 3rem;
+  box-shadow: 3px 3px 8px 5px ${palette.grey[50]};
+`;
 
 const Container = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-radius: 8px;
-  padding: 3rem;
   gap: 2rem;
-  box-shadow: 3px 3px 8px 5px ${palette.grey[50]};
+  padding: 1rem;
 
   .wakatime-text {
     text-align: right;

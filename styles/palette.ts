@@ -94,6 +94,13 @@ export const palette = {
       codeBackground: "#87837826",
     },
   },
+  background: {
+    primary: "rgb(250, 251, 251)",
+  },
+};
+
+export const shadow = {
+  card: "3px 3px 8px 5px #f5f5f5",
 };
 
 export const breakPoints = {

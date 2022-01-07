@@ -13,8 +13,6 @@ const Activity = () => {
   );
 };
 
-const Container = styled.div`
-  margin-top: 2rem;
-`;
+const Container = styled.div``;
 
 export default Activity;
