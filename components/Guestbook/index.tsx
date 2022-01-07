@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Divider from "components/Portfolio/common/Divider";
 import ProfileCard from "./ProfileCard";
@@ -8,6 +8,16 @@ import Modal from "components/common/Modal";
 import CreateGuestbook from "./CreateGuestbook";
 
 const Guestbook = () => {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const openCreateModal = () => {
+    setIsCreateModalOpen(true);
+  };
+
+  const closeCreateModal = () => {
+    setIsCreateModalOpen(false);
+  };
+
   return (
     <Container>
       <Title>📋 방명록</Title>
@@ -15,7 +25,7 @@ const Guestbook = () => {
         <TitleDescription>
           {"들러 주셔서 감사드려요!\n이곳에 방문 기록을 남기실 수 있어요!"}
         </TitleDescription>
-        <Button>방명록 추가하기</Button>
+        <Button onClick={openCreateModal}>방명록 추가하기</Button>
       </SubTitle>
       <Divider />
       <GlassDisplayContainer>
@@ -40,12 +50,23 @@ const Guestbook = () => {
         <ProfileCard name="찬민" description="안녕하세요, 찬민입니다" color="red" />
         <ProfileCard name="찬민" description="안녕하세요, 찬민입니다" color="red" />
       </GlassDisplayContainer>
-      {/* <Modal title="방명록 추가하기" body={CreateGuestbook} answerType="multi" /> */}
+      {isCreateModalOpen && (
+        <Modal
+          title="방명록 추가하기"
+          body={<CreateGuestbook />}
+          answerType="multi"
+          width={450}
+          height={360}
+          closeModal={closeCreateModal}
+        />
+      )}
     </Container>
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  z-index: 10;
+`;
 
 const Title = styled.h1`
   font-size: 2rem;
