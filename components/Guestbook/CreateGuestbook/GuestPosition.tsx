@@ -68,9 +68,6 @@ const PositionItem = styled.li`
   color: ${palette.grey[400]};
   background-color: ${palette.white};
   white-space: nowrap;
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
 
   cursor: pointer;
 `;

@@ -6,7 +6,7 @@ import PostList from "components/Blog/PostList";
 import useCategoryHeader from "hooks/useCategoryHeader";
 import getCategoryDataList from "lib/utils/getCategoryDataList";
 import PostEmpty from "components/Blog/Empty";
-import Post from "type/post";
+import Post from "type/Post";
 
 type PostListPageProps = {
   posts: Post[];
@@ -15,6 +15,9 @@ type PostListPageProps = {
 const PostListPage = ({ posts }: PostListPageProps) => {
   const { categoryName } = useCategoryHeader();
   const postList = posts.filter((post) => {
+    if (categoryName === "all") {
+      return true;
+    }
     const { category } = post.frontMatter;
     return category === categoryName;
   });
