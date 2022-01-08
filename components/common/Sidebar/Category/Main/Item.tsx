@@ -25,7 +25,9 @@ const MainCategoryItem = ({ name }: MainCategoryItemProps) => {
           <p>{name}</p>
         </>
       </Container>
-      <SubCategoryList subCategoryList={subCategoryList} isExpanded={isExpanded} />
+      {subCategoryList && (
+        <SubCategoryList subCategoryList={subCategoryList} isExpanded={isExpanded} />
+      )}
     </>
   );
 };
