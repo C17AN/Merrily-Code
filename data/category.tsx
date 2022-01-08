@@ -20,6 +20,7 @@ import { IoMdRestaurant } from "react-icons/io";
 import { GiMusicalNotes } from "react-icons/gi";
 import { IoLanguage } from "react-icons/io5";
 import { BiNote } from "react-icons/bi";
+import { MdOutlineConstruction } from "react-icons/md";
 
 const category = {
   "포스트 모아보기": [
@@ -32,6 +33,11 @@ const category = {
       displayName: "번역 글 목록",
       icon: <IoLanguage />,
       categoryName: "translate",
+    },
+    {
+      displayName: "이슈 정리 목록",
+      icon: <MdOutlineConstruction />,
+      categoryName: "issue",
     },
   ],
   프론트엔드: [
