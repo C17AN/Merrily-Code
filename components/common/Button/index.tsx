@@ -6,11 +6,30 @@ type Button = {
   size?: "big" | "medium" | "small";
   icon?: ReactNode;
   children: ReactNode;
+  color?: string;
+  backgroundColor?: string;
+  hoverColor?: string;
+  hoverBackgroundColor?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button = ({ size, icon, children, onClick }: Button) => {
+const Button = ({
+  size,
+  icon,
+  color,
+  backgroundColor,
+  hoverColor,
+  hoverBackgroundColor,
+  children,
+  onClick,
+}: Button) => {
   return (
-    <Container onClick={onClick}>
+    <Container
+      onClick={onClick}
+      color={color}
+      backgroundColor={backgroundColor}
+      hoverColor={hoverColor}
+      hoverBackgroundColor={hoverBackgroundColor}
+    >
       <>{icon}</>
       <span>{children}</span>
     </Container>
@@ -25,7 +44,13 @@ const Container = styled(motion.button)<Button>`
   cursor: pointer;
   border: none;
   border-radius: 0.5rem;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  color: ${({ color }) => color};
+  transition: 0.2s ease-in-out;
+
   &:hover {
+    background-color: ${({ hoverBackgroundColor }) => hoverBackgroundColor};
+    color: ${({ hoverColor }) => hoverColor};
   }
 `;
 

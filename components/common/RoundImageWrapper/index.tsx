@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
-const RoundImageWrapper = styled.div`
+const RoundImageWrapper = styled(motion.div)`
   display: inline-block;
   border-radius: 50%;
   overflow: hidden;

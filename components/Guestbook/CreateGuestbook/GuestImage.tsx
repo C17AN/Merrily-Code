@@ -4,9 +4,13 @@ import RoundImageWrapper from "components/common/RoundImageWrapper";
 import React, { useState } from "react";
 import { palette } from "styles/palette";
 
-interface Props {}
+const profileCircleVariants = {
+  zoom: {
+    scale: 1.1,
+  },
+};
 
-const GuestImage = (props: Props) => {
+const GuestImage = () => {
   const defaultImage = "/images/avatar-blank.png";
   const [guestImage, setGuestImage] = useState<any>(defaultImage);
 
@@ -19,7 +23,7 @@ const GuestImage = (props: Props) => {
   return (
     <Container>
       <label htmlFor="profile-upload">
-        <GuestbookImage>
+        <GuestbookImage variants={profileCircleVariants} whileHover={"zoom"}>
           <Image src={guestImage} width={80} height={80} alt="이미지 업로드" />
         </GuestbookImage>
         <Input type="file" id="profile-upload" onChange={handleImageUpload} />
