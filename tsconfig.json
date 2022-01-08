@@ -23,6 +23,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_app.jsx", "pages/_document.jsx", "components/Restaurant/Map.jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/_app.jsx",
+    "pages/_document.jsx",
+    "components/Restaurant/Map.jsx"
+  ],
   "exclude": ["node_modules"]
 }
