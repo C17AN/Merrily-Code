@@ -20,6 +20,8 @@ const CreateGuestbook = (props: Props) => {
   );
 };
 
-const Container = styled.section``;
+const Container = styled.section`
+  overflow: hidden;
+`;
 
 export default CreateGuestbook;

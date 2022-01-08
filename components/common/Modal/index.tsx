@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import computeSize from "lib/utils/computeSize";
 import React, { MouseEvent, ReactNode } from "react";
+import ButtonVariant from "type/variants/Button";
 import Button from "../Button";
 
 type ModalProps = {
@@ -13,6 +14,8 @@ type ModalProps = {
   closeModal: () => void;
   cancelText?: string;
   confirmText?: string;
+  leftButtonVariant?: ButtonVariant;
+  rightButtonVariant?: ButtonVariant;
 };
 
 const variants = {
@@ -30,6 +33,8 @@ const Modal = ({
   height = 300,
   cancelText = "취소",
   confirmText = "확인",
+  leftButtonVariant,
+  rightButtonVariant,
 }: ModalProps) => {
   const handleClose = (e: MouseEvent<HTMLElement>) => {
     closeModal();
@@ -50,11 +55,11 @@ const Modal = ({
         <>{body}</>
         <ModalFooter>
           {answerType === "single" ? (
-            <Button>{confirmText}</Button>
+            <Button {...rightButtonVariant}>{confirmText}</Button>
           ) : (
             <>
-              <Button>{cancelText}</Button>
-              <Button>{confirmText}</Button>
+              <Button {...leftButtonVariant}>{cancelText}</Button>
+              <Button {...rightButtonVariant}>{confirmText}</Button>
             </>
           )}
         </ModalFooter>
