@@ -2,9 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import PostItem from "./Item";
 import useCategoryHeader from "hooks/useCategoryHeader";
-import { palette } from "styles/palette";
 import Divider from "components/Portfolio/common/Divider";
-import Post from "type/post";
+import Post from "type/Post";
+import { palette } from "styles/palette";
 
 interface Props {
   postList: any;

@@ -12,9 +12,11 @@ const RestaurantList = (props: Props) => {
         <Title>전체 목록</Title>
         <Divider />
       </ListTitle>
-      <RestaurantListItem />
-      <RestaurantListItem />
-      <RestaurantListItem />
+      <ContentList>
+        <RestaurantListItem />
+        <RestaurantListItem />
+        <RestaurantListItem />
+      </ContentList>
     </div>
   );
 };
@@ -24,5 +26,11 @@ const Title = styled.h2`
 `;
 
 const ListTitle = styled.div``;
+
+const ContentList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
 
 export default RestaurantList;
