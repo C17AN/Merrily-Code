@@ -9,6 +9,5 @@ type Post = {
     thumbnailUrl: string;
   };
 };
-//
 
 export default Post;
