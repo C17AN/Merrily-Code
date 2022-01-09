@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import styled from "@emotion/styled";
 import SubTitle from "components/Portfolio/common/SubTitle";
 import TeckStackList from "./List";
@@ -8,8 +8,19 @@ import { palette } from "styles/palette";
 
 export type TechCategory = "frontEnd" | "backEnd" | "mobile" | "devOps" | "cloud";
 
+export const DescriptionContext = createContext<any>(null);
+
 const TechStack = () => {
   const [techName, setTechSlideIndex] = useTechStackCategory(0);
+  const [isTechDescriptionOpen, setIsTechDescriptionOpen] = useState(false);
+
+  const openTechDescription = () => {
+    setIsTechDescriptionOpen(true);
+  };
+
+  const closeTechDescription = () => {
+    setIsTechDescriptionOpen(false);
+  };
 
   return (
     <div>
@@ -18,7 +29,12 @@ const TechStack = () => {
         <SubTitle>Tech Stacks</SubTitle>
         <p className="stack-type">{techName}</p>
       </TitleContainer>
-      <TeckStackList setTechSlideIndex={setTechSlideIndex} />
+      <DescriptionContext.Provider
+        value={{ isTechDescriptionOpen, openTechDescription, closeTechDescription }}
+      >
+        <TeckStackList setTechSlideIndex={setTechSlideIndex} />
+      </DescriptionContext.Provider>
+      {isTechDescriptionOpen && <div>프론트엔드 기술입니다.</div>}
     </div>
   );
 };

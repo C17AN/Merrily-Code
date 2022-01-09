@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import computeSize from "lib/utils/computeSize";
@@ -40,7 +41,7 @@ const Modal = ({
     closeModal();
   };
 
-  return (
+  const modal = (
     <>
       <BackDrop onClick={handleClose} />
       <Container
@@ -66,16 +67,19 @@ const Modal = ({
       </Container>
     </>
   );
+
+  const portalTarget = document.querySelector(".modal-area");
+  return ReactDOM.createPortal(modal, portalTarget);
 };
 
 const BackDrop = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 10;
+  z-index: 15;
 `;
 
 const Container = styled(motion.div)<{ height: number | string; width: number | string }>`
@@ -88,7 +92,7 @@ const Container = styled(motion.div)<{ height: number | string; width: number | 
   max-width: 90%;
   border-radius: 0.75rem;
   padding: 1.5rem;
-  z-index: 15;
+  z-index: 20;
 `;
 
 const ModalFooter = styled.footer`
