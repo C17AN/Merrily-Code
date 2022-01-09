@@ -1,10 +1,318 @@
 ---
 title: intersection observer 알아보기
 date: "2022-01-09"
-description: intersection observer에 대해 알아보고, 무한 스크롤 이벤트를 구현해 봅시다.
+description: 인터섹션 옵저버에 대해 알아보고, AOS와 무한 스크롤을 구현해 봅시다.
 category: javascript
-thumbnailUrl: "/thumbnails/react.svg"
+thumbnailUrl: "/thumbnails/javascript.svg"
 tags: ["자바스크립트", "프론트엔드"]
 ---
 
-ㅇㅇ
+### **TL;DR**
+
+- "인터섹션" 이란 요소가 화면(뷰포트) 상에 위치하고 있는지를 의미합니다.
+- 인터섹션 옵저버를 사용하면 이 인터섹션을 감지하고 수행할 콜백을 지정할 수 있습니다.
+- `threshold` 옵션을 사용하면 감지 비율을 설정할 수 있습니다.
+
+인스타그램과 페이스북은 어떻게 스크롤을 할 때마다 새로운 피드를 불러올까요?
+
+![](/posts/인터섹션-옵저버-사용하기/1.gif "600px")
+
+흔히 “무한 스크롤” 이라고 부르는 이 기법은 자바스크립트의 `intersection observer`(인터섹션 옵저버) 라는 API를 사용해 간단히 구현할 수 있는데요, 오늘은 AOS(Animate-On-Scroll) 효과와 무한 스크롤을 구현해보며 인터섹션 옵저버를 간단히 알아보도록 하겠습니다!
+
+### **실습을 위해, 먼저 아래 마크업을 복사해 주세요!**
+
+```css
+/* styles.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  padding: 2rem;
+  height: 200px;
+  font-size: 2rem;
+  list-style: none;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+  opacity: 0;
+  transform: translateX(200px);
+  transition: 150ms ease-in-out all;
+}
+```
+
+```html
+<!-- index.html -->
+
+<!DOCTYPE html>
+  <head>
+    <script src="/index.js" defer></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <ul class="container">
+      <li class="card">아이템 1</li>
+      <li class="card">아이템 2</li>
+      <li class="card">아이템 3</li>
+      <li class="card">아이템 4</li>
+      <li class="card">아이템 5</li>
+      <li class="card">아이템 6</li>
+      <li class="card">아이템 7</li>
+      <li class="card">아이템 8</li>
+      <li class="card">아이템 9</li>
+      <li class="card">아이템 10</li>
+    </ul>
+  </body>
+</html>
+```
+
+### **인터섹션 옵저버**
+
+인터섹션 옵저버는 “요소가 화면(뷰포트)에 나타나는지, 나타난다면 어떤 위치에 어느 정도 나타는지” 를 감지할 수 있는 객체입니다.
+
+> ✅ “인터섹션” 이란 말의 의미는 “픽셀이 화면에 나타나는” 이라고 생각하시면 됩니다!
+
+시작하기 전 호환성을 체크해보면, “그 브라우저” 를 제외하고 사파리 / 크롬 / 파이어폭스에서의 호환성은 크게 우려하지 않아도 될 수준으로 보입니다.
+
+![](/posts/인터섹션-옵저버-사용하기/2.png "600px")
+
+이제 호환성 걱정은 잠시 내려두고, 위에서 작성한 마크업을 기반으로 첫 번째 인터섹션 옵저버를 생성해 보겠습니다.
+
+```
+const observer = new IntersectionObserver((entries) => {
+  // entries 배열에는 감지한 DOM 요소들의 인터섹션 상태 정보가 담깁니다.
+}, { 옵션 });
+
+observer.observe("인터섹션 여부를 감지할 DOM 요소");
+```
+
+인터섹션 옵저버 생성자는 `entries` 배열을 인자로 받는 콜백 함수를 전달받아 생성하고, 생성한 옵저버 객체의 `.observe` 메서드를 사용해 지정한 DOM 요소의 인터섹션(화면 노출) 여부를 감지합니다.
+
+#
+
+한번 리스트의 첫 번째 아이템의 인터섹션 여부를 검사해 보겠습니다.
+
+```
+// 1. 클래스명이 card인 요소들을 참조합니다.
+// + 저는 DOM 요소를 불러올 때 ($변수명) 처럼 명명하는데, 좋은 네이밍 컨벤션이 있다면 댓글로 알려주시면 감사드립니다 :)
+const $cards = document.querySelectorAll('.card')
+
+const obeserver = new IntersectionObserver(entries => {
+  // 3. 인터섹션 이벤트가 발생하면 옵저버 객체의 콜백이 호출됩니다.
+  console.log(entries)
+})
+
+// 2. 클래스명이 card인 첫 번째 요소의 인터섹션 여부를 검사합니다.
+obeserver.observe($cards[0])
+```
+
+![](/posts/인터섹션-옵저버-사용하기/3.gif "600px")
+
+> ✅ 콘솔 출력에 집중해 주세요!
+
+“아이템 1” 요소가 화면에서 사라지거나 다시 나타날 때마다 `IntersectionObserverEntry` 객체의 배열이 출력되고 있는 모습인데요, `IntersectionObserverEntry` 객체의 구성 요소를 간단히 알아보도록 하겠습니다.
+
+```
+// IntersectionObserverEntry 객체의 주요 프로퍼티
+
+{
+  // 해당 요소의 크기와 위치를 의미합니다.
+    boundingClientRect: DOMRectReadOnly {x: 64, y: 16, width: 609, height: 266, top: 16, …},
+
+  // 해당 요소가 몇 %나 화면에 노출되었는지를 의미합니다. (1일 시, 100% 노출을 의미)
+    intersectionRatio: 1,
+
+    // 화면에 노출된 요소의 크기와 위치를 의미합니다.
+    intersectionRect: DOMRectReadOnly {x: 64, y: 16, width: 609, height: 266, top: 16, …},
+
+  // 화면에 노출되었는지 여부를 의미합니다.
+    isIntersecting: true,
+
+    // isVisible은 인터섹션 옵저버 v2에서 사용하는 속성으로, 아직은 크롬 외에서는 제대로 지원되지 않습니다.
+    isVisible: false,
+
+  // 감지하는 요소의 선택자를 의미합니다.
+    target: li.card.visible
+
+  // 감지하는 요소를 감싸는 루트 요소의 크기와 위치를 의미합니다.
+    rootBounds: DOMRectReadOnly {x: 0, y: 0, width: 697, height: 789, top: 0, …},
+
+    // 문서가 최초로 로드된 이후 지난 시간을 의미합니다.
+    time: 200.5999999642372,,
+}
+```
+
+이제 인터섹션 정보가 담긴 객체에 대해서도 알았으니, 인터섹션 옵저버를 실제 예제에 적용해 보겠습니다!
+
+### **간단한 AOS(Animate-On-Scroll) 구현하기**
+
+이번에는 모든 요소의 인터섹션을 감지해, 요소가 화면에 나타날 때마다 애니메이션을 추가해 보겠습니다.
+
+```
+/* styles.css */
+...
+
+.card {
+    ...
+  transform: translateX(200px);
+  transition: 150ms ease-in-out all;
+}
+
+.card.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+```
+
+```
+const $cards = document.querySelectorAll('.card')
+
+const observer = new IntersectionObserver(entries => {
+  // 2. 감지한 모든 .card 요소의 정보를 entries 배열로 전달받습니다.
+  // 3. entries 배열을 순회해, isIntersecting 조건이 참일 경우 "visible" 이라는 클래스명을 추가합니다.
+  entries.forEach(entry => {
+    entry.target.classList.toggle("visible", entry.isIntersecting)
+  })
+})
+
+$cards.forEach(card => {
+    // 1. 모든 .card 요소의 인터섹션을 감지합니다.
+  observer.observe(card)
+});
+```
+
+![](/posts/인터섹션-옵저버-사용하기/4.gif "600px")
+
+스크롤을 올리고 내릴 때마다 요소들이 슈루룩 나타나는게 보이시나요?
+
+이건 마법이 아니라 인터섹션 옵저버의 동작으로, 요소의 픽셀이 뷰포트 상에 위치하게 되면 옵저버 객체의 콜백 함수가 호출되어 `visible` 이라는 클래스가 가진 `transform` 효과가 적용됩니다.
+
+### **감지 비율 설정하기 : threshold 옵션**
+
+지금은 요소가 1픽셀이라도 뷰포트에 위치하면 콜백이 호출되는데요, 요소가 감지되는 비율을 조금 조정하고 싶다면 옵저버 객체에 `threshold` 라는 옵션을 추가로 전달할 수도 있습니다.
+
+```
+const $cards = document.querySelectorAll('.card')
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    entry.target.classList.toggle("visible", entry.isIntersecting)
+  })
+  // threshold: 0.5 옵션을 전달해, 요소가 50% 이상 보일 때 콜백을 호출합니다.
+  // threshold의 범위는 0 ~ 1 (0% ~ 100%) 입니다.
+}, { threshold: 0.5 })
+
+$cards.forEach(card => {
+  observer.observe(card)
+});
+```
+
+![](/posts/인터섹션-옵저버-사용하기/5.gif "600px")
+
+이제 `threshold: 0.5` 옵션을 통해 요소가 반쯤 보일 때 애니메이션을 적용하게 됩니다!
+
+### **옵저버 감지 해제하기**
+
+멋진 AOS 예제를 만들었네요!  
+그런데 지금은 스크롤을 올리고 내릴때 모두 옵저버 객체의 콜백을 호출하고 있는데요, 만약 콜백 함수에 이미지를 페칭하는 로직이 있다면 스크롤을 다시 위로 올릴 때에도 불필요한 페칭을 수행하게 될 것입니다.
+
+#
+
+불필요한 페칭을 수행하는 대신, 한번 화면에 나타난 요소는 감지를 해제해 단 한번만 콜백이 호출되도록 수정해 보겠습니다.
+
+```
+const $cards = document.querySelectorAll('.card')
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    entry.target.classList.toggle("visible", entry.isIntersecting)
+    // 1. 요소가 화면에 나타났다면
+    if (entry.isIntersecting) {
+      // 2. 옵저버 객체의 unobserve 메서드로 요소의 감지를 해제합니다!
+      observer.unobserve(entry.target)
+    }
+  })
+}, { threshold: 0.5 })
+
+$cards.forEach(card => {
+  observer.observe(card)
+});
+```
+
+![](/posts/인터섹션-옵저버-사용하기/6.gif "600px")
+
+이제 이미지를 내릴 때만 애니메이션이 적용되고, 올릴 때는 일반적인 스크롤을 수행하는 모습입니다!
+
+### **간단한 무한 스크롤 구현하기**
+
+이번에는 무한 스크롤 효과를 구현해 보겠습니다.
+
+```
+/* styles.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  padding: 2rem;
+  height: 200px;
+  font-size: 2rem;
+  list-style: none;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+    /* opacity 관련 속성을 제거합니다. */
+}
+```
+
+```
+const $container = document.querySelector(".container")
+let itemIndex = 11
+
+// 무한 스크롤을 위한 옵저버
+const lastObserver = new IntersectionObserver((entries) => {
+  const lastItem = entries[0]
+  if (!lastItem.isIntersecting) {
+    return
+  }
+  // 2. 마지막 요소가 나타났다면, fetchItem 함수로 추가적인 아이템을 불러옵니다.
+  else {
+    fetchItem()
+    // 3. 기존 마지막 요소의 인터섹션 감지를 해제하고, 새롭게 생성된 마지막 요소에의 인터섹션 여부를 감지합니다.
+    lastObserver.unobserve(lastItem.target)
+    lastObserver.observe(document.querySelector('.card:last-child'))
+  }
+})
+
+// 1. 처음 한번 마지막 요소의 인터섹션 여부를 감지합니다.
+lastObserver.observe(document.querySelector('.card:last-child'))
+
+// 요소 추가를 위한 함수
+const fetchItem = () => {
+  for (let index = itemIndex; index < itemIndex + 10; index++) {
+    const newElement = document.createElement("div")
+    newElement.textContent = `아이템 ${index}`
+    newElement.classList.add("card")
+    $container.append(newElement)
+  }
+  itemIndex += 10
+}
+```
+
+![](/posts/인터섹션-옵저버-사용하기/7.gif "600px")
+
+인터섹션 옵저버가 없었더라면 `innerHeight`, `scrollY` 등의 좌표 API를 복잡하게 계산해야 했을 텐데, 인터섹션 옵저버를 통해 비교적 간단하게 무한 스크롤 효과를 구현한 모습입니다!
+
+---
+
+지금까지 AOS와 무한 스크롤이라는 실제 서비스에 적용할 수 있는 두 예시를 통해 인터섹션 옵저버에 대해 간략히 알아보았는데요, 다음에는 리액트에서 인터섹션 옵저버를 사용할 수 있도록 커스텀 훅을 제작해보는 포스트로 돌아오도록 하겠습니다! 🙂
+
+#
+
+인터섹션 옵저버에 대한 추가적인 설명이 필요하다면, [MDN 문서](https://developer.mozilla.org/ko/docs/Web/API/Intersection_Observer_API)에서 더 자세한 내용을 확인할 수 있습니다! 😆
+
+설명이 더 필요한 부분이나 잘못된 내용은 댓글로 알려주시면 감사드리며, 오늘도 즐거운 하루 보내세요!

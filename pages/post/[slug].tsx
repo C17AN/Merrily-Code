@@ -6,7 +6,20 @@ import styled from "@emotion/styled";
 import FrontMatter from "type/FrontMatter";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import { Div, H1, H2, H3, Code, P, Image, Strong, Hr, Blockquote } from "components/Blog/Template";
+import {
+  Div,
+  H1,
+  H2,
+  H3,
+  Code,
+  P,
+  Image,
+  Strong,
+  Hr,
+  Blockquote,
+  Ul,
+  Li,
+} from "components/Blog/Template";
 import { palette } from "styles/palette";
 import Divider from "components/Portfolio/common/Divider";
 import Tag from "components/Blog/PostList/common/Tag";
@@ -24,6 +37,8 @@ const components = {
   h3: H3,
   div: Div,
   p: P,
+  ul: Ul,
+  li: Li,
   img: Image,
   strong: Strong,
   hr: Hr,

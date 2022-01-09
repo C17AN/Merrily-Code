@@ -20,7 +20,7 @@ const Container = styled.div`
     border-radius: 6px;
     code {
       font-weight: 400;
-      font-size: 0.8rem !important;
+      font-size: 0.875rem !important;
     }
   }
 
