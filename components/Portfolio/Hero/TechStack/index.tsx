@@ -4,6 +4,8 @@ import SubTitle from "components/Portfolio/common/SubTitle";
 import TeckStackList from "./List";
 import Image from "next/image";
 import useTechStackCategory from "hooks/useTechStackCategory";
+import TechStackDescription from "./Description";
+import TechStack from "type/TechStack";
 import { palette } from "styles/palette";
 
 export type TechCategory = "frontEnd" | "backEnd" | "mobile" | "devOps" | "cloud";
@@ -13,8 +15,10 @@ export const DescriptionContext = createContext<any>(null);
 const TechStack = () => {
   const [techName, setTechSlideIndex] = useTechStackCategory(0);
   const [isTechDescriptionOpen, setIsTechDescriptionOpen] = useState(false);
+  const [selectedTechStack, setSelectedTechStack] = useState<any>(null);
 
-  const openTechDescription = () => {
+  const openTechDescription = (techStackData: TechStack) => {
+    setSelectedTechStack(() => techStackData);
     setIsTechDescriptionOpen(true);
   };
 
@@ -30,11 +34,15 @@ const TechStack = () => {
         <p className="stack-type">{techName}</p>
       </TitleContainer>
       <DescriptionContext.Provider
-        value={{ isTechDescriptionOpen, openTechDescription, closeTechDescription }}
+        value={{
+          isTechDescriptionOpen,
+          openTechDescription,
+          closeTechDescription,
+        }}
       >
         <TeckStackList setTechSlideIndex={setTechSlideIndex} />
       </DescriptionContext.Provider>
-      {isTechDescriptionOpen && <div>프론트엔드 기술입니다.</div>}
+      <TechStackDescription techStackData={selectedTechStack} isVisible={isTechDescriptionOpen} />
     </div>
   );
 };

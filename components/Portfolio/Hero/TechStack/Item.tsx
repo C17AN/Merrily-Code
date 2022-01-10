@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import React, { useContext, useState } from "react";
 import TechStack from "type/TechStack";
 import Image from "next/image";
-import Modal from "components/common/Modal";
 import useIsMobile from "hooks/useIsMobile";
 import { palette } from "styles/palette";
 import { motion } from "framer-motion";
@@ -18,17 +17,24 @@ const variants = {
   },
 };
 
-const TechStackItem = ({ icon, name, index }: TechStack & { index: number }) => {
+type TechStackItemProps = {
+  techStackData: TechStack;
+  index: number;
+};
+
+const TechStackItem = ({ techStackData, index }: TechStackItemProps) => {
   const isMobile = useIsMobile();
   const responsiveImageSize = isMobile ? 48 : 64;
   const { openTechDescription, closeTechDescription } = useContext(DescriptionContext);
+  const { name, icon } = techStackData;
+
   return (
     <>
       <Container
         variants={variants}
         whileHover="hover"
         animate="fadeIn"
-        onMouseEnter={openTechDescription}
+        onMouseEnter={() => openTechDescription(techStackData)}
         onMouseLeave={closeTechDescription}
       >
         <RoundedImage

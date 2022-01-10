@@ -1,27 +1,19 @@
-import styled from "@emotion/styled";
 import React, { ReactNode } from "react";
+import styled from "@emotion/styled";
 import TechStack from "type/TechStack";
 import TechStackItem from "./Item";
 
-interface Props {
+type SlideProps = {
   name: string;
-  itemList: TechStack[];
-}
+  techStackList: TechStack[];
+};
 
-const Slide = ({ itemList }: Props) => {
+const Slide = ({ techStackList }: SlideProps) => {
   return (
     <Container>
-      {itemList.map((item, index) => {
-        const { icon, name, description } = item;
-        return (
-          <TechStackItem
-            key={name}
-            index={index}
-            icon={icon}
-            name={name}
-            description={description}
-          />
-        );
+      {techStackList.map((techStackData, index) => {
+        const { name } = techStackData;
+        return <TechStackItem key={name} index={index} techStackData={techStackData} />;
       })}
     </Container>
   );

@@ -18,14 +18,13 @@ const TeckStackList = ({ setTechSlideIndex }: TeckStackListProps) => {
     <Container>
       <Slider
         afterChange={(index) => {
-          console.log(index);
           setTechSlideIndex(index);
         }}
       >
-        <Slide name="프론트엔드" itemList={frontEnd} />
-        <Slide name="백엔드" itemList={backEnd} />
-        <Slide name="클라우드" itemList={cloud} />
-        <Slide name="데브옵스" itemList={devOps} />
+        <Slide name="프론트엔드" techStackList={frontEnd} />
+        <Slide name="백엔드" techStackList={backEnd} />
+        <Slide name="클라우드" techStackList={cloud} />
+        <Slide name="데브옵스" techStackList={devOps} />
       </Slider>
     </Container>
   );
