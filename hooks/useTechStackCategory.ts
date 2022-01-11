@@ -13,9 +13,14 @@ const enum SlideIndex {
 
 const useTechStackCategory = (
   initialIndex: SlideIndex
-): [techName: TechName, setTechSlideIndex: (techSlideIndex: SlideIndex) => void] => {
+): {
+  techName: TechName | null;
+  techCode: TechCode | null;
+  setTechSlideIndex: (techSlideIndex: SlideIndex) => void;
+} => {
   const [techSlideIndex, setTechSlideIndex] = useState(initialIndex);
   const [techName, setTechName] = useState<TechName | null>(null);
+  const [techCode, setTechCode] = useState<TechCode | null>(null);
 
   const getTechStackCode = (techSlideIndex: SlideIndex): TechCode => {
     switch (techSlideIndex) {
@@ -50,10 +55,11 @@ const useTechStackCategory = (
   useEffect(() => {
     const _techStackCode = getTechStackCode(techSlideIndex);
     const _techStackName = getTechStackName(_techStackCode);
+    setTechCode(() => _techStackCode);
     setTechName(() => _techStackName);
   }, [techSlideIndex]);
 
-  return [techName, setTechSlideIndex];
+  return { techName, techCode, setTechSlideIndex };
 };
 
 export default useTechStackCategory;

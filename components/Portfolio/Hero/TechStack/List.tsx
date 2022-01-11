@@ -21,10 +21,10 @@ const TeckStackList = ({ setTechSlideIndex }: TeckStackListProps) => {
           setTechSlideIndex(index);
         }}
       >
-        <Slide name="프론트엔드" techStackList={frontEnd} />
-        <Slide name="백엔드" techStackList={backEnd} />
-        <Slide name="클라우드" techStackList={cloud} />
-        <Slide name="데브옵스" techStackList={devOps} />
+        <Slide name="프론트엔드" techStackList={frontEnd.techStackList} />
+        <Slide name="백엔드" techStackList={backEnd.techStackList} />
+        <Slide name="클라우드" techStackList={cloud.techStackList} />
+        <Slide name="데브옵스" techStackList={devOps.techStackList} />
       </Slider>
     </Container>
   );

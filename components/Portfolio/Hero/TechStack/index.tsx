@@ -13,9 +13,9 @@ export type TechCategory = "frontEnd" | "backEnd" | "mobile" | "devOps" | "cloud
 export const DescriptionContext = createContext<any>(null);
 
 const TechStack = () => {
-  const [techName, setTechSlideIndex] = useTechStackCategory(0);
+  const { techName, techCode, setTechSlideIndex } = useTechStackCategory(0);
   const [isTechDescriptionOpen, setIsTechDescriptionOpen] = useState(false);
-  const [selectedTechStack, setSelectedTechStack] = useState<any>(null);
+  const [selectedTechStack, setSelectedTechStack] = useState<TechStack | null>(null);
 
   const openTechDescription = (techStackData: TechStack) => {
     setSelectedTechStack(() => techStackData);
@@ -42,7 +42,9 @@ const TechStack = () => {
       >
         <TeckStackList setTechSlideIndex={setTechSlideIndex} />
       </DescriptionContext.Provider>
-      <TechStackDescription techStackData={selectedTechStack} isVisible={isTechDescriptionOpen} />
+      {selectedTechStack && (
+        <TechStackDescription techStackData={selectedTechStack} isVisible={isTechDescriptionOpen} />
+      )}
     </div>
   );
 };
