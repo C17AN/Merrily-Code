@@ -21,9 +21,9 @@ const About = (props: Props) => {
         <Activity />
         <Challenge />
       </MultiItemContainer>
-      <SingleItemContainer>
+      {/* <SingleItemContainer>
         <Project />
-      </SingleItemContainer>
+      </SingleItemContainer> */}
     </Container>
   );
 };

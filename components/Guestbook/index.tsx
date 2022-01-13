@@ -78,7 +78,7 @@ const Guestbook = () => {
           title="방명록 추가하기"
           body={<CreateGuestbook />}
           answerType="multi"
-          width={450}
+          width={420}
           height={400}
           closeModal={closeCreateModal}
           cancelText="취소하기"

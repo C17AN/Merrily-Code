@@ -18,7 +18,9 @@ const Hero = (props: Props) => {
       </Title>
       <Content>
         <Profile>
-          <Image src={GreetingImage} alt="프로필 이미지" />
+          <span className="profile-image-wrapper">
+            <Image src={GreetingImage} alt="프로필 이미지" />
+          </span>
           <p className="profile-description">🍵 민트초코단의 간부이기도 하죠! 😎</p>
         </Profile>
         <div>
@@ -58,6 +60,16 @@ const Title = styled.h1`
 
 const Profile = styled.div`
   width: 280px;
+
+  img {
+    transition: 0.15s ease-in-out transform;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  img:hover {
+    transform: scale(1.08);
+  }
 
   .profile-description {
     font-size: 0.875rem;

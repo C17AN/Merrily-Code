@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import useIsMobile from "hooks/useIsMobile";
 import computeSize from "lib/utils/computeSize";
 import React, { MouseEvent, ReactNode } from "react";
 import ButtonVariant from "type/variants/Button";
@@ -36,6 +37,7 @@ const Modal = ({
   leftButtonVariant,
   rightButtonVariant,
 }: ModalProps) => {
+  const isMobile = useIsMobile();
   const handleClose = (e: MouseEvent<HTMLElement>) => {
     closeModal();
   };
@@ -50,6 +52,7 @@ const Modal = ({
         initial={{ y: 50 }}
         variants={variants}
         transition={{ duration: 0.3, type: "tween" }}
+        isMobile={isMobile}
       >
         <h2>{title}</h2>
         <>{body}</>
@@ -78,14 +81,17 @@ const BackDrop = styled.div`
   z-index: 10;
 `;
 
-const Container = styled(motion.div)<{ height: number | string; width: number | string }>`
+const Container = styled(motion.div)<{
+  height: number | string;
+  width: number | string;
+  isMobile: boolean | null;
+}>`
   position: absolute;
   top: calc(50% - (${({ height }) => computeSize(height)} / 2));
-  left: calc(50% - (${({ width }) => computeSize(width)} / 2));
+  left: calc(50% - (${({ isMobile, width }) => (isMobile ? "300px" : computeSize(width))} / 2));
   background-color: white;
-  width: ${({ width }) => computeSize(width)};
+  width: ${({ isMobile, width }) => (isMobile ? "300px" : computeSize(width))};
   height: ${({ height }) => computeSize(height)};
-  max-width: 90%;
   border-radius: 0.75rem;
   padding: 1.5rem;
   z-index: 15;
