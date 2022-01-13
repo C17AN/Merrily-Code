@@ -14,6 +14,8 @@ const Education = () => {
 };
 
 const Container = styled.div`
+  padding: 1rem;
+
   @media (max-width: 768px) {
   }
 `;

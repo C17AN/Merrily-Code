@@ -12,7 +12,7 @@ interface Props {}
 
 const About = (props: Props) => {
   return (
-    <Container>
+    <Container className="about">
       <CodeTime />
       <MultiItemContainer>
         <Education />
@@ -44,7 +44,7 @@ const MultiItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: ${palette.white};
-  padding: 3rem;
+  padding: 1.5rem;
   border-radius: 1rem;
   gap: 4rem;
   box-shadow: ${shadow.card};

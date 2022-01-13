@@ -57,6 +57,10 @@ const Container = styled.ul`
   padding: 3rem;
   box-shadow: ${shadow.card};
   gap: 1rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const PostListHeader = styled.header`

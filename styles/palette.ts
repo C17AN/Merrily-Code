@@ -95,7 +95,8 @@ export const palette = {
     },
   },
   background: {
-    primary: "rgb(250, 251, 251)",
+    // primary: "rgb(250, 251, 251)",
+    primary: "#f2f9ff",
   },
 };
 

@@ -18,8 +18,6 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
     setIsSidebarOpen(!isMobile);
   }, [isMobile]);
 
-  console.log(isMobile);
-
   const toggleSidebarVisible = () => {
     setIsSidebarOpen((isOpen) => !isOpen);
   };
@@ -59,7 +57,7 @@ const PageContent = styled.div`
 
   @media (max-width: 768px) {
     & {
-      padding: 1rem 1.5rem 1rem 1.5rem;
+      padding: 1rem 1rem 1rem 1rem;
     }
   }
 `;

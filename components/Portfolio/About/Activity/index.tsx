@@ -13,6 +13,8 @@ const Activity = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  padding: 1rem;
+`;
 
 export default Activity;

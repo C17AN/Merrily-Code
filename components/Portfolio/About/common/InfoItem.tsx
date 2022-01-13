@@ -28,7 +28,7 @@ const InfoItem = ({ icon, title, description, startedAt, endedAt, targetUrl }: I
   };
 
   return (
-    <Container>
+    <Container className="information-item">
       <Content>
         {icon && (
           <Image src={icon} width={responsiveLogoSize} height={responsiveLogoSize} alt={title} />

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Divider from "components/Portfolio/common/Divider";
 import TechStack from "./TechStack";
 import ProfileImage from "public/images/profile.png";
+import GreetingImage from "public/images/greeting-image.png";
 import HighlightedText from "../common/HighlightedText";
 import { palette } from "styles/palette";
 import Card from "components/common/Card";
@@ -12,17 +13,20 @@ interface Props {}
 
 const Hero = (props: Props) => {
   return (
-    <Container>
+    <Container className="hero">
       <Content>
         {/* <Profile>
           <Image src={ProfileImage} alt="프로필 이미지" />
           <p className="profile-description">2021년 11월, 서울숲에 놀러갔을 때에요! 😆</p>
         </Profile> */}
-        <Card>
+        <Card center>
           <Title>
             <span className="greeting-hand">👋🏻</span> 안녕하세요, 찬민입니다!
           </Title>
-          <Image src={"/images/greeting-image.png"} width={128} height={128} />
+          <Profile>
+            <Image src={GreetingImage} alt="프로필 이미지" />
+            <p className="profile-description">안녕하세요! 😆</p>
+          </Profile>
         </Card>
         <Card>
           <HighlightedText
@@ -50,7 +54,7 @@ const Title = styled.h1`
   font-size: 1.4rem;
   flex: 1;
   font-weight: 700;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   white-space: nowrap;
 
   @media (max-width: 768px) {
@@ -62,7 +66,8 @@ const Title = styled.h1`
 `;
 
 const Profile = styled.div`
-  width: 300px;
+  width: 240px;
+  margin: 0 auto;
 
   .profile-description {
     font-size: 0.875rem;
@@ -74,7 +79,7 @@ const Profile = styled.div`
   @media (max-width: 768px) {
     & {
       width: 90%;
-      max-width: 400px;
+      max-width: 240px;
       margin: 0 auto;
     }
 
