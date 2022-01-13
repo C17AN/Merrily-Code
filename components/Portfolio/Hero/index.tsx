@@ -4,6 +4,7 @@ import Image from "next/image";
 import Divider from "components/Portfolio/common/Divider";
 import TechStack from "./TechStack";
 import ProfileImage from "public/images/profile.png";
+import GreetingImage from "public/images/greeting-image.jpg";
 import HighlightedText from "../common/HighlightedText";
 import { palette } from "styles/palette";
 
@@ -17,8 +18,8 @@ const Hero = (props: Props) => {
       </Title>
       <Content>
         <Profile>
-          <Image src={ProfileImage} alt="프로필 이미지" />
-          <p className="profile-description">2021년 11월, 서울숲에 놀러갔을 때에요! 😆</p>
+          <Image src={GreetingImage} alt="프로필 이미지" />
+          <p className="profile-description">🍵 민트초코단의 간부이기도 하죠! 😎</p>
         </Profile>
         <div>
           <HighlightedText
@@ -56,10 +57,11 @@ const Title = styled.h1`
 `;
 
 const Profile = styled.div`
-  width: 300px;
+  width: 280px;
 
   .profile-description {
     font-size: 0.875rem;
+    text-align: center;
     line-height: 1.5;
     margin: 0.5rem 0;
     color: ${palette.grey[500]};

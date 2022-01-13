@@ -6,12 +6,17 @@ import Divider from "components/Portfolio/common/Divider";
 import Post from "type/Post";
 import { palette } from "styles/palette";
 
-interface Props {
-  postList: any;
-}
+type PostListProps = {
+  postList: Post[];
+};
 
-const PostList = ({ postList }: Props) => {
+const sortByDate = (a: Post, b: Post) => {
+  return new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime();
+};
+
+const PostList = ({ postList }: PostListProps) => {
   const postCountText = `현재 ${postList.length}건의 글이 있어요!`;
+  postList.sort(sortByDate);
   const { icon, categoryName, displayName } = useCategoryHeader();
 
   return (
