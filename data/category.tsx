@@ -12,7 +12,7 @@ import {
   SiPython,
   SiTypescript,
 } from "react-icons/si";
-import { DiAndroid, DiApple, DiGoogleCloudPlatform, DiMysql } from "react-icons/di";
+import { DiAndroid, DiApple, DiGoogleCloudPlatform, DiMysql, DiRedis } from "react-icons/di";
 import { RiComputerFill } from "react-icons/ri";
 import { AiFillDatabase } from "react-icons/ai";
 import { GiFamilyTree, GiWifiRouter } from "react-icons/gi";
@@ -26,19 +26,19 @@ import { MdOutlineConstruction, MdOutlineRouter } from "react-icons/md";
 const category = {
   "포스트 모아보기": [
     {
-      displayName: "전체 글 목록",
+      displayName: "전체 포스트",
       icon: <BiNote />,
       categoryName: "all",
     },
     {
-      displayName: "번역 글 목록",
+      displayName: "번역 포스트",
       icon: <IoLanguage />,
       categoryName: "translate",
     },
     {
-      displayName: "이슈 정리 목록",
+      displayName: "개발 기록 포스트",
       icon: <MdOutlineConstruction />,
-      categoryName: "issue",
+      categoryName: "development",
     },
   ],
   프론트엔드: [
@@ -47,9 +47,9 @@ const category = {
     { displayName: "TypeScript", icon: <SiTypescript />, categoryName: "typescript" },
   ],
   백엔드: [
-    // { displayName: "MySQL", icon: <DiMysql />, categoryName: "mysql" },
     { displayName: "Node.js", icon: <FaNodeJs />, categoryName: "nodejs" },
     { displayName: "Nest.js", icon: <SiNestjs />, categoryName: "nestjs" },
+    { displayName: "Redis", icon: <DiRedis />, categoryName: "redis" },
   ],
   // 모바일: [
   //   { displayName: "Flutter", icon: <SiFlutter />, categoryName: "flutter" },

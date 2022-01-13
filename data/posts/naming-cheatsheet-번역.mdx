@@ -1,0 +1,375 @@
+---
+title: 좋은 변수명을 짓는 가이드라인
+date: "2022-01-12"
+description: kettanaito 님의 Naming cheatsheet 저장소를 한글로 번역한 글입니다.
+category: translate
+thumbnailUrl: "https://github.com/kettanaito/naming-cheatsheet/raw/master/naming-cheatsheet.png"
+tags: ["개발", "번역"]
+---
+
+# 좋은 변수명을 짓는 가이드라인
+
+- [English language](#english-language)
+- [Naming convention](#naming-convention)
+- [S-I-D](#s-i-d)
+- [Avoid contractions](#avoid-contractions)
+- [Avoid context duplication](#avoid-context-duplication)
+- [Reflect the expected result](#reflect-the-expected-result)
+- [Naming functions](#naming-functions)
+  - [A/HC/LC pattern](#ahclc-pattern)
+    - [Actions](#actions)
+    - [Context](#context)
+    - [Prefixes](#prefixes)
+- [Singular and Plurals](#singular-and-plurals)
+
+---
+
+이름을 붙이는 것은 힘든 일입니다. 이 문서는 이를 보다 쉽게 만들고자 합니다.
+
+아래 제안들은 어떤 프로그래밍 언어에도 적용될 수 있지만, 이 글에서는 실제 코드로 예를 들기 위해 자바스크립트를 사용하도록 하겠습니다.
+
+## 영어 사용하기
+
+변수와 함수에 이름을 붙일 때는 영어를 사용하세요.
+
+```js
+/* 나쁨 */
+const 이름 = "John";
+const 친구들 = ["Sally", "David"];
+
+/* 좋음 */
+const firstName = "James";
+const friends = ["Heisenberg", "Anna"];
+```
+
+> 좋든 싫든 영어는 프로그래밍에서 가장 널리 사용되는 언어입니다. 모든 프로그래밍 언어의 문법, 그리고 수없이 많은 문서들과 교육 자료들은 영어로 작성되어 있으므로 코드를 영어로 작성하면 극적인 화합을 이룰 수 있습니다.
+
+## 네이밍 컨벤션
+
+**하나의** 네이밍 컨벤션을 선택하고 이를 따르세요. 컨벤션은 `카멜 케이스(camelCase)`, `파스칼 케이스(PascalCase)`, `스네이크 케이스(snake_case)`, 또는 일관적이기만 하다면 어떤 것이든 될 수 있습니다. 많은 프로그래밍 언어들에는 고유의 네이밍 컨벤션이 있으므로 문서를 확인하거나 인기있는 깃허브 저장소에서 이를 학습할 수 있습니다.
+
+```js
+/* 나쁨 */
+const page_count = 5;
+const shouldUpdate = true;
+
+/* 좋음 */
+const pageCount = 5;
+const shouldUpdate = true;
+
+/* 역시나 좋음 */
+const page_count = 5;
+const should_update = true;
+```
+
+## 짧고, 직관적이고, 서술적인 이름 (S-I-D)
+
+변수의 이름은 반드시 _짧고(short)_, _직관적이면서(intuitive)_ _서술적이어야 합니다(descriptive)_.
+
+- **짧은**. 이름은 입력하기 너무 길어서는 안된다는 점을 기억하세요.
+
+- **직관적인**. 이름은 자연스럽게 읽혀야만 하며, 가능한 한 일반적인 회화에 가까워야 합니다.
+
+- **서술적인**. 변수명은 동작이나 변수에 담긴 값을 가장 효율적으로 나타내야 합니다.
+
+```js
+/* 나쁨 */
+const a = 5; // "a" 는 어떤 의미든 될 수 있습니다.
+const isPaginatable = a > 10; // "Paginatable" 은 너무 부자연스럽게 느껴집니다.
+const shouldPaginatize = a > 10; // 지어낸 동사라니, 정말 우습네요!
+
+/* 좋음 */
+const postCount = 5;
+const hasPagination = postCount > 10;
+const shouldPaginate = postCount > 10; // 또는 이런 이름
+```
+
+## 축약 피하기
+
+축약을 사용하지 **마세요**. 축약은 어떤 도움도 되지 않으면서 코드의 가독성을 해치기만 합니다. 짧고 서술적인 변수명을 찾는게 어려울 수도 있지만, 이것이 결코 축약의 변명이 되지는 못합니다.
+
+```js
+/* 나쁨 */
+const onItmClk = () => {};
+
+/* 좋음 */
+const onItemClick = () => {};
+```
+
+## 컨텍스트 중복 피하기
+
+A name should not duplicate the context in which it is defined. Always remove the context from a name if that doesn't decrease its readability.
+
+변수명은 정의된 컨텍스트
+
+```js
+class MenuItem {
+  /* Method name duplicates the context (which is "MenuItem") */
+  handleMenuItemClick = (event) => { ... }
+
+  /* Reads nicely as `MenuItem.handleClick()` */
+  handleClick = (event) => { ... }
+}
+```
+
+## Reflect the expected result
+
+A name should reflect the expected result.
+
+```jsx
+/* Bad */
+const isEnabled = itemCount > 3;
+return <Button disabled={!isEnabled} />;
+
+/* Good */
+const isDisabled = itemCount <= 3;
+return <Button disabled={isDisabled} />;
+```
+
+---
+
+# Naming functions
+
+## A/HC/LC Pattern
+
+There is a useful pattern to follow when naming functions:
+
+```
+prefix? + action (A) + high context (HC) + low context? (LC)
+```
+
+Take a look at how this pattern may be applied in the table below.
+
+| Name                   | Prefix   | Action (A) | High context (HC) | Low context (LC) |
+| ---------------------- | -------- | ---------- | ----------------- | ---------------- |
+| `getUser`              |          | `get`      | `User`            |                  |
+| `getUserMessages`      |          | `get`      | `User`            | `Messages`       |
+| `handleClickOutside`   |          | `handle`   | `Click`           | `Outside`        |
+| `shouldDisplayMessage` | `should` | `Display`  | `Message`         |                  |
+
+> **Note:** The order of context affects the meaning of a variable. For example, `shouldUpdateComponent` means _you_ are about to update a component, while `shouldComponentUpdate` tells you that _component_ will update on itself, and you are but controlling when it should be updated.
+> In other words, **high context emphasizes the meaning of a variable**.
+
+---
+
+## Actions
+
+The verb part of your function name. The most important part responsible for describing what the function _does_.
+
+### `get`
+
+Accesses data immediately (i.e. shorthand getter of internal data).
+
+```js
+function getFruitCount() {
+  return this.fruits.length;
+}
+```
+
+> See also [compose](#compose).
+
+### `set`
+
+Sets a variable in a declarative way, with value `A` to value `B`.
+
+```js
+let fruits = 0;
+
+function setFruits(nextFruits) {
+  fruits = nextFruits;
+}
+
+setFruits(5);
+console.log(fruits); // 5
+```
+
+### `reset`
+
+Sets a variable back to its initial value or state.
+
+```js
+const initialFruits = 5;
+let fruits = initialFruits;
+setFruits(10);
+console.log(fruits); // 10
+
+function resetFruits() {
+  fruits = initialFruits;
+}
+
+resetFruits();
+console.log(fruits); // 5
+```
+
+### `fetch`
+
+Request for some data, which takes some indeterminate time (i.e. async request).
+
+```js
+function fetchPosts(postCount) {
+  return fetch('https://api.dev/posts', {...})
+}
+```
+
+### `remove`
+
+Removes something _from_ somewhere.
+
+For example, if you have a collection of selected filters on a search page, removing one of them from the collection is `removeFilter`, **not** `deleteFilter` (and this is how you would naturally say it in English as well):
+
+```js
+function removeFilter(filterName, filters) {
+  return filters.filter((name) => name !== filterName);
+}
+
+const selectedFilters = ["price", "availability", "size"];
+removeFilter("price", selectedFilters);
+```
+
+> See also [delete](#delete).
+
+### `delete`
+
+Completely erases something from the realms of existence.
+
+Imagine you are a content editor, and there is that notorious post you wish to get rid of. Once you clicked a shiny "Delete post" button, the CMS performed a `deletePost` action, **not** `removePost`.
+
+```js
+function deletePost(id) {
+  return database.find({ id }).delete();
+}
+```
+
+> See also [remove](#remove).
+
+### `compose`
+
+Creates new data from the existing one. Mostly applicable to strings, objects, or functions.
+
+```js
+function composePageUrl(pageName, pageId) {
+  return pageName.toLowerCase() + "-" + pageId;
+}
+```
+
+> See also [get](#get).
+
+### `handle`
+
+Handles an action. Often used when naming a callback method.
+
+```js
+function handleLinkClick() {
+  console.log("Clicked a link!");
+}
+
+link.addEventListener("click", handleLinkClick);
+```
+
+---
+
+## Context
+
+A domain that a function operates on.
+
+A function is often an action on _something_. It is important to state what its operable domain is, or at least an expected data type.
+
+```js
+/* A pure function operating with primitives */
+function filter(list, predicate) {
+  return list.filter(predicate);
+}
+
+/* Function operating exactly on posts */
+function getRecentPosts(posts) {
+  return filter(posts, (post) => post.date === Date.now());
+}
+```
+
+> Some language-specific assumptions may allow omitting the context. For example, in JavaScript, it's common that `filter` operates on Array. Adding explicit `filterArray` would be unnecessary.
+
+--
+
+## Prefixes
+
+Prefix enhances the meaning of a variable. It is rarely used in function names.
+
+### `is`
+
+Describes a characteristic or state of the current context (usually `boolean`).
+
+```js
+const color = "blue";
+const isBlue = color === "blue"; // characteristic
+const isPresent = true; // state
+
+if (isBlue && isPresent) {
+  console.log("Blue is present!");
+}
+```
+
+### `has`
+
+Describes whether the current context possesses a certain value or state (usually `boolean`).
+
+```js
+/* Bad */
+const isProductsExist = productsCount > 0;
+const areProductsPresent = productsCount > 0;
+
+/* Good */
+const hasProducts = productsCount > 0;
+```
+
+### `should`
+
+Reflects a positive conditional statement (usually `boolean`) coupled with a certain action.
+
+```js
+function shouldUpdateUrl(url, expectedUrl) {
+  return url !== expectedUrl;
+}
+```
+
+### `min`/`max`
+
+Represents a minimum or maximum value. Used when describing boundaries or limits.
+
+```js
+/**
+ * Renders a random amount of posts within
+ * the given min/max boundaries.
+ */
+function renderPosts(posts, minPosts, maxPosts) {
+  return posts.slice(0, randomBetween(minPosts, maxPosts));
+}
+```
+
+### `prev`/`next`
+
+Indicate the previous or the next state of a variable in the current context. Used when describing state transitions.
+
+```jsx
+function fetchPosts() {
+  const prevPosts = this.state.posts;
+
+  const fetchedPosts = fetch("...");
+  const nextPosts = concat(prevPosts, fetchedPosts);
+
+  this.setState({ posts: nextPosts });
+}
+```
+
+## Singular and Plurals
+
+Like a prefix, variable names can be made singular or plural depending on whether they hold a single value or multiple values.
+
+```js
+/* Bad */
+const friends = "Bob";
+const friend = ["Bob", "Tony", "Tanya"];
+
+/* Good */
+const friend = "Bob";
+const friends = ["Bob", "Tony", "Tanya"];
+```

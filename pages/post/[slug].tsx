@@ -24,6 +24,7 @@ import { palette } from "styles/palette";
 import Divider from "components/Portfolio/common/Divider";
 import Tag from "components/Blog/PostList/common/Tag";
 import TagList from "components/Blog/PostList/common/TagList";
+import useUtterances from "hooks/useUtterances";
 
 type PostPageProps = {
   frontMatter: FrontMatter;
@@ -47,13 +48,16 @@ const components = {
 
 const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
   const { title, tags, date, description, category, thumbnailUrl } = frontMatter;
+  const isUtterancesActive = useUtterances(".post-container");
+
   return (
-    <Container>
+    <Container className="post-container">
       <Title>{title}</Title>
       <Description>{description}</Description>
       <TagList tagList={tags} />
       <Divider />
       <MDXRemote {...mdxSource} components={components} />
+      <Divider />
     </Container>
   );
 };
