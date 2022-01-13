@@ -41,7 +41,7 @@ const Container = styled.div`
   transition: 0.2s ease-in-out background-color;
 
   &:hover {
-    background-color: ${palette.notion.sidebar.hover};
+    background-color: ${palette.notion.hover};
   }
 `;
 

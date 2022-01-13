@@ -27,7 +27,7 @@ const Container = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${palette.notion.sidebar.hover};
+    background-color: ${palette.notion.hover};
   }
 `;
 

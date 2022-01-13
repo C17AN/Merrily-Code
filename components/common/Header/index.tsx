@@ -58,7 +58,7 @@ const Container = styled.div`
     transition: 0.2s ease-in-out background-color;
 
     &:hover {
-      background-color: ${palette.notion.sidebar.hover};
+      background-color: ${palette.notion.hover};
     }
   }
 `;
@@ -78,7 +78,7 @@ const IconContainer = styled.div`
   padding: 4px;
 
   &:hover {
-    background-color: ${palette.notion.sidebar.hover};
+    background-color: ${palette.notion.hover};
   }
 
   & > svg {

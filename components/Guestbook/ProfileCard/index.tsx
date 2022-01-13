@@ -38,7 +38,6 @@ const Container = styled(motion.div)`
   flex-direction: column;
   padding: 1rem 2rem;
   flex: 1 20%;
-  max-width: 40%;
   justify-content: center;
   align-items: center;
   background-color: #ececec42;
@@ -62,11 +61,12 @@ const Container = styled(motion.div)`
   .profile-description {
     color: ${palette.grey[300]};
     font-size: 0.875rem;
-    line-height: 1.3;
+    line-height: 1.5;
+    white-space: pre-line;
   }
 
   @media (max-width: 768px) {
-    flex: 1 80%;
+    flex: 1;
   }
 `;
 

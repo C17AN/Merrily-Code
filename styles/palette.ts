@@ -84,10 +84,10 @@ export const palette = {
     common: {
       divider: "#ededed",
     },
+    hover: "#37352f14",
     sidebar: {
       primary: "#f7f6f3",
       text: "#19171199",
-      hover: "#37352f14",
       initialBox: "#37352f4D",
     },
     portfolio: {

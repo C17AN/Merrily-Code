@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import TimeMarathon from "./TimeMarathon";
-import Image from "next/image";
 import endpoints from "constants/endpoints";
-import CountUp from "react-countup";
 import axios from "axios";
 import { palette } from "styles/palette";
 import SubTitle from "components/Portfolio/common/SubTitle";
 import Divider from "components/Portfolio/common/Divider";
 import TimeCounter from "./TimeCounter";
+import { AiFillClockCircle } from "react-icons/ai";
+import { FaGithubAlt } from "react-icons/fa";
 
 const CodeTime = () => {
   const [totalCodingSecond, setTotalCodingSecond] = useState<null | number>(null);
@@ -29,10 +29,16 @@ const CodeTime = () => {
   }, []);
 
   return (
-    <>
-      <SubTitle>👉🏻 Code Journey</SubTitle>
+    <Container>
+      <TitleContainer>
+        <SubTitle>👉🏻 Code Journey</SubTitle>
+        <div className="button-container">
+          <AiFillClockCircle size={28} color={palette.black} />
+          <FaGithubAlt size={28} color={palette.grey[200]} />
+        </div>
+      </TitleContainer>
       <Divider />
-      <Container>
+      <Content>
         {totalCodingSecond && startingDate && endingDate ? (
           <>
             <TimeMarathon current={totalCodingSecond / 3600} goal={10000} />
@@ -45,12 +51,42 @@ const CodeTime = () => {
         ) : (
           <></>
         )}
-      </Container>
-    </>
+      </Content>
+    </Container>
   );
 };
 
-const Container = styled.div`
+const Container = styled.section``;
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    margin: 0;
+  }
+
+  .button-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 1rem;
+    cursor: pointer;
+
+    & > svg {
+      border-radius: 25%;
+      padding: 0.25rem;
+      transition: 0.2s ease-in-out background-color;
+
+      &:hover {
+        background-color: ${palette.notion.hover};
+      }
+    }
+  }
+`;
+
+const Content = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
