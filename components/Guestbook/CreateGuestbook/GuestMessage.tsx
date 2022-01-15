@@ -2,10 +2,10 @@ import styled from "@emotion/styled";
 import TextArea from "components/common/TextArea";
 import React, { ChangeEvent, useContext } from "react";
 import { palette } from "styles/palette";
-import { GuestInfoProvider } from ".";
+import { GuestFormProvider } from ".";
 
 const GuestMessage = () => {
-  const { guestForm, updateGuestForm } = useContext(GuestInfoProvider);
+  const { guestForm, updateGuestForm } = useContext(GuestFormProvider);
 
   const handleGuestNameChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;

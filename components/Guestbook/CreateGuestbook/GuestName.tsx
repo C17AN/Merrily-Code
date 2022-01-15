@@ -2,10 +2,10 @@ import styled from "@emotion/styled";
 import Input from "components/common/Input/input";
 import React, { ChangeEvent, useContext } from "react";
 import { palette } from "styles/palette";
-import { GuestInfoProvider } from ".";
+import { GuestFormProvider } from ".";
 
 const GuestName = () => {
-  const { guestForm, updateGuestForm } = useContext(GuestInfoProvider);
+  const { guestForm, updateGuestForm } = useContext(GuestFormProvider);
 
   const handleGuestNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

@@ -36,7 +36,9 @@ const Guestbook = () => {
         <ProfileCard
           image="/images/avatar.png"
           name="찬민"
-          description={"안녕하세요, 찬민입니다.\n저랑 차 한잔 어떠세요?\n사양은 안돼요!"}
+          description={
+            "안녕하세요, 찬민입니다.\n저랑 차 한잔 어떠세요asaddsadsadasdsadasadss?\n사양은 안돼요!"
+          }
           color="red"
         />
         <ProfileCard name="찬민" description="안녕하세요, 찬민입니다" color="red" />

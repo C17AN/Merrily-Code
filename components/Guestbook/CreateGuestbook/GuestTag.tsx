@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { MouseEvent, useContext } from "react";
+import ScrollContainer from "react-indiana-drag-scroll";
 import { palette } from "styles/palette";
+import { GuestFormProvider } from ".";
 
 interface Props {}
 
@@ -15,15 +17,27 @@ const PositionListData = [
 ];
 
 const GuestPosition = (props: Props) => {
+  const { guestForm, updateGuestForm } = useContext(GuestFormProvider);
+
+  const handleGuestNameChange = (name: string, value: string) => {
+    updateGuestForm(name, value);
+  };
+
   return (
     <Container>
       <p>관심 태그</p>
-      <PositionList>
-        {PositionListData.map((position) => {
-          const { label, value } = position;
-          return <PositionItem key={value}>{label}</PositionItem>;
-        })}
-      </PositionList>
+      <ScrollContainer>
+        <PositionList>
+          {PositionListData.map((position) => {
+            const { label, value } = position;
+            return (
+              <PositionItem key={value} onClick={() => handleGuestNameChange("guestTag", value)}>
+                {label}
+              </PositionItem>
+            );
+          })}
+        </PositionList>
+      </ScrollContainer>
     </Container>
   );
 };
@@ -43,12 +57,8 @@ const PositionList = styled.ul`
   padding: 0.25rem 0.5rem;
   display: flex;
   gap: 0.5rem;
-  overflow-x: scroll;
   max-width: 200%;
   scroll-behavior: smooth;
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
 
   &::-webkit-scrollbar {
     display: none;

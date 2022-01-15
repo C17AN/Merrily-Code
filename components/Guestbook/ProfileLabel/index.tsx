@@ -13,6 +13,7 @@ const ProfileLabel = ({ text, color }: ProfileLabelProps) => {
 };
 
 const Container = styled.li`
+  display: inline-block;
   border-radius: 40px;
   background-color: ${palette.skyBlue[50]};
   padding: 0.25rem 0.5rem;

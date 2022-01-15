@@ -22,17 +22,9 @@ const animationVariants = {
   },
 };
 
-type GuestBookForm = "guestName" | "guestMessage" | "guestImage" | "guestTag";
+type GuestBookForm = "guestName" | "guestMessage" | "guestImage" | "guestTag" | "guestAddress";
 
-export const GuestInfoProvider = createContext<{
-  guestForm: GuestForm;
-  updateGuestForm: (name: string, value: string | number) => void;
-}>({
-  guestName: "",
-  guestMessage: "",
-  guestTag: "",
-  guestImage: "",
-} as GuestForm);
+export const GuestFormProvider = createContext<any>(null);
 
 const CreateGuestbook = () => {
   const [currentMenu, setCurrentMenu] = useState(GuestbookCreateMenu.BASIC_INFO);
@@ -41,7 +33,8 @@ const CreateGuestbook = () => {
     guestName: "",
     guestMessage: "",
     guestTag: "",
-    guestImage: "",
+    guestImage: "/images/avatar-blank.png",
+    guestAddress: "",
   });
 
   const showBasicInfo = () => {
@@ -65,7 +58,7 @@ const CreateGuestbook = () => {
       animate={"visible"}
       exit={"invisible"}
     >
-      <GuestInfoProvider.Provider
+      <GuestFormProvider.Provider
         value={{
           guestForm,
           updateGuestForm,
@@ -76,7 +69,7 @@ const CreateGuestbook = () => {
         ) : (
           <AdditionalGuestInfo handleMenuChange={showBasicInfo} />
         )}
-      </GuestInfoProvider.Provider>
+      </GuestFormProvider.Provider>
     </Container>
   );
 };
