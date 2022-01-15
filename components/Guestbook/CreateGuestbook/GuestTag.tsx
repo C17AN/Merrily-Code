@@ -17,7 +17,7 @@ const PositionListData = [
 const GuestPosition = (props: Props) => {
   return (
     <Container>
-      <p>관심 분야</p>
+      <p>관심 태그</p>
       <PositionList>
         {PositionListData.map((position) => {
           const { label, value } = position;

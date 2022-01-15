@@ -9,25 +9,6 @@ import ButtonVariant from "type/variants/Button";
 import { FiUserCheck } from "react-icons/fi";
 import { palette } from "styles/palette";
 
-const createButtonVariant: ButtonVariant = {
-  backgroundColor: palette.white,
-  color: palette.grey[300],
-  hoverColor: palette.grey[500],
-  hoverBackgroundColor: palette.grey[50],
-};
-
-const ModalCancelButtonVariant: ButtonVariant = {
-  color: palette.white,
-  backgroundColor: palette.red[100],
-  hoverBackgroundColor: palette.red[300],
-};
-
-const ModalConfirmButtonVariant: ButtonVariant = {
-  color: palette.white,
-  backgroundColor: palette.green[400],
-  hoverBackgroundColor: palette.green[300],
-};
-
 const Guestbook = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
@@ -55,18 +36,6 @@ const Guestbook = () => {
         <ProfileCard
           image="/images/avatar.png"
           name="찬민"
-          description="안녕하세요, 찬민입니다"
-          color="red"
-        />
-        <ProfileCard
-          image="/images/avatar.png"
-          name="찬민"
-          description="안녕하세요, 찬민입니다"
-          color="red"
-        />
-        <ProfileCard
-          image="/images/avatar.png"
-          name="찬민"
           description={"안녕하세요, 찬민입니다.\n저랑 차 한잔 어떠세요?\n사양은 안돼요!"}
           color="red"
         />
@@ -79,12 +48,14 @@ const Guestbook = () => {
           body={<CreateGuestbook />}
           answerType="multi"
           width={420}
-          height={400}
+          height={450}
           closeModal={closeCreateModal}
           cancelText="취소하기"
           confirmText="방명록 남기기"
           leftButtonVariant={ModalCancelButtonVariant}
           rightButtonVariant={ModalConfirmButtonVariant}
+          onCancel={() => {}}
+          onConfirm={() => {}}
         />
       )}
     </Container>
@@ -138,5 +109,24 @@ const GlassDisplayContainer = styled.div`
   flex-wrap: wrap;
   border-radius: 0.5rem;
 `;
+
+const createButtonVariant: ButtonVariant = {
+  backgroundColor: palette.white,
+  color: palette.grey[300],
+  hoverColor: palette.grey[500],
+  hoverBackgroundColor: palette.grey[50],
+};
+
+const ModalCancelButtonVariant: ButtonVariant = {
+  color: palette.white,
+  backgroundColor: palette.red[100],
+  hoverBackgroundColor: palette.red[300],
+};
+
+const ModalConfirmButtonVariant: ButtonVariant = {
+  color: palette.white,
+  backgroundColor: palette.green[400],
+  hoverBackgroundColor: palette.green[300],
+};
 
 export default Guestbook;

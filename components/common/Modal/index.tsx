@@ -17,6 +17,8 @@ type ModalProps = {
   confirmText?: string;
   leftButtonVariant?: ButtonVariant;
   rightButtonVariant?: ButtonVariant;
+  onCancel?: () => void;
+  onConfirm?: () => void;
 };
 
 const variants = {
@@ -30,12 +32,14 @@ const Modal = ({
   body,
   answerType,
   closeModal,
+  leftButtonVariant,
+  rightButtonVariant,
+  onCancel,
+  onConfirm,
   width = 300,
   height = 300,
   cancelText = "취소",
   confirmText = "확인",
-  leftButtonVariant,
-  rightButtonVariant,
 }: ModalProps) => {
   const isMobile = useIsMobile();
   const handleClose = (e: MouseEvent<HTMLElement>) => {
@@ -58,11 +62,17 @@ const Modal = ({
         <>{body}</>
         <ModalFooter>
           {answerType === "single" ? (
-            <Button {...rightButtonVariant}>{confirmText}</Button>
+            <Button {...rightButtonVariant} onClick={onCancel}>
+              {confirmText}
+            </Button>
           ) : (
             <>
-              <Button {...leftButtonVariant}>{cancelText}</Button>
-              <Button {...rightButtonVariant}>{confirmText}</Button>
+              <Button {...leftButtonVariant} onClick={onCancel}>
+                {cancelText}
+              </Button>
+              <Button {...rightButtonVariant} onClick={onConfirm}>
+                {confirmText}
+              </Button>
             </>
           )}
         </ModalFooter>
