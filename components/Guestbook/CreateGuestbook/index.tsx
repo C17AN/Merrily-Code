@@ -22,7 +22,13 @@ const animationVariants = {
   },
 };
 
-type GuestBookForm = "guestName" | "guestMessage" | "guestImage" | "guestTag" | "guestAddress";
+type GuestBookForm =
+  | "guestName"
+  | "guestMessage"
+  | "guestImage"
+  | "guestTag"
+  | "guestAddress"
+  | "guestColor";
 
 export const GuestFormProvider = createContext<any>(null);
 
@@ -35,6 +41,7 @@ const CreateGuestbook = () => {
     guestTag: "",
     guestImage: "/images/avatar-blank.png",
     guestAddress: "",
+    guestColor: "",
   });
 
   const showBasicInfo = () => {
@@ -45,6 +52,9 @@ const CreateGuestbook = () => {
     setCurrentMenu(GuestbookCreateMenu.ADDITIONAL_INFO);
   };
 
+  // TODO: useReducer를 결합한 형태로 리팩터링 할것.
+  // "name" 속성을 갖지 않는 요소 (li 등) 가 있으므로, 이 방법은 동일한 핸들러를 재활용할 수 없다는 문제가 있음
+  // 또한 guestForm, updateGuestForm에 대한 타입 지원을 받기 어렵다는 문제가 있음
   const updateGuestForm = (name: string, value: string | number) => {
     setGuestForm({ ...guestForm, [name as GuestBookForm]: value });
   };

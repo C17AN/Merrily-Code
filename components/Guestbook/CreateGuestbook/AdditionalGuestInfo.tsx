@@ -5,6 +5,7 @@ import { palette } from "styles/palette";
 import { BsArrowReturnRight } from "react-icons/bs";
 import GuestTag from "./GuestTag";
 import styled from "@emotion/styled";
+import GuestColor from "./GuestColor";
 
 type AdditionalInfoProps = {
   handleMenuChange: () => void;
@@ -20,6 +21,7 @@ const swipeButtonVariant: ButtonVariant = {
 const AdditionalGuestInfo = ({ handleMenuChange }: AdditionalInfoProps) => {
   return (
     <Container>
+      <GuestColor />
       <GuestTag />
       <ButtonContainer>
         <Button {...swipeButtonVariant} icon={<BsArrowReturnRight />} onClick={handleMenuChange}>

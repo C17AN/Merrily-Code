@@ -30,8 +30,13 @@ const GuestPosition = (props: Props) => {
         <PositionList>
           {PositionListData.map((position) => {
             const { label, value } = position;
+            const isSelected = value === guestForm["guestTag"];
             return (
-              <PositionItem key={value} onClick={() => handleGuestNameChange("guestTag", value)}>
+              <PositionItem
+                isSelected={isSelected}
+                key={value}
+                onClick={() => handleGuestNameChange("guestTag", value)}
+              >
                 {label}
               </PositionItem>
             );
@@ -70,16 +75,16 @@ const PositionList = styled.ul`
   }
 `;
 
-const PositionItem = styled.li`
+const PositionItem = styled.li<{ isSelected: boolean }>`
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid ${palette.grey[200]};
-  color: ${palette.grey[400]};
-  background-color: ${palette.white};
   white-space: nowrap;
-
   cursor: pointer;
+  transition: 0.2s ease-in-out all;
+  color: ${({ isSelected }) => (isSelected ? palette.grey[500] : palette.grey[300])};
+  background-color: ${({ isSelected }) => (isSelected ? palette.grey[50] : palette.white)};
 `;
 
 export default GuestPosition;

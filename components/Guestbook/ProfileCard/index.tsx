@@ -20,7 +20,7 @@ const ProfileCard = ({
   description,
 }: GuestbookProfile) => {
   return (
-    <Container variants={variants} whileHover={"zoom"}>
+    <Container variants={variants} color={color} whileHover={"zoom"}>
       <BasicInfo>
         <RoundImageWrapper>
           <Image src={image} width={64} height={64} layout="fixed" alt={name} />
@@ -37,7 +37,7 @@ const ProfileCard = ({
   );
 };
 
-const Container = styled(motion.div)`
+const Container = styled(motion.div)<GuestbookProfile>`
   display: flex;
   padding: 1.5rem;
   gap: 1.5rem;
@@ -46,14 +46,14 @@ const Container = styled(motion.div)`
   align-items: center;
   background-color: #ececec42;
   backdrop-filter: blur(50px);
-  border: 2px solid white;
+  border: 3px solid ${({ color }) => color + "75"};
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 16px 0 rgba(109, 109, 109, 0.37);
+  box-shadow: 0 8px 32px -8px ${({ color }) => (color ? color + "75" : "rgba(109, 109, 109, 0.37)")};
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  /* border: 1px solid rgba(255, 255, 255, 0.18); */
   cursor: pointer;
 
   .profile-name {

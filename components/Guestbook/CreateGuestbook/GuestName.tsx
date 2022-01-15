@@ -15,7 +15,12 @@ const GuestName = () => {
   return (
     <Container>
       <p>이름 (닉네임)</p>
-      <Input name={"guestName"} value={guestForm["guestName"]} onChange={handleGuestNameChange} />
+      <Input
+        name={"guestName"}
+        value={guestForm["guestName"]}
+        autoComplete="off"
+        onChange={handleGuestNameChange}
+      />
     </Container>
   );
 };
