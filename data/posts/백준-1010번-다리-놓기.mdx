@@ -1,0 +1,80 @@
+---
+title: 백준 1010번 - 다리 놓기
+date: "2022-01-16"
+description: 다이나믹 프로그래밍 문제 풀이 기록입니다.
+category: boj
+thumbnailUrl: "/thumbnails/boj.svg"
+tags: ["백준 온라인 저지", "파이썬", "다이나믹 프로그래밍"]
+---
+
+[문제 링크 : [백준 1010번 : 다리 놓기]](https://www.acmicpc.net/problem/1010)
+
+#
+
+오랜만에 DP 문제 리뷰를 하다가 과거의 제가 DP 문제를 꼼수로 푼 걸 보고 DP로 다시 풀이한 문제입니다.
+
+이 문제는 “연결된 다리끼리는 겹쳐질 수 없다” 는 조건을 이용해 순서가 고정된(고려해야 하는) 순열, 즉 조합을 사용해서도 해결할 수 있습니다.
+
+#
+
+**조합을 구현해 해결한 코드**
+
+```python
+import math
+
+T = int(input())
+
+for _ in range(T):
+    N, M = map(int, input().split())
+    print(math.factorial(M) // (math.factorial(M - N) * math.factorial(N)))
+```
+
+하지만 코딩 테스트를 준비하는 입장에서는 다이나믹 프로그래밍 방법을 연습하는 것이 맞는 것 같아 이번 기회에 다시 풀이하게 되었습니다.
+
+## 풀이 기록
+
+풀이 흔적입니다.
+
+N과 M이 연결될 수 있는 구조를 트리 형태로 만들어 관찰한 후, `N : M` 관계에서 만들어지는 트리의 일부가 `N-1 : M-1`... 과 연관된 것을 발견해 점화식을 구성할 수 있었습니다.
+
+![](/posts/백준-1010번-다리-놓기/2.jpg "800px")
+
+![](/posts/백준-1010번-다리-놓기/3.jpg "800px")
+
+## 풀이 코드
+
+DP 방식 풀이 코드입니다.
+
+```python
+T = int(input())
+
+table = [[0] * 31 for _ in range(31)]
+
+for i in range(1, 31):
+    table[1][i] = i
+
+def dp(N, M):
+    if table[N][M]:
+        return table[N][M]
+
+    for i in range(M - 1, N - 2, -1):
+        table[N][M] += dp(N - 1, i)
+    return table[N][M]
+
+for _ in range(T):
+    N, M = map(int, input().split())
+    print(dp(N, M))
+```
+
+한가지 잠깐 당황한 부분이 있다면 아래처럼 내림차순으로 순회하는 반복문을 사용하는 부분이었는데요, 파이썬의 내림차순 반복문을 수행하는 방법에 대해 알아두면 좋을 것 같습니다.
+
+```python
+# 오름차순 순회
+for i in range(1, 10):
+# 이 반복문은 1 ~ 9의 범위를 순회합니다.
+
+# 내림차순 순회
+for i in range(10, 1, -1):
+# 반복문의 각 인자는 start, stop, step 를 의미합니다.
+# 위의 내림차순 반복문은 9 ~ 1이 아닌 9 ~ 2의 범위를 순회합니다!!
+```
