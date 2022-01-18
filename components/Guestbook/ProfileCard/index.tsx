@@ -22,9 +22,9 @@ const ProfileCard = ({
   return (
     <Container variants={variants} color={color} whileHover={"zoom"}>
       <BasicInfo>
-        <RoundImageWrapper>
+        <RoundImage>
           <Image src={image} width={64} height={64} layout="fixed" alt={name} />
-        </RoundImageWrapper>
+        </RoundImage>
         <div className="profile-name">{name}</div>
       </BasicInfo>
       <AdditionalInfo>
@@ -44,26 +44,24 @@ const Container = styled(motion.div)<GuestbookProfile>`
   flex: 1 20%;
   justify-content: flex-start;
   align-items: center;
-  background-color: #ececec42;
+  background-color: ${({ color }) => color || "#ececec42"};
   backdrop-filter: blur(50px);
-  border: 3px solid ${({ color }) => color + "75"};
   border-radius: 0.5rem;
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px -8px ${({ color }) => (color ? color + "75" : "rgba(109, 109, 109, 0.37)")};
+  box-shadow: 0 8px 32px 0px ${({ color }) => (color ? color + "90" : "rgba(109, 109, 109, 0.37)")};
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
-  /* border: 1px solid rgba(255, 255, 255, 0.18); */
   cursor: pointer;
 
   .profile-name {
+    color: ${palette.grey[50]};
     font-weight: 700;
     font-size: 1.125rem;
-    margin: 0.375rem 0;
+    margin-top: 0.75rem;
   }
 
   .profile-description {
-    color: ${palette.grey[300]};
+    color: ${palette.grey[50]};
     font-size: 0.875rem;
     line-height: 1.5;
     white-space: pre-line;
@@ -76,6 +74,10 @@ const Container = styled(motion.div)<GuestbookProfile>`
 
 const LabelContainer = styled.ul`
   margin-top: 0.5rem;
+`;
+
+const RoundImage = styled(RoundImageWrapper)`
+  border: 2px solid ${palette.grey[100]};
 `;
 
 const BasicInfo = styled.section`

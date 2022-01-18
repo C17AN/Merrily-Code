@@ -7,7 +7,7 @@ import ActivityData from "data/About/ActivityData";
 const Activity = () => {
   return (
     <Container>
-      <Title title="Other Activities" iconPath="" />
+      <Title title="Other Activities" iconPath={"/icons/activity.gif"} />
       <InfoList itemList={ActivityData} />
     </Container>
   );

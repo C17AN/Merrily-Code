@@ -10,5 +10,6 @@ import Hr from "./Hr";
 import Blockquote from "./Blockquote";
 import Li from "./Li";
 import Ul from "./Ul";
+import A from "./A";
 
-export { H1, H2, H3, Div, Code, P, Image, Strong, Hr, Blockquote, Ul, Li };
+export { H1, H2, H3, Div, Code, P, A, Image, Strong, Hr, Blockquote, Ul, Li };
