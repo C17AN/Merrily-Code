@@ -29,6 +29,11 @@ const variants = {
   },
 };
 
+const parseDate = (date: string) => {
+  const [year, month, day] = date.split("-");
+  return `${year}년 ${month}월 ${day}일`;
+};
+
 const PostItem = ({
   filename,
   date,
@@ -38,6 +43,8 @@ const PostItem = ({
   description,
   postIndex,
 }: PostItemProps) => {
+  const parsedDate = parseDate(date);
+
   return (
     <Link href={`/post/${filename}`} passHref>
       <Container
@@ -60,7 +67,7 @@ const PostItem = ({
           <h2 className="post-title">{title}</h2>
           <h3 className="post-description">{description}</h3>
           <MetaData>
-            <p className="post-date">{date}</p>
+            <p className="post-date">{parsedDate}</p>
             {tagList?.length && <TagList tagList={tagList} />}
           </MetaData>
         </Content>
@@ -125,11 +132,16 @@ const Content = styled.section`
 const MetaData = styled.div`
   display: flex;
   margin-top: 0.75rem;
-  gap: 1rem;
+  gap: 0.5rem;
   align-items: center;
 
   .post-date {
-    font-size: 0.875rem;
+    font-size: 0.625rem;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    display: inline-block;
+    color: ${({ color }) => color};
+    background-color: ${palette.blue[500] + 20};
   }
 
   @media (max-width: 768px) {
