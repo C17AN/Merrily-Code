@@ -1,0 +1,96 @@
+---
+title: 백준 2309번 - 일곱 난쟁이
+date: "2022-01-31"
+description: 브루트 포스 또는 백트래킹을 사용할 수 있는 문제 풀이입니다.
+category: boj
+thumbnailUrl: "/thumbnails/boj.svg"
+tags: ["Python", "Backtracking"]
+---
+
+[문제 링크 : [백준 2309번 : 일곱 난쟁이]](https://www.acmicpc.net/problem/2309)
+
+#
+
+주어진 아홉 가지 수 중 일곱 개의 수의 합이 100이 되는 경우를 찾는 문제로, 탐색할 깊이가 최대 7이므로 백트래킹을 통해 해결할 수 있는 문제입니다.
+
+#
+
+**[백트래킹을 사용해 해결한 코드]**
+
+```python
+arr = []
+used = [False] * 101
+result = 0
+
+# 합이 100이 되는 경우의 수가 둘 이상일 수 있으므로, 해당 경우의 수를 찾아 탐색이 끝났음을 기록해야 합니다.
+found = False
+
+
+def backtrack(N, cnt):
+    global result
+    global found
+    if found == False and cnt == 7 and result == 100:
+        for i in range(0, 100):
+            if used[i] == True:
+                print(i)
+        found = True
+        return
+    elif cnt == 7:
+        return
+    else:
+        for i in range(N, 9):
+            if used[arr[i]] == False:
+                used[arr[i]] = True
+                result += arr[i]
+                backtrack(i, cnt + 1)
+                used[arr[i]] = False
+                result -= arr[i]
+
+
+for i in range(9):
+    arr.append(int(input()))
+
+arr.sort()
+
+backtrack(0, 0)
+```
+
+![](/posts/백준-2309번-일곱-난쟁이/1.png)
+
+![solved.ac 기준 난이도 : 브론즈 II](/posts/백준-2309번-일곱-난쟁이/0.png "600px")
+
+하지만 이 문제의 평가 난이도는 브론즈 2인데요, 풀이가 제법 까다로운데도 왜 브론즈 2로 책정된 걸까요?
+
+바로 브루트 포스로 해결할 수 있는 풀이가 존재하기 때문입니다.
+
+#
+
+**[브루트 포스 방법으로 해결한 코드]**
+
+```python
+arr = []
+found = False
+
+for _ in range(9):
+    arr.append(int(input()))
+
+result = sum(arr)
+
+for i in range(9):
+    for j in range(9):
+        if i == j or found == True:
+            continue
+        if result - arr[i] - arr[j] == 100:
+            first, second = arr[i], arr[j]
+            arr.pop(arr.index(first))
+            arr.pop(arr.index(second))
+            found = True
+            for number in sorted(arr):
+                print(number)
+```
+
+![](/posts/백준-2309번-일곱-난쟁이/2.png)
+
+문제 조건을 통해 9개 중 7개 수의 합이 100이 되어야 한다는 사실을 알고 있으니, `for`문을 2(전체 숫자 개수 9 - 필요한 숫자 개수 7)번만 돌려서 답이 되는 수 둘을 알아낼 수 있습니다.
+
+#
