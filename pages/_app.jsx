@@ -6,6 +6,7 @@ import "styles/slick.css";
 import Head from 'next/head';
 import { useEffect } from 'react';
 
+
 function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>즐겁게, 코드</title>
         <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="google-site-verification" content="c1j88i3K1g6h6tJiaoy7s61WvO8y07gMnkyLC2pj3Fg" />
       </Head>
       <Component {...pageProps} />
     </BaseLayout>
