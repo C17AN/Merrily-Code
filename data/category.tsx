@@ -53,8 +53,7 @@ const category = {
   ],
   // 모바일: [
   //   { displayName: "Flutter", icon: <SiFlutter />, categoryName: "flutter" },
-  //   { displayName: "Android", icon: <DiAndroid />, categoryName: "android" },
-  //   { displayName: "IOS", icon: <DiApple />, categoryName: "ios" },
+  //   { displayName: "React Native", icon: <DiAndroid />, categoryName: "rn" },
   // ],
   클라우드: [
     { displayName: "AWS", icon: <FaAws />, categoryName: "aws" },

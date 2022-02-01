@@ -87,7 +87,7 @@ const Container = styled.div`
     & {
       flex-direction: column;
       align-items: flex-start;
-      padding: 0.625rem 0.25rem;
+      padding: 0.625rem 0.5rem;
     }
 
     .information-content {
