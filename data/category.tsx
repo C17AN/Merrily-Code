@@ -52,10 +52,10 @@ const category = {
     { displayName: "Nest.js", icon: <SiNestjs />, categoryName: "nestjs" },
     { displayName: "Redis", icon: <DiRedis />, categoryName: "redis" },
   ],
-  // 모바일: [
-  //   { displayName: "Flutter", icon: <SiFlutter />, categoryName: "flutter" },
-  //   { displayName: "React Native", icon: <DiAndroid />, categoryName: "rn" },
-  // ],
+  모바일: [
+    { displayName: "Flutter", icon: <SiFlutter />, categoryName: "flutter" },
+    { displayName: "React Native", icon: <DiAndroid />, categoryName: "rn" },
+  ],
   클라우드: [
     { displayName: "AWS", icon: <FaAws />, categoryName: "aws" },
     { displayName: "Azure", icon: <SiAzuredevops />, categoryName: "azure" },
