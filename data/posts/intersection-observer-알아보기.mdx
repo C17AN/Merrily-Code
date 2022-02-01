@@ -80,10 +80,13 @@ tags: ["자바스크립트", "프론트엔드"]
 
 이제 호환성 걱정은 잠시 내려두고, 위에서 작성한 마크업을 기반으로 첫 번째 인터섹션 옵저버를 생성해 보겠습니다.
 
-```
-const observer = new IntersectionObserver((entries) => {
-  // entries 배열에는 감지한 DOM 요소들의 인터섹션 상태 정보가 담깁니다.
-}, { 옵션 });
+```js
+const observer = new IntersectionObserver(
+  (entries) => {
+    // entries 배열에는 감지한 DOM 요소들의 인터섹션 상태 정보가 담깁니다.
+  },
+  { 옵션 }
+);
 
 observer.observe("인터섹션 여부를 감지할 DOM 요소");
 ```
@@ -94,18 +97,18 @@ observer.observe("인터섹션 여부를 감지할 DOM 요소");
 
 한번 리스트의 첫 번째 아이템의 인터섹션 여부를 검사해 보겠습니다.
 
-```
+```js
 // 1. 클래스명이 card인 요소들을 참조합니다.
 // + 저는 DOM 요소를 불러올 때 ($변수명) 처럼 명명하는데, 좋은 네이밍 컨벤션이 있다면 댓글로 알려주시면 감사드립니다 :)
-const $cards = document.querySelectorAll('.card')
+const $cards = document.querySelectorAll(".card");
 
-const obeserver = new IntersectionObserver(entries => {
+const obeserver = new IntersectionObserver((entries) => {
   // 3. 인터섹션 이벤트가 발생하면 옵저버 객체의 콜백이 호출됩니다.
-  console.log(entries)
-})
+  console.log(entries);
+});
 
 // 2. 클래스명이 card인 첫 번째 요소의 인터섹션 여부를 검사합니다.
-obeserver.observe($cards[0])
+obeserver.observe($cards[0]);
 ```
 
 ![](/posts/인터섹션-옵저버-사용하기/3.gif "600px")
@@ -114,7 +117,7 @@ obeserver.observe($cards[0])
 
 “아이템 1” 요소가 화면에서 사라지거나 다시 나타날 때마다 `IntersectionObserverEntry` 객체의 배열이 출력되고 있는 모습인데요, `IntersectionObserverEntry` 객체의 구성 요소를 간단히 알아보도록 하겠습니다.
 
-```
+```js
 // IntersectionObserverEntry 객체의 주요 프로퍼티
 
 {
@@ -150,7 +153,7 @@ obeserver.observe($cards[0])
 
 이번에는 모든 요소의 인터섹션을 감지해, 요소가 화면에 나타날 때마다 애니메이션을 추가해 보겠습니다.
 
-```
+```css
 /* styles.css */
 ...
 
@@ -166,20 +169,20 @@ obeserver.observe($cards[0])
 }
 ```
 
-```
-const $cards = document.querySelectorAll('.card')
+```js
+const $cards = document.querySelectorAll(".card");
 
-const observer = new IntersectionObserver(entries => {
+const observer = new IntersectionObserver((entries) => {
   // 2. 감지한 모든 .card 요소의 정보를 entries 배열로 전달받습니다.
   // 3. entries 배열을 순회해, isIntersecting 조건이 참일 경우 "visible" 이라는 클래스명을 추가합니다.
-  entries.forEach(entry => {
-    entry.target.classList.toggle("visible", entry.isIntersecting)
-  })
-})
+  entries.forEach((entry) => {
+    entry.target.classList.toggle("visible", entry.isIntersecting);
+  });
+});
 
-$cards.forEach(card => {
-    // 1. 모든 .card 요소의 인터섹션을 감지합니다.
-  observer.observe(card)
+$cards.forEach((card) => {
+  // 1. 모든 .card 요소의 인터섹션을 감지합니다.
+  observer.observe(card);
 });
 ```
 
@@ -193,19 +196,22 @@ $cards.forEach(card => {
 
 지금은 요소가 1픽셀이라도 뷰포트에 위치하면 콜백이 호출되는데요, 요소가 감지되는 비율을 조금 조정하고 싶다면 옵저버 객체에 `threshold` 라는 옵션을 추가로 전달할 수도 있습니다.
 
-```
-const $cards = document.querySelectorAll('.card')
+```js
+const $cards = document.querySelectorAll(".card");
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    entry.target.classList.toggle("visible", entry.isIntersecting)
-  })
-  // threshold: 0.5 옵션을 전달해, 요소가 50% 이상 보일 때 콜백을 호출합니다.
-  // threshold의 범위는 0 ~ 1 (0% ~ 100%) 입니다.
-}, { threshold: 0.5 })
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("visible", entry.isIntersecting);
+    });
+    // threshold: 0.5 옵션을 전달해, 요소가 50% 이상 보일 때 콜백을 호출합니다.
+    // threshold의 범위는 0 ~ 1 (0% ~ 100%) 입니다.
+  },
+  { threshold: 0.5 }
+);
 
-$cards.forEach(card => {
-  observer.observe(card)
+$cards.forEach((card) => {
+  observer.observe(card);
 });
 ```
 
@@ -222,22 +228,25 @@ $cards.forEach(card => {
 
 불필요한 페칭을 수행하는 대신, 한번 화면에 나타난 요소는 감지를 해제해 단 한번만 콜백이 호출되도록 수정해 보겠습니다.
 
-```
-const $cards = document.querySelectorAll('.card')
+```js
+const $cards = document.querySelectorAll(".card");
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    entry.target.classList.toggle("visible", entry.isIntersecting)
-    // 1. 요소가 화면에 나타났다면
-    if (entry.isIntersecting) {
-      // 2. 옵저버 객체의 unobserve 메서드로 요소의 감지를 해제합니다!
-      observer.unobserve(entry.target)
-    }
-  })
-}, { threshold: 0.5 })
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("visible", entry.isIntersecting);
+      // 1. 요소가 화면에 나타났다면
+      if (entry.isIntersecting) {
+        // 2. 옵저버 객체의 unobserve 메서드로 요소의 감지를 해제합니다!
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.5 }
+);
 
-$cards.forEach(card => {
-  observer.observe(card)
+$cards.forEach((card) => {
+  observer.observe(card);
 });
 ```
 
@@ -249,7 +258,7 @@ $cards.forEach(card => {
 
 이번에는 무한 스크롤 효과를 구현해 보겠습니다.
 
-```
+```css
 /* styles.css */
 
 .container {
@@ -265,42 +274,42 @@ $cards.forEach(card => {
   list-style: none;
   border-radius: 1rem;
   border: 1px solid #ccc;
-    /* opacity 관련 속성을 제거합니다. */
+  /* opacity 관련 속성을 제거합니다. */
 }
 ```
 
-```
-const $container = document.querySelector(".container")
-let itemIndex = 11
+```js
+const $container = document.querySelector(".container");
+let itemIndex = 11;
 
 // 무한 스크롤을 위한 옵저버
 const lastObserver = new IntersectionObserver((entries) => {
-  const lastItem = entries[0]
+  const lastItem = entries[0];
   if (!lastItem.isIntersecting) {
-    return
+    return;
   }
   // 2. 마지막 요소가 나타났다면, fetchItem 함수로 추가적인 아이템을 불러옵니다.
   else {
-    fetchItem()
+    fetchItem();
     // 3. 기존 마지막 요소의 인터섹션 감지를 해제하고, 새롭게 생성된 마지막 요소에의 인터섹션 여부를 감지합니다.
-    lastObserver.unobserve(lastItem.target)
-    lastObserver.observe(document.querySelector('.card:last-child'))
+    lastObserver.unobserve(lastItem.target);
+    lastObserver.observe(document.querySelector(".card:last-child"));
   }
-})
+});
 
 // 1. 처음 한번 마지막 요소의 인터섹션 여부를 감지합니다.
-lastObserver.observe(document.querySelector('.card:last-child'))
+lastObserver.observe(document.querySelector(".card:last-child"));
 
 // 요소 추가를 위한 함수
 const fetchItem = () => {
   for (let index = itemIndex; index < itemIndex + 10; index++) {
-    const newElement = document.createElement("div")
-    newElement.textContent = `아이템 ${index}`
-    newElement.classList.add("card")
-    $container.append(newElement)
+    const newElement = document.createElement("div");
+    newElement.textContent = `아이템 ${index}`;
+    newElement.classList.add("card");
+    $container.append(newElement);
   }
-  itemIndex += 10
-}
+  itemIndex += 10;
+};
 ```
 
 ![](/posts/인터섹션-옵저버-사용하기/7.gif "600px")

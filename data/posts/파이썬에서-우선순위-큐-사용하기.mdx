@@ -40,7 +40,7 @@ heappop(pq)
 
 `heapq` 모듈을 사용해 원소를 삽입할 때는 일반적인 큐와 유사하지만, 원소를 큐에서 뺄 때는 언제나 **작은 값**을 먼저 내보낸다는 특징이 있습니다.
 
-```
+```python
 from heapq import *
 
 pq = []
@@ -62,7 +62,7 @@ print(heappop(pq)) # 5
 
 > ✅ 주로 `(우선순위, 값)` 의 형태로 값을 삽입해 우선순위 큐를 구현합니다!
 
-```
+```python
 from heapq import *
 pq = []
 
@@ -90,7 +90,7 @@ print(heappop(pq)) # (2, 1, 1)
 
 ## 부록. `PriorityQueue` 와 `heapq` 기반 힙 연산 수행속도 비교
 
-```
+```python
 # heapq와 PriorityQueue의 속도 차이를 비교하기 위한 코드입니다.
 
 from queue import PriorityQueue

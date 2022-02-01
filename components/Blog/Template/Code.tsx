@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { tomorrow } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 type CodeType = { children: string; className: string };
 
@@ -11,7 +11,7 @@ const Code = ({ children, className }: CodeType) => {
 
   return (
     <Container>
-      <SyntaxHighlighter style={nord} language={language}>
+      <SyntaxHighlighter style={tomorrow} language={language}>
         {parsedChildren}
       </SyntaxHighlighter>
     </Container>
@@ -19,14 +19,14 @@ const Code = ({ children, className }: CodeType) => {
 };
 
 const Container = styled.div`
-  font-size: 0.8rem;
   border-radius: 4px;
+  font-size: 0.9rem;
   margin: 1rem 0;
   & > pre {
-    border-radius: 6px;
+    border-radius: 8px;
     code {
       font-weight: 400;
-      font-size: 0.875rem !important;
+      font-size: 0.8rem !important;
     }
   }
 

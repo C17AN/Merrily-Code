@@ -17,7 +17,7 @@ tags: ["Dart", "다트"]
 
 자바스크립트를 배워보신 분들이라면 비동기 동작이 무엇인지 대략적으로라도 알고 계실 것입니다.
 
-```
+```dart
 const waitOneSecond = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -45,43 +45,41 @@ waitOneSecond()
 
 1\. Promise 내부에 `resolve`, `reject` 함수를 인자로 받는 콜백을 선언합니다.
 
-```
-new Promise((resolve, reject) => {})
+```javascript
+new Promise((resolve, reject) => {});
 ```
 
 2. 해당 콜백 내에 실행할 비동기 작업을 정의합니다.
 
-```
+```javascript
 new Promise((resolve, reject) => {
-        // setTimeout은 비동기적으로 동작합니다.
-      setTimeout(() => {
-
-    }, 2000)
-})
+  // setTimeout은 비동기적으로 동작합니다.
+  setTimeout(() => {}, 2000);
+});
 ```
 
 3. 만약 비동기적으로 리턴할 값이 있다면, 인자로 주어진 `resolve` 함수에 전달합니다.
 
-```
+```javascript
 new Promise((resolve, reject) => {
-      setTimeout(() => {
-            // 해당 프라미스는 10을 리턴합니다.
-            resolve(10)
-    }, 2000)
-})
+  setTimeout(() => {
+    // 해당 프라미스는 10을 리턴합니다.
+    resolve(10);
+  }, 2000);
+});
 ```
 
 4. 리턴한 값을 사용하려면, `Promise.then` 메서드를 통해 전달받아 사용합니다.
 
-```
+```javascript
 const asyncData = new Promise((resolve, reject) => {
-      setTimeout(() => {
-            resolve(10)
-    }, 2000)
-})
+  setTimeout(() => {
+    resolve(10);
+  }, 2000);
+});
 
 // 2초 후, 10을 출력합니다.
-asyncData.then(data => console.log(data));
+asyncData.then((data) => console.log(data));
 ```
 
 자바스크립트를 배워본 분이라면 이 로직이 어느 정도 익숙하겠지만, 처음 보는 사람에게는 `resolve` 가 무엇이며... 왜 이 데이터는 `then` 으로 받는지... 등등 머리 위에 물음표가 생길 수밖에 없는 모습입니다.
@@ -92,7 +90,7 @@ asyncData.then(data => console.log(data));
 
 프라미스를 소개할 때 사용했던 코드를 다트로 작성한 결과물입니다.
 
-```
+```dart
 void main() {
   waitTwoSecond();
   waitOneSecond();
@@ -117,13 +115,13 @@ void waitTwoSecond() {
 
 제가 느꼈을 때 가장 큰 차이는 값을 반환하는 방식이었는데요, 잠깐 다시 프라미스를 짚어보면 프라미스에서는 `resolve` 함수와 `then` 메서드를 통해 리턴할 값을 주고받아 사용했습니다.
 
-```
+```javascript
 new Promise((resolve, _) => {
-    setTimeout(() => {
-        // 이 프라미스는 1초 후에 "Hello, Promise!" 문자열을 반환합니다.
-        resolve("Hello, Promise!");
-    }, 1000)
-}).then(res => console.log(res));
+  setTimeout(() => {
+    // 이 프라미스는 1초 후에 "Hello, Promise!" 문자열을 반환합니다.
+    resolve("Hello, Promise!");
+  }, 1000);
+}).then((res) => console.log(res));
 // "Hello, Promise!"
 ```
 
@@ -131,7 +129,7 @@ new Promise((resolve, _) => {
 
 1\. 퓨처 인스턴스 내의 콜백에서 값을 리턴합니다.
 
-```
+```dart
 // Future<String>은 이 함수가 반환할 자료형으로, String 타입의 값을 비동기적으로 반환한다는 의미입니다.
 Future<String> returnString () {
     Duration oneSecond = Duration(seconds: 1);
@@ -143,7 +141,7 @@ Future<String> returnString () {
 
 2\. 사용한 퓨처 인스턴스를 리턴합니다.
 
-```
+```dart
 Future<String> returnString () {
     Duration oneSecond = Duration(seconds: 1);
     return Future.delayed(oneSecond, () => "Hello, Future!");
@@ -152,7 +150,7 @@ Future<String> returnString () {
 
 3. `then` 키워드를 활용해 퓨처에서 리턴한 값을 사용할 수 있습니다.
 
-```
+```dart
 Future<String> returnString() {
   Duration oneSecond = Duration(seconds: 1);
   return Future.delayed(oneSecond, () => "Hello, Future!");
@@ -170,7 +168,7 @@ void main() {
 
 > 🎯 Tip : 다트의 await 키워드는 자바스크립트처럼 async 함수 내에서만 사용될 수 있습니다!
 
-```
+```dart
 Future<String> returnString () {
     Duration oneSecond = Duration(seconds: 1);
     return Future.delayed(oneSecond, () => "Hello, Future!");
