@@ -45,6 +45,7 @@ const category = {
     { displayName: "React", icon: <FaReact />, categoryName: "react" },
     { displayName: "Vue", icon: <FaVuejs />, categoryName: "vue" },
     { displayName: "TypeScript", icon: <SiTypescript />, categoryName: "typescript" },
+    // { displayName: "최적화", icon: <SiTypescript />, categoryName: "optimization" },
   ],
   백엔드: [
     { displayName: "Node.js", icon: <FaNodeJs />, categoryName: "nodejs" },

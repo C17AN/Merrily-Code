@@ -16,7 +16,7 @@ tags: ["React 18", "리액트"]
 
 2013년 처음 세상에 등장한 리액트는 현재 최고의 전성기를 누리고 있고, 이제는 버전 18의 출시를 눈앞에 두고 있습니다.
 
-![많은 개발자들의 안도의 한숨..!](https://drive.google.com/uc?export=view&id=1a3sEqeD3oS22fmPU5IgJaL1TpZ0ryOEM "600px")
+![많은 개발자들의 안도의 한숨..!](/posts/미리-만나보는-automatic-batching/0.png "600px")
 
 버전 17에서는 내부적인 최적화 및 안정화에 초점을 맞춰 별다른 변화를 체감하지 못했지만, 현재 베타로 출시된 리액트 버전 18에서는 몇 가지 눈에 띄는 변경사항이 있는데요, 오늘은 그 중 `automatic-batching` 이라는 새로 추가된 성질을 소개해보려 합니다.
 
@@ -37,11 +37,11 @@ tags: ["React 18", "리액트"]
 
 그 후 최신 버전의 리액트를 설치합니다.
 
-```
+```shell
 yarn add react@rc react-dom@rc
 ```
 
-```
+```json
 "dependencies": {
     ...
     "react": "^18.0.0-rc.0",
@@ -54,17 +54,17 @@ yarn add react@rc react-dom@rc
 
 버전 18부터는 `ReactDOM.render` 대신, `createRoot` 메서드로 어플리케이션을 감쌀 DOM 요소를 지정합니다.
 
-```
+```jsx
 const container = document.getElementById("root");
-const root = ReactDOM.createRoot(container)
+const root = ReactDOM.createRoot(container);
 ```
 
 그리고 컨테이너의 자식으로 어플리케이션을 렌더링합니다.
 
-```
+```jsx
 const container = document.getElementById("root");
-const root = ReactDOM.createRoot(container)
-root.render(<App/>);
+const root = ReactDOM.createRoot(container);
+root.render(<App />);
 ```
 
 이제 리액트 18을 만나볼 준비가 모두 끝났습니다!
@@ -79,60 +79,60 @@ root.render(<App/>);
 
 한번 코드로 확인해 보겠습니다.
 
-```
-import React, { useState } from 'react'
+```jsx
+import React, { useState } from "react";
 
 const Counter = () => {
-  const [count, setCount] = useState(0)
-  console.log(count)
+  const [count, setCount] = useState(0);
+  console.log(count);
 
   const increase = () => {
-    setCount(count + 1)
-  }
+    setCount(count + 1);
+  };
 
   return (
     <div>
       <button onClick={increase}>+</button>
       <p>{count}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Counter
+export default Counter;
 ```
 
 버튼을 누르면 상태값이 1 증가하고 현재 카운트 값을 콘솔에 출력하는 간단한 예제입니다.
 
-![](https://drive.google.com/uc?export=view&id=1UQK29ktv73cD9hX-EQKxXjynjcjuqD93)
+![](/posts/미리-만나보는-automatic-batching/1.gif)
 
 예상했던 대로 버튼을 한 번 누르면 상태값이 한번 변화하면서 재렌더링이 수행되는 모습입니다.  
 이제 위의 코드를 조금 수정해 버튼을 누를 때마다 상태를 세 번 수정하도록 해보겠습니다.
 
-```
-import React, { useState } from 'react'
+```jsx
+import React, { useState } from "react";
 
 const Counter = () => {
-  const [count, setCount] = useState(0)
-  console.log(count)
+  const [count, setCount] = useState(0);
+  console.log(count);
 
   const increase = () => {
-    setCount(count + 1)
-    setCount(count + 2)
-    setCount(count + 3)
-  }
+    setCount(count + 1);
+    setCount(count + 2);
+    setCount(count + 3);
+  };
 
   return (
     <div>
       <button onClick={increase}>+</button>
       <p>{count}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Counter
+export default Counter;
 ```
 
-![](https://drive.google.com/uc?export=view&id=11UHcRxXE_AcFc2n6jRjwPFZMkRUMCWKv)
+![](/posts/미리-만나보는-automatic-batching/2.gif)
 
 하지만 이전과 달리 버튼을 누를 때마다 콘솔에는 숫자가 한번씩만 출력되는데요, 이렇게 생각하실 수 있습니다.
 
@@ -140,28 +140,28 @@ export default Counter
 
 하지만 이는 버그가 아닌 의도된 성질로, 불필요한 렌더링을 최소화하기 위해 업데이트하는 상태와 스코프가 동일한 업데이트 함수가 여러번 호출되면 **마지막으로 실행된 업데이트 함수만을 리액트 내부의 업데이트 큐에 삽입하기 때문입니다.**
 
-```
+```jsx
 const increase = () => {
-    // setCount(count + 1)
-    // setCount(count + 2)
-    // 동일한 스코프에서 동일한 상태값을 업데이트하는 여러 업데이트 함수는 마지막 변경사항만이 업데이트 큐에 삽입됩니다.
-    setCount(count + 3)
-  }
+  // setCount(count + 1)
+  // setCount(count + 2)
+  // 동일한 스코프에서 동일한 상태값을 업데이트하는 여러 업데이트 함수는 마지막 변경사항만이 업데이트 큐에 삽입됩니다.
+  setCount(count + 3);
+};
 ```
 
 하지만, 비동기 함수 내에서는 상태의 업데이트가 조금 다르게 이루어집니다.
 
-```
+```jsx
 const asyncIncrease = () => {
-    setTimeout(() => {
-      setCount(count + 1)
-      setCount(count + 2)
-      setCount(count + 3)
-    }, 1000)
-  }
+  setTimeout(() => {
+    setCount(count + 1);
+    setCount(count + 2);
+    setCount(count + 3);
+  }, 1000);
+};
 ```
 
-![](https://drive.google.com/uc?export=view&id=11UHcRxXE_AcFc2n6jRjwPFZMkRUMCWKv)
+![](/posts/미리-만나보는-automatic-batching/3.gif)
 
 버튼을 한 번 누르면 콘솔이 한 번 출력되던 이전과는 달리, 이제는 업데이트 함수를 호출한 만큼 렌더링을 다시 수행하는 모습입니다!
 
@@ -174,35 +174,35 @@ const asyncIncrease = () => {
 이제 리액트 18에서 일어나는 동작을 확인해 보겠습니다.  
 동기 프로세스 내에서는 변화가 없지만 비동기 프로세스 안에서의 상태 업데이트 방식이 변했는데요, 한번 코드로 확인해 보겠습니다.
 
-```
-import React, { useState } from 'react'
+```jsx
+import React, { useState } from "react";
 
 const Counter = () => {
-  const [count, setCount] = useState(0)
-  console.log(count)
+  const [count, setCount] = useState(0);
+  console.log(count);
 
   const asyncIncrease = () => {
     setTimeout(() => {
-      setCount(count + 1)
-      setCount(count + 2)
-      setCount(count + 3)
-    }, 1000)
-  }
+      setCount(count + 1);
+      setCount(count + 2);
+      setCount(count + 3);
+    }, 1000);
+  };
 
   return (
     <div>
       <button onClick={asyncIncrease}>+</button>
       <p>{count}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Counter
+export default Counter;
 ```
 
 리액트 버전 17에서 테스트했을 때는 버튼을 누를 때마다 세 번씩 재렌더링이 수행되었는데요, 과연 이번에는 어떨까요?
 
-![](https://drive.google.com/uc?export=view&id=1v4taOQizR7qupAa0_zRwllDXe2viGX3Q)
+![](/posts/미리-만나보는-automatic-batching/4.gif)
 
 재렌더링이 다시 한번씩만 수행되는 모습입니다!
 
@@ -214,40 +214,40 @@ export default Counter
 
 흔한 경우는 아니겠지만 만약 이전처럼 비동기 함수 내의 중첩된 상태 업데이트에 배치가 필요하지 않을 시, `flushSync` 함수를 통해 이전 버전처럼 동작하도록 할 수 있습니다.
 
-```
-import React, { useState } from 'react'
-import { flushSync } from 'react-dom'
+```jsx
+import React, { useState } from "react";
+import { flushSync } from "react-dom";
 
 const Counter = () => {
-  const [count, setCount] = useState(0)
-  console.log(count)
+  const [count, setCount] = useState(0);
+  console.log(count);
 
   const asyncIncrease = () => {
     setTimeout(() => {
       flushSync(() => {
-        setCount(count + 1)
-      })
+        setCount(count + 1);
+      });
       flushSync(() => {
-        setCount(count + 2)
-      })
+        setCount(count + 2);
+      });
       flushSync(() => {
-        setCount(count + 3)
-      })
-    }, 1000)
-  }
+        setCount(count + 3);
+      });
+    }, 1000);
+  };
 
   return (
     <div>
       <button onClick={asyncIncrease}>+</button>
       <p>{count}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Counter
+export default Counter;
 ```
 
 ![ReactDOM.flushSync()를 사용한 결과, 리액트 ~17 처럼 재렌더링이 여러번 수행되는 모습입니다.
-](https://drive.google.com/uc?export=view&id=1yHbjbrWKmBv2yivtLNHvGK7PbhhABrrw)
+![](/posts/미리-만나보는-automatic-batching/5.gif)
 
 지금까지 리액트의 배칭 업데이트 혹시 리액트 18에서 달라진 배칭 기법이 더 궁금하시다면, [이 깃허브 이슈](https://github.com/reactwg/react-18/discussions/21)에서 자세히 확인하실 수 있을 거에요! 😆
