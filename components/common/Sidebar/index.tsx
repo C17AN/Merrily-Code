@@ -19,9 +19,9 @@ type SidebarProps = {
 
 const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
   return (
-    <div>
-      <BackDrop isOpen={isOpen} onClick={toggleSidebar} />
-      <Container
+    <Container>
+      <BackDrop isOpen={isOpen} onClick={toggleSidebar} className="modal-backdrop" />
+      <Content
         variants={animationVariants}
         animate={isOpen ? "visible" : "hidden"}
         initial={isOpen ? "visible" : "hidden"}
@@ -30,16 +30,23 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
         <EmailCard />
         <SNSList />
         <Category />
-      </Container>
-    </div>
+      </Content>
+    </Container>
   );
 };
 
+const Container = styled.div`
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
+`;
+
 const BackDrop = styled.div<{ isOpen: boolean }>`
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
-  z-index: 15;
   background-color: rgba(0, 0, 0, 0.7);
   display: none;
 
@@ -48,7 +55,7 @@ const BackDrop = styled.div<{ isOpen: boolean }>`
   }
 `;
 
-const Container = styled(motion.div)`
+const Content = styled(motion.div)`
   width: 15rem;
   position: sticky;
   top: 0;

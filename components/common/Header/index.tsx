@@ -35,7 +35,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.header`
   padding: 1rem;
   display: flex;
   justify-content: space-between;

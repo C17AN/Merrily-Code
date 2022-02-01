@@ -36,8 +36,8 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
 
 const Container = styled.div<{ isOpen: boolean }>`
   display: flex;
+  min-height: 100%;
   @media (max-width: 768px) {
-    height: 100%;
     overflow: ${({ isOpen }) => isOpen && "hidden"};
   }
 `;

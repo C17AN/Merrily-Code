@@ -20,7 +20,7 @@ const Code = ({ children, className }: CodeType) => {
 
 const Container = styled.div`
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   margin: 1rem 0;
   & > pre {
     border-radius: 8px;
