@@ -36,10 +36,10 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
 };
 
 const Container = styled.div`
-  height: 100%;
+  /* height: 100%;
   position: fixed;
   top: 0;
-  left: 0;
+  left: 0; */
   z-index: 15;
 `;
 

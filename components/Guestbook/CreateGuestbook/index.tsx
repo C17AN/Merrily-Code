@@ -59,8 +59,6 @@ const CreateGuestbook = () => {
     setGuestForm({ ...guestForm, [name as GuestBookForm]: value });
   };
 
-  console.log(guestForm);
-
   return (
     <Container
       variants={animationVariants}

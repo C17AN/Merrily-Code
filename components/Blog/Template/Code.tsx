@@ -7,7 +7,6 @@ type CodeType = { children: string; className: string };
 const Code = ({ children, className }: CodeType) => {
   const language = className?.split("-")[1] || "plain";
   const parsedChildren = children.slice(0, children.length - 1);
-  console.log(parsedChildren);
 
   return (
     <Container>

@@ -18,7 +18,6 @@ const TeckStackList = ({ setTechSlideIndex }: TeckStackListProps) => {
     <Container>
       <Slider
         afterChange={(index) => {
-          console.log(index);
           setTechSlideIndex(index);
         }}
       >
