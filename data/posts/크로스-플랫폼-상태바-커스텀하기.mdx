@@ -1,0 +1,222 @@
+---
+title: 리액트 네이티브에서 상태바 커스텀하기
+date: "2022-02-03"
+description: 상태 바 영역은 안드로이드와 IOS가 다르게 보여지는데요, 어떻게 해야 통일된 상태바 UI를 보여줄 수 있을까요?
+category: rn
+thumbnailUrl: "/thumbnails/react.svg"
+tags: ["React Native", "Mobile"]
+---
+
+리액트 네이티브는 안드로이드와 IOS 플랫폼을 하나의 코드로 대응할 수 있다는 장점이 있는데요, 하지만 안드로이드와 IOS의 태생적 차이로 인해 동일한 코드를 작성해도 다른 UI가 보여지는 경우가 왕왕 있습니다. (대표적인 예가 버튼이죠!)
+
+![안드로이드의 <Button> 컴포넌트 UI](/posts/크로스-플랫폼-상태바-커스텀하기/0.png "650px")
+
+![IOS의 <Button> 컴포넌트 UI](/posts/크로스-플랫폼-상태바-커스텀하기/1.png)
+
+오늘은 두 플랫폼 간 카카오톡 알림이나 배터리 잔량 등의 정보를 표시하는 “상태 바” 영역의 차이를 알아보고, 어떻게 해야 일관된 UI를 보여줄 수 있는지 소개해보도록 하겠습니다.
+
+![이 부분을 “상태 바(StatusBar)” 영역이라고 부릅니다!](/posts/크로스-플랫폼-상태바-커스텀하기/2.png "650px")
+
+## 상태 바 영역 추가하기
+
+리액트 네이티브에서는 `<StatusBar>` 컴포넌트를 통해 상태바 영역을 커스텀할 수 있습니다.
+
+그런데, 상태바 컴포넌트는 안드로이드에서는 잘 동작하지만, IOS에서는 `backgroundColor` 속성을 지원하지 않아 상태바 영역의 배경색 설정이 불가능하다는 문제가 있습니다.
+
+![Tip! - 인텔리센스 정보에 @platform 태그가 존재한다면 해당 플랫폼에서만 동작함을 의미합니다.](/posts/크로스-플랫폼-상태바-커스텀하기/3.png "650px")
+
+따라서 만약 하단 영역에 배경색이 존재한다면, IOS 플랫폼에서는 상태바에 색상이 적용되지 않아 부자연스러운 UI를 보여주게 됩니다.
+
+```jsx
+import { SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import React from "react";
+
+const App = () => {
+  return (
+    <SafeAreaView style={styles.block}>
+      <StatusBar backgroundColor="#448aff" />
+      <View style={styles.blue}>
+        <Text>멋진 어플리케이션</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  block: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  blue: {
+    padding: 8,
+    backgroundColor: "#448aff",
+  },
+});
+
+export default App;
+```
+
+![안드로이드 - 메인 뷰와 상태바의 색상을 일치시킨 모습](/posts/크로스-플랫폼-상태바-커스텀하기/4.png "650px")
+
+![IOS - 메인 뷰는 하늘색이지만, 상태바는 흰색인 모습](/posts/크로스-플랫폼-상태바-커스텀하기/5.png "650px")
+
+이제 문제가 뭔질 알았으니, 어떻게 해야 할까요?
+
+## 1. 배경색과 높이를 갖는 View를 추가한다?
+
+첫 번째 방법으로는 노치 영역으로의 UI 배치를 제한하는 `SafeAreaView` 대신 `View` 로 감싸고, 배경색과 높이를 갖는 빈 `View` 를 상태바 영역에 채워 넣는 방법을 시도해볼 수 있습니다.
+
+```jsx
+import {Button, StatusBar, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+
+const App = () => {
+  return (
+    {/* 1. SafeAreaView를 일반 View로 교체합니다. */}
+    <View style={styles.block}>
+      {/* 2. View 컴포넌트를 통해 상태바 영역을 채워줍니다. */}
+      <View style={styles.top} />
+      <StatusBar backgroundColor="#448aff" />
+      <View style={styles.blue}>
+        <Text>멋진 어플리케이션</Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  block: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  top: {
+    height: 24,
+    backgroundColor: '#448aff',
+  },
+  blue: {
+    padding: 8,
+    backgroundColor: '#448aff',
+  },
+});
+
+export default App;
+```
+
+영역을 채우는 용도로 `<View>` 컴포넌트를 사용해 상태바를 채우면 될 것 같지만, 이러면 안드로이드 플랫폼에서도 상태바 영역에 불필요한 `<View>` 컴포넌트가 추가되어 UI 통일에 실패하게 됩니다.
+
+![Android - 푸른 배경의 View 컴포넌트로 상태바 영역을 채운 모습 : 불필요한 뷰가 추가되어 상태바와 메인 뷰가 멀어지게 된다.](/posts/크로스-플랫폼-상태바-커스텀하기/6.png "650px")
+
+![IOS - 상태바 영역에 색을 입힐 수는 있게 되지만, 안드로이드 플랫폼과의 UI 통일에 실패한다.](/posts/크로스-플랫폼-상태바-커스텀하기/7.png "650px")
+
+## 2. react-native-safe-area-context
+
+이런 상황에서는 [`react-native-safe-area-context`](https://github.com/th3rdwave/react-native-safe-area-context) 라는 라이브러리를 활용할 수 있습니다.
+
+```jsx
+import React from 'react';
+import StatusBarArea from './components/StatusBarArea';
+import {StatusBar, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+
+const App = () => {
+  return (
+    {/* 1. 사용을 위해, SafeAreaProvider 컴포넌트를 최상단에 위치시킵니다. */}
+    <SafeAreaProvider>
+      {/* 2. 라이브러리의 SafeAreaView 컴포넌트를 네이티브 SafeAreaView 대신 사용합니다. */}
+      {/* 3. 이 때, 속성으로 edges={['bottom']} 을 전달합니다. */}
+      <SafeAreaView style={styles.block} edges={['bottom']}>
+        <StatusBar backgroundColor="#448aff" />
+        <View style={styles.blue}>
+          <Text>멋진 어플리케이션</Text>
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
+};
+
+const styles = StyleSheet.create({
+  block: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  blue: {
+    padding: 8,
+    backgroundColor: '#448aff',
+  },
+});
+
+export default App;
+```
+
+이러면 IOS에서는 `<SafeAreaView>` 대신 일반 `<View>`를 사용한 것처럼 상태바 영역까지 침범하게 되는데요, 이제 상태바 높이만큼의 뷰를 추가해보도록 하겠습니다.
+
+![IOS - 아직은 뭔가 이상한 모습입니다 🙂](/posts/크로스-플랫폼-상태바-커스텀하기/8.png "650px")
+
+상태바 영역의 높이는 복잡한 자바스크립트나 CSS를 수정하는 대신, `react-native-safe-area-context` 라이브러리의 `useSafeAreaInsets` 훅을 사용해 간단히 구해낼 수 있습니다.
+
+```jsx
+// 상단바 영역을 채울 View 컴포넌트입니다.
+// components/StatusBarArea.tsx
+
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+const StatusBarArea = () => {
+  // 1. 전체 크기 - SafeArea 영역의 높이(= 상태바 영역의 높이)를 얻을 수 있습니다.
+  // 2. 이제 이를 height 속성으로 전달합니다.
+  const { top } = useSafeAreaInsets();
+  return <View style={[styles.blue, { height: top }]} />;
+};
+
+const styles = StyleSheet.create({
+  blue: {
+    backgroundColor: "#448aff",
+  },
+});
+
+export default StatusBarArea;
+```
+
+```jsx
+import React from "react";
+import StatusBarArea from "./components/StatusBarArea";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+
+const App = () => {
+  return (
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.block} edges={["bottom"]}>
+        {/* 위에서 제작한 상태바 영역에 들어갈 뷰를 상태바 위에 추가해줍니다. */}
+        <StatusBarArea />
+        <StatusBar backgroundColor="#448aff" />
+        <View style={styles.blue}>
+          <Text>멋진 어플리케이션</Text>
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
+};
+
+const styles = StyleSheet.create({
+  block: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  blue: {
+    padding: 8,
+    backgroundColor: "#448aff",
+  },
+});
+
+export default App;
+```
+
+![안드로이드 UI](/posts/크로스-플랫폼-상태바-커스텀하기/9.png "650px")
+
+![IOS UI](/posts/크로스-플랫폼-상태바-커스텀하기/10.png "650px")
+
+성공입니다!
+
+이제 두 플랫폼의 UI를 해치지 않으면서, 어떤 크기의 기기에서도 동일하게 상태바를 꾸며줄 수 있게 된 모습입니다! 😆
