@@ -76,7 +76,7 @@ const Content = styled(motion.div)`
   }
 
   @media (max-width: 768px) {
-    position: absolute;
+    position: fixed;
     height: 100%;
     top: 0;
     left: 0;
