@@ -1,0 +1,191 @@
+---
+title: KeyboardAvoidingView 사용하기
+date: "2022-02-05"
+description: KeyboardAvoidingView 컴포넌트를 사용해 IOS에서 뷰가 키보드에 가려지는 문제를 해결해 봅니다.
+category: rn
+thumbnailUrl: "/thumbnails/react.svg"
+tags: ["React Native", "Mobile"]
+---
+
+리액트 네이티브의 `TextInput` 컴포넌트는 가상 키보드를 통해 사용자의 텍스트 입력을 받는 역할을 합니다.
+
+```jsx
+import React from "react";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  Button,
+  Keyboard,
+} from "react-native";
+
+const App = () => {
+  return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.inner}>
+        <Text style={styles.header}>안녕하세요!</Text>
+        <TextInput placeholder="아이디 입력" style={styles.textInput} />
+        <View style={styles.btnContainer}>
+          <Button title="회원 가입" onPress={() => null} />
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  inner: {
+    padding: 24,
+    flex: 1,
+    justifyContent: "space-around",
+  },
+  header: {
+    fontSize: 36,
+    marginBottom: 48,
+  },
+  textInput: {
+    height: 40,
+    borderColor: "#000000",
+    borderBottomWidth: 1,
+    marginBottom: 36,
+  },
+  btnContainer: {
+    backgroundColor: "white",
+    marginTop: 12,
+  },
+});
+
+export default App;
+```
+
+그런데, 안드로이드와 IOS는 키보드를 보여주는 과정에서 약간 다르게 뷰를 보여줍니다.
+두 플랫폼의 차이를 영상으로 살펴볼까요?
+
+![안드로이드 : 키보드와 하단 UI가 함께 올라옵니다.](/posts/keyboardAvoidingView-사용하기/1.gif "320px")
+
+![IOS : 키보드만 위로 올라오면서 "회원 가입" 버튼을 가리게 됩니다. 😱](/posts/keyboardAvoidingView-사용하기/0.gif "320px")
+
+보이시나요? 안드로이드는 키보드가 올라오면서 가려지는 영역들이 함께 올라오지만, IOS에서는 키보드에 가려지는 영역들이 키보드를 따라 올라오지 않고 그대로 가려지는 모습입니다.
+
+#
+
+이 문제를 해결하기 위해, 다행히도 리액트 네이티브에서는 `KeyboardAvoidingView` 라는 컴포넌트를 지원합니다. 😆
+
+## KeyboardAvoidingView 컴포넌트 사용하기
+
+`KeyboardAvoidingView` 컴포넌트를 사용하면 키보드에 의해 가려지는 뷰가 어떻게 보일지 커스텀할 수 있습니다.
+
+```jsx
+import React from 'react';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  Button,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+
+const App = () => {
+  return (
+    {/* 1. KeyboardAvoidingView 컴포넌트로 전체 뷰를 감싸줍니다.
+        2. ios 환경일 경우, behavior 속성에 'padding' 값을 전달합니다.
+        3. 뷰를 감싼 KeyboardAvoidingView는 반드시 flex: 1의 높이를 가져야 합니다! */}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.inner}>
+          <Text style={styles.header}>안녕하세요!</Text>
+          <TextInput placeholder="아이디 입력" style={styles.textInput} />
+          <View style={styles.btnContainer}>
+            <Button title="회원 가입" onPress={() => null} />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  // ... 그 외 스타일은 동일합니다.
+});
+
+export default App;
+```
+
+![](/posts/keyboardAvoidingView-사용하기/2.gif "320px")
+
+![](/posts/keyboardAvoidingView-사용하기/3.gif "320px")
+
+이제 안드로이드와 IOS 모두에서 키보드에 의해 뷰가 가려지지 않고 제대로 보이는 모습입니다!
+
+## Tip. Platform 객체 사용법 개선하기
+
+이전 코드를 살펴보면 `KeyboardAvoidingView` 컴포넌트 안에서 IOS 플랫폼을 검사하기 위해 `Platform.OS === 'ios' ? (값 1) : (값 2)` 처럼 삼항 연산자를 사용하고 있었습니다.
+
+```jsx
+import React from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+
+const App = () => {
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+
+      {...}
+
+    </KeyboardAvoidingView>
+  );
+};
+
+export default App;
+```
+
+컴포넌트의 속성 내에서 삼항 연산을 수행하는건 보기 조금 찝찝하니, 이걸 수정할 방법은 없을까요?  
+이럴 때는 삼항 연산자 대신 `Platform.select` 라는 `Platform` 객체의 메서드를 사용할 수 있습니다.
+
+```jsx
+import React from 'react';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+
+const App = () => {
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.select({ios: 'padding', android: undefined})}
+    >
+
+      {...}
+
+    </KeyboardAvoidingView>
+  );
+};
+
+export default App;
+```
+
+이렇게 하면 IOS / Android 플랫폼에 따라 적용할 값을 객체의 값을 통해 간단히 지정할 수 있게 됩니다!  
+심지어 타입스크립트를 통한 타입 추론도 훌륭히 지원되는 모습이네요! 😆
+
+![](/posts/keyboardAvoidingView-사용하기/4.png "600px")
+
+---
+
+### 참고
+
+- [리액트 네이티브 공식 문서 - keyboardAvoidingView](https://reactnative.dev/docs/keyboardavoidingview)
+- [리액트 네이티브를 다루는 기술 (yes24 링크)](http://www.yes24.com/Product/Goods/104643906)

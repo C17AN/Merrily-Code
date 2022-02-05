@@ -3,8 +3,10 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import Image from "next/image";
 import TagList from "./common/TagList";
+import { FcCalendar } from "react-icons/fc";
 import { palette } from "styles/palette";
 import { motion } from "framer-motion";
+import { IoMdCalendar } from "react-icons/io";
 
 type PostItemProps = {
   title: string;
@@ -67,7 +69,10 @@ const PostItem = ({
           <h2 className="post-title">{title}</h2>
           <h3 className="post-description">{description}</h3>
           <MetaData>
-            <p className="post-date">{parsedDate}</p>
+            <div className="post-date">
+              <IoMdCalendar size={16} color={palette.grey[500]} />
+              <p>{parsedDate}</p>
+            </div>
             {tagList?.length && <TagList tagList={tagList} />}
           </MetaData>
         </Content>
@@ -138,10 +143,11 @@ const MetaData = styled.div`
   .post-date {
     font-size: 0.625rem;
     border-radius: 4px;
-    padding: 0.25rem 0.5rem;
-    display: inline-block;
-    color: ${({ color }) => color};
-    background-color: ${palette.blue[500] + 20};
+    padding: 0.25rem 0.5rem 0.25rem 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: ${palette.grey[500]};
   }
 
   @media (max-width: 768px) {
