@@ -1,0 +1,181 @@
+---
+title: ReactNode, ReactChild, ReactElement 타입 비교하기
+date: "2021-10-16"
+description: 타입스크립트에서 컴포넌트가 갖는 children 속성의 타입을 알아봅시다.
+category: typescript
+thumbnailUrl: "/thumbnails/typescript.svg"
+tags: ["타입스크립트", "리액트"]
+---
+
+자식 요소를 감싸는 래퍼 컴포넌트를 작성할 때 자식 요소인 `children` 속성의 타입을 명시해야 하는 경우가 자주 있습니다.
+
+그런데, `ReactChild`, `ReactElement`, `ReactNode` 등 비슷한 이름을 갖는 타입이 너무 많은 모습이네요!
+
+#
+
+오늘은 자주 사용되는 타입 설명과 함께 어떤 상황에서 각 타입을 사용할 수 있을지 간단히 알아보도록 하겠습니다.  
+그럼, 코드 주세요! 😆
+
+```tsx
+const App = () => {
+  return (
+    <div className="App">
+      <Wrapper>
+        {/* 과연 children 요소의 타입은 무엇일까요? */}
+        <div>Hello, world!</div>
+      </Wrapper>
+    </div>
+  );
+};
+
+type WrapperProp = {
+  // children: React.ReactChild;
+  // children: React.ReactElement;
+  // children: JSX.Element;
+  // children: React.ReactChildren;
+  // children: React.ReactNode;
+  // ...으아아아!! ...
+};
+
+const Wrapper = ({ children }: WrapperProp) => {
+  return (
+    <div className="Wrapper">
+      <div>{children}</div>
+    </div>
+  );
+};
+
+export default App;
+```
+
+## React.ReactNode
+
+제일 처음 알아볼 타입은 `ReactNode` 타입입니다.  
+`ReactNode`는 `children` 속성의 타입으로 가장 많이 사용하는 타입이기도 한데요, 과연 어떤 특징을 갖고 있을까요?
+
+```tsx
+// ReactChild 타입에 string, number 타입이 포함되어 있습니다.
+type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+```
+
+`ReactNode` 타입은 `jsx` 내에서 사용할 수 있는 모든 요소의 타입을 의미하는데요, 즉 `string`, `null`, `undefined` 등을 포함하는 가장 넓은 범위를 갖는 타입입니다.
+
+> ✅ TMI : `ReactNode` 타입은 **클래스 컴포넌트** 의 `render` 함수가 기본적으로 리턴하는 타입이기도 합니다!  
+> 반면 **함수 컴포넌트**는 `ReactElement` 인터페이스를 리턴합니다!
+
+## React.ReactElement
+
+두 번째로 알아볼 타입은 `ReactElement` 타입입니다.
+
+VSCode에서 `ReactElement` 를 확인해보면 아래처럼 생긴 것을 확인할 수 있는데요, 이게 도대체 무슨 뜻일까요?
+
+```tsx
+interface ReactElement<
+  P = any,
+  T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>
+> {
+  type: T;
+  props: P;
+  key: Key | null;
+}
+```
+
+이 아리송한 코드만 봐서는 뭔지 알기 어려우니, 답을 먼저 소개하자면 `ReactElement` 는 `createElement` 함수를 통해 생성된 객체의 타입입니다.
+
+![index.d.ts를 확인해보면 ReactNode가 ReactElement를 포함하고 있음을 알 수 있습니다.](/posts/ReactNode-ReactChild-ReactElement-타입-비교하기/0.png)
+
+또한 `ReactNode` 와는 달리 원시 타입을 허용하지 않고 완성된 `jsx` 요소만을 허용하는데요, 즉 위 사진에서 확인할 수 있는 것처럼 `ReactNode` 타입이 `ReactElement` 타입을 포함하고 있는 관계임을 확인할 수 있습니다.
+
+![](/posts/ReactNode-ReactChild-ReactElement-타입-비교하기/1.png)
+
+따라서 위 사진처럼 원시 타입 리터럴을 `children` 속성으로 사용하려 하면 에러를 출력하는 모습인데요, 따라서 `ReactElement` 타입은 자식 요소로 하나의 "컴포넌트" 를 받는 것을 강제해야 하는 상황에 사용할 수 있습니다.
+
+### createElement 함수의 리턴값
+
+시간이 조금 있으니, 한번 `createElement`와 `ReactElement`의 관계도 확인해볼까요?  
+`jsx`로 간단한 태그를 만들어본 다음 바벨을 통해 트랜스파일을 수행해 보겠습니다.
+
+```tsx
+<div name="chanmin">Hello, {name}</div>
+```
+
+그 결과, 아래와 같은 결과물이 출력됩니다.
+
+```tsx
+"use strict";
+
+/*#__PURE__*/
+React.createElement(
+  "div",
+  {
+    name: "chanmin",
+  },
+  "Hello, ",
+  name
+);
+```
+
+트랜스파일된 결과물(`createElement` 함수)을 확인해보면 생성한 태그에 대한 정보가 담겨 있는데요, 자세히 살펴보면 `ReactElement` 가 가진 `type` 과 `prop` 이 담겨있는 모습입니다.
+
+#
+
+따라서, `createElement` 함수가 리턴한 모든 객체는 `ReactElement` 인터페이스를 구현하고 있음을 알 수 있습니다.
+
+## 그럼 혹시 JSX.Element 와 ReactElement 의 차이는 무엇인가요?
+
+거의 없습니다!
+
+```tsx
+// index.d.ts
+declare global {
+    namespace JSX {
+        interface Element extends React.ReactElement<any, any> { }
+                ...
+        }
+}
+```
+
+`JSX.Element` 는 단순히 `ReactElement` 인터페이스를 상속받은 인터페이스인데요, 내부 구조나 제약 타입이 별도로 존재하지 않아 완전히 동일하다고 봐도 무방합니다.
+
+### React.ReactChild
+
+마지막으로 알아볼 타입은 `ReactChild` 타입입니다.
+
+```tsx
+type ReactChild = ReactElement | ReactText;
+```
+
+`ReactChild` 는 `ReactNode` 타입을 적절히 내로잉(narrowing)한 타입인데요, `ReactElement` 타입이 리액트 요소 객체만을 허용했다면, `ReactChild` 타입은 여기서 원시 타입까지는 허용하는 타입입니다.
+
+---
+
+## 정리
+
+타입별 허용 범위 비교 : `ReactNode` ⊃ `ReactChild` ⊃ `ReactElement`
+
+## 타입 설명 요약
+
+- `ReactNode` 타입은 컴포넌트, 원시 타입, `null`, `undefined`를 모두 허용하는 타입입니다.
+
+```tsx
+type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+```
+
+- `ReactChild` 타입은 컴포넌트, 원시 타입 리터럴을 허용하는 타입입니다.
+
+```tsx
+type ReactChild = ReactElement | ReactText;
+```
+
+- `ReactElement` 타입은 `createElement` 함수를 통해 생성된 컴포넌트만을 허용하는 타입입니다.
+
+```tsx
+interface ReactElement<
+  P = any,
+  T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>
+> {
+  type: T;
+  props: P;
+  key: Key | null;
+}
+```
