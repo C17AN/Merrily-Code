@@ -42,7 +42,7 @@ const Hero = (props: Props) => {
 };
 
 const Container = styled.div`
-  margin-bottom: 3rem;
+  /* margin-bottom: 3rem; */
 `;
 
 const Title = styled.h1`

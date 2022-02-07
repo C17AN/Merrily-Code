@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useContext, useState } from "react";
 import TechStack from "type/TechStack";
 import Image from "next/image";
 import useIsMobile from "hooks/useIsMobile";
 import { palette } from "styles/palette";
 import { motion } from "framer-motion";
+import { DescriptionContext } from ".";
 
 const variants = {
   hover: {
@@ -16,20 +17,35 @@ const variants = {
   },
 };
 
-const TechStackItem = ({ icon, name, index }: TechStack & { index: number }) => {
+type TechStackItemProps = {
+  techStackData: TechStack;
+  index: number;
+};
+
+const TechStackItem = ({ techStackData, index }: TechStackItemProps) => {
   const isMobile = useIsMobile();
   const responsiveImageSize = isMobile ? 48 : 64;
+  const { openTechDescription, closeTechDescription } = useContext(DescriptionContext);
+  const { name, icon } = techStackData;
 
   return (
-    <Container variants={variants} whileHover="hover" animate="fadeIn">
-      <RoundedImage
-        src={icon}
-        width={responsiveImageSize}
-        height={responsiveImageSize}
-        alt={name}
-      />
-      <p className="techstack-name">{name}</p>
-    </Container>
+    <>
+      <Container
+        variants={variants}
+        whileHover="hover"
+        animate="fadeIn"
+        onMouseEnter={() => openTechDescription(techStackData)}
+        onMouseLeave={closeTechDescription}
+      >
+        <RoundedImage
+          src={icon}
+          width={responsiveImageSize}
+          height={responsiveImageSize}
+          alt={name}
+        />
+        <p className="techstack-name">{name}</p>
+      </Container>
+    </>
   );
 };
 

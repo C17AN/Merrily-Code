@@ -1,9 +1,8 @@
-import { ReactNode } from "react";
-
 type TechStack = {
   name: string;
   icon: string;
-  description: string;
+  title?: string;
+  descriptionList?: string[];
   disabled?: boolean;
 };
 

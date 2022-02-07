@@ -21,11 +21,18 @@ const Container = styled.div`
   border-radius: 4px;
   font-size: 0.85rem;
   margin: 1rem 0;
+
   & > pre {
     border-radius: 8px;
     code {
       font-weight: 400;
-      font-size: 0.8rem !important;
+      font-size: 0.875rem !important;
+
+      @media (max-width: 768px) {
+        span {
+          font-size: 0.75rem !important;
+        }
+      }
     }
   }
 
