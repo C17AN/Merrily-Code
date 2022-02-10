@@ -23,8 +23,7 @@ const TechStackData = {
       {
         name: "typescript",
         icon: "/icons/tech/frontend/typescript.svg",
-        title:
-          "타입스크립트를 완벽하게 다루지는 못하지만, 사용 시의 편리함은 명확히 인식하고 있습니다.",
+        title: "타입스크립트를 효율적인 개발을 위한 도구로 사용하려 노력합니다.",
         descriptionList: [
           "개발할 때 목업 데이터보다 데이터 타입을 먼저 정의하려 노력합니다.",
           "any, unknown 타입은 최대한 지양하려 노력합니다. 다만 옵셔널 타입은 적극적으로 사용합니다.",

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import useIsMobile from "hooks/useIsMobile";
@@ -15,7 +15,12 @@ export type InfoItemProps = {
 
 const InfoItem = ({ icon, title, description, startedAt, endedAt, targetUrl }: InfoItemProps) => {
   const isMobile = useIsMobile();
-  const responsiveLogoSize = isMobile ? 36 : 48;
+  const [responsiveLogoSize, setResponsiveLogoSize] = useState<number>(36);
+
+  useEffect(() => {
+    isMobile ? setResponsiveLogoSize(36) : setResponsiveLogoSize(48);
+    console.log(isMobile ? 36 : 48);
+  }, [isMobile]);
 
   const setInfoYearText = (): string => {
     if (startedAt && endedAt) {
@@ -62,6 +67,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     margin-left: 1rem;
+    overflow-x: scroll;
 
     h2 {
       font-size: 1rem;
@@ -74,6 +80,15 @@ const Container = styled.div`
       color: ${palette.grey[400]};
       white-space: nowrap;
       margin-bottom: 0.125rem;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    & {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   }
 

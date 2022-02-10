@@ -7,6 +7,7 @@ import useTechStackCategory from "hooks/useTechStackCategory";
 import TechStackDescription from "./Description";
 import TechStack from "type/TechStack";
 import { palette } from "styles/palette";
+import TechStackData from "data/About/TechStackData";
 
 export type TechCategory = "frontEnd" | "backEnd" | "mobile" | "devOps" | "cloud";
 
@@ -14,17 +15,16 @@ export const DescriptionContext = createContext<any>(null);
 
 const TechStack = () => {
   const { techName, techCode, setTechSlideIndex } = useTechStackCategory(0);
-  const [isTechDescriptionOpen, setIsTechDescriptionOpen] = useState(false);
-  const [selectedTechStack, setSelectedTechStack] = useState<TechStack | null>(null);
+  const { frontEnd } = TechStackData;
+  const [selectedTechStack, setSelectedTechStack] = useState<TechStack | null>(
+    frontEnd.techStackList[0]
+  );
 
-  const openTechDescription = (techStackData: TechStack) => {
+  const selectTechStack = (techStackData: TechStack) => {
     setSelectedTechStack(() => techStackData);
-    setIsTechDescriptionOpen(true);
   };
 
-  const closeTechDescription = () => {
-    setIsTechDescriptionOpen(false);
-  };
+  const closeTechDescription = () => {};
 
   return (
     <div>
@@ -35,16 +35,14 @@ const TechStack = () => {
       </TitleContainer>
       <DescriptionContext.Provider
         value={{
-          isTechDescriptionOpen,
-          openTechDescription,
+          selectedTechStack,
+          selectTechStack,
           closeTechDescription,
         }}
       >
         <TeckStackList setTechSlideIndex={setTechSlideIndex} />
       </DescriptionContext.Provider>
-      {selectedTechStack && (
-        <TechStackDescription techStackData={selectedTechStack} isVisible={isTechDescriptionOpen} />
-      )}
+      {selectedTechStack && <TechStackDescription techStackData={selectedTechStack} />}
     </div>
   );
 };

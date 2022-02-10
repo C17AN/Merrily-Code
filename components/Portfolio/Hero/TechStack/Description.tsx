@@ -5,14 +5,13 @@ import { palette } from "styles/palette";
 
 type TechStackDescriptionProps = {
   techStackData: TechStack;
-  isVisible: boolean;
 };
 
-const TechStackDescription = ({ techStackData, isVisible }: TechStackDescriptionProps) => {
+const TechStackDescription = ({ techStackData }: TechStackDescriptionProps) => {
   const { title, descriptionList } = techStackData || { title: "", descriptionList: [] };
 
   return (
-    <Container isVisible={isVisible}>
+    <Container>
       <DescriptionTitle>{title}</DescriptionTitle>
       <DescriptionList>
         {descriptionList?.map((description, index) => (
@@ -23,19 +22,13 @@ const TechStackDescription = ({ techStackData, isVisible }: TechStackDescription
   );
 };
 
-const Container = styled.div<{ isVisible: boolean }>`
+const Container = styled.div`
   margin-top: 1rem;
   font-size: 0.75rem;
   transition: 0.2s ease-in-out all;
-  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   will-change: opacity;
   display: flex;
   flex-direction: column;
-  min-height: 10rem;
-
-  @media (max-width: 768px) {
-    min-height: 13rem;
-  }
 `;
 
 const DescriptionTitle = styled.p`

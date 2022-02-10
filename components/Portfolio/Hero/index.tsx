@@ -22,6 +22,10 @@ const Hero = (props: Props) => {
             <Image src={GreetingImage} alt="프로필 이미지" />
           </span>
           <p className="profile-description">🍵 민트초코단의 간부이기도 하죠! 😎</p>
+          <ButtonContainer>
+            <ProjectButton>프로젝트 소개</ProjectButton>
+            <ProjectButton>프로젝트 소개</ProjectButton>
+          </ButtonContainer>
         </Profile>
         <div>
           <HighlightedText
@@ -42,7 +46,7 @@ const Hero = (props: Props) => {
 };
 
 const Container = styled.div`
-  /* margin-bottom: 3rem; */
+  margin-bottom: 1rem;
 `;
 
 const Title = styled.h1`
@@ -75,7 +79,7 @@ const Profile = styled.div`
     font-size: 0.875rem;
     text-align: center;
     line-height: 1.5;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0.5rem 0;
     color: ${palette.grey[500]};
   }
 
@@ -117,6 +121,33 @@ const Description = styled.div`
         margin: 0.25rem;
       }
     }
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+
+  @media (max-width: 768px) {
+    margin: 1rem;
+  }
+`;
+
+const ProjectButton = styled.button`
+  padding: 0.5rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  outline: none;
+  border: none;
+  transition: 0.2s ease-in-out all;
+  background-color: ${palette.black};
+  color: ${palette.white};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${palette.grey[500]};
   }
 `;
 

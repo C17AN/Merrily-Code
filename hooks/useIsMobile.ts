@@ -7,12 +7,14 @@ const useIsMobile = () => {
   const handleScreenResize = () => {
     setScreenWidth(window.innerWidth);
     screenWidth > 768 ? setIsMobile(false) : setIsMobile(true);
-    window.removeEventListener("resize", handleScreenResize);
   };
 
   useEffect(() => {
     handleScreenResize();
     window.addEventListener("resize", handleScreenResize);
+    return () => {
+      window.removeEventListener("resize", handleScreenResize);
+    };
   }, [screenWidth]);
 
   return isMobile;
