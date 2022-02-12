@@ -17,7 +17,7 @@ import {
 } from "react-icons/si";
 import { DiAndroid, DiApple, DiGoogleCloudPlatform, DiMysql, DiRedis } from "react-icons/di";
 import { RiComputerFill } from "react-icons/ri";
-import { AiFillDatabase } from "react-icons/ai";
+import { AiFillDatabase, AiTwotoneExperiment } from "react-icons/ai";
 import { GiFamilyTree, GiPlayerNext, GiWifiRouter } from "react-icons/gi";
 import { BsCodeSlash, BsHddNetworkFill, BsKeyboard } from "react-icons/bs";
 import { IoMdRestaurant } from "react-icons/io";
@@ -51,6 +51,7 @@ const category = {
     { displayName: "Vue", icon: <FaVuejs />, categoryName: "vue" },
     // { displayName: "Nuxt.js", icon: <SiNuxtdotjs />, categoryName: "nuxt" },
     { displayName: "TypeScript", icon: <SiTypescript />, categoryName: "typescript" },
+    { displayName: "프론트엔드 테스팅", icon: <AiTwotoneExperiment />, categoryName: "testing" },
     // { displayName: "최적화", icon: <SiTypescript />, categoryName: "optimization" },
   ] as Array<Category>,
   백엔드: [
@@ -75,7 +76,7 @@ const category = {
   ] as Array<Category>,
   오픈소스: [
     {
-      displayName: "기여 일기",
+      displayName: "컨트리뷰션 기록",
       icon: <FaRegHandshake />,
       categoryName: "contribution",
     },
@@ -105,7 +106,7 @@ const category = {
   기타: [
     { displayName: "공연", icon: <GiMusicalNotes />, categoryName: "show" },
     { displayName: "맛집 기록", icon: <IoMdRestaurant />, categoryName: "eat" },
-    { displayName: "회고", icon: <GiPlayerNext />, categoryName: "eat" },
+    { displayName: "회고", icon: <GiPlayerNext />, categoryName: "bio" },
   ] as Array<Category>,
 };
 

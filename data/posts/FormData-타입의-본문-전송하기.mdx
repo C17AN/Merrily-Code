@@ -1,0 +1,197 @@
+---
+title: FormData 타입의 요청 본문 데이터 전송하기
+date: "2022-02-12"
+description: FormData 객체로 multipart/form-data 타입의 데이터를 전송해 봅시다.`
+category: nodejs
+thumbnailUrl: "/thumbnails/nodejs.svg"
+tags: ["Node.js", "javascript"]
+---
+
+`axios` 를 통해 `post` 메서드 요청을 전송할 때는 객체를 통해 요청 본문이 될 데이터를 포함할 수 있었는데요, 아마 이런 형태의 코드를 많이 보셨을 것입니다.
+
+```jsx
+const data = {
+  id: "chanmin",
+  pw: "encryptedPW",
+};
+
+await axios.post(URL, data);
+
+// 또는
+
+await axios({ method: "post", url: URL, data });
+```
+
+그런데 이는 요청 본문에 `JSON` 형식의 데이터를 포함할 때 사용하는 방법으로, 만약 서버에서 `multipart/form-data` 형식의 데이터를 받고자 한다면 본문 형식 불일치로 인해 잘못된 요청이 됩니다.
+
+> ✅ `form-data` 형식이란?
+>
+> #
+>
+> 한 `post` 요청에 서로 타입이 다른 둘 이상의 데이터를 포함해야 할 때, `Content-type` 에는 하나의 타입만을 명시할 수 있다는 문제가 있습니다.  
+> 따라서 한 요청에 둘 이상의 타입을 포함하기 위해 `Content-type`에 `form-data` 라는 타입을 명시하고, `form-data` 안에 하위 데이터들 및 타입을 묶어 관리합니다.
+
+그렇다면 어떻게 해야 올바른 `form-data` 형식의 요청을 보낼 수 있을까요?
+
+## FormData 객체
+
+이럴 때는 `FormData` 객체를 사용할 수 있습니다.
+
+#
+
+`FormData` 객체는 `JSON`과 유사하게 **키 - 값** 쌍으로 이루어져 있지만, **키 - 값** 쌍의 데이터 외에도 데이터 처리를 위한 여러 속성을 추가적으로 가지고 있습니다.
+
+한번 다른 프로젝트에서 사용된 `FormData` 객체를 출력해본 모습입니다.
+
+```jsx
+// FormData 객체 (예시)
+{
+  _overheadLength: 314,
+  _valueLength: 12,
+  _valuesToMeasure: [],
+  writable: false,
+  readable: true,
+  dataSize: 0,
+  maxDataSize: 2097152,
+  pauseStreams: true,
+  _released: false,
+  _streams: [
+		// ... streams 배열 안에는 FormData를 구성하는 데이터가 포함됩니다.
+	],
+  _currentStream: null,
+  _insideLoop: false,
+  _pendingNext: false,
+  _boundary: '--------------------------583284787948281741859267'
+}
+```
+
+한눈에 봐도 `JSON`과는 다른 모습이죠?
+`FormData` 타입은 다음과 같이 사용할 수 있습니다.
+
+```jsx
+/* 브라우저에는 FormData 객체가 내장되어 있지만,
+   node.js 에서는 form-data 패키지를 별도로 설치해야 합니다. */
+
+// Node.js 환경일 시
+// import FormData from "form-data";
+
+const formData = new FormData();
+
+// FormData 객체에 키 - 값 쌍 추가하기
+formData.append("키", 값);
+
+// FormData 객체에서 데이터 제거하기
+formData.delete("삭제할 데이터 쌍의 키");
+```
+
+> 🔎 `FormData` 객체의 메서드는 [MDN 문서](https://developer.mozilla.org/ko/docs/Web/API/FormData) 에서 더 확인할 수 있습니다.
+
+한번 개인 프로젝트에서 사용하려 했던 코드를 예로 들어보겠습니다.
+
+```jsx
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const getSchedule = async ({ foundCd, locCd, date }) => {
+  const url = process.env.BASE_ENDPOINT;
+
+  const body = {
+    foundCd,
+    locCd,
+    date,
+  };
+
+  try {
+    const {
+      data: { timeList },
+    } = await axios({
+      url,
+      method: "post",
+      data: body,
+    });
+    return { status: 200, data: timeList };
+  } catch (err) {
+    return { status: 400, data: err };
+  }
+};
+
+const data = await getSchedule({ foundCd: "M30", locCd: "3", date: "20220222" });
+console.log(data);
+// 원래의 data 기댓값 대신, undefined가 돌아온 모습입니다.
+// { status: 200, data: undefined }
+```
+
+이렇게 필요한 데이터를 모아 `JSON`으로 전송하면, 해당 서버에서는 `multipart/form-data` 타입의 요청 본문을 기대하고 있기 때문에 잘못된 응답이 돌아오게 됩니다.
+
+```jsx
+import dotenv from "dotenv";
+import axios from "axios";
+import FormData from "form-data";
+
+dotenv.config();
+
+const getSchedule = async ({ foundCd, locCd, date }) => {
+  const url = process.env.BASE_ENDPOINT;
+  const formData = new FormData();
+
+  formData.append("foundCd ", foundCd);
+  formData.append("locCd", locCd);
+  formData.append("date", date);
+
+  try {
+    const {
+      data: { timeList },
+    } = await axios({
+      url,
+      method: "post",
+      data: formData,
+      // 엥, boundary는 어떤 속성일까요?
+      headers: { "Content-Type": `multipart/form-data; boundary=${formData._boundary}` },
+    });
+    return { status: 200, data: timeList };
+  } catch (err) {
+    return { status: 400, data: err };
+  }
+};
+
+const data = await getSchedule({ foundCd: "M30", locCd: "3", date: "20220222" });
+console.log(data);
+/*
+{
+  status: 200,
+  data: [
+    {
+      CULTURE_YN: 'N',
+      RSV_CNT: 75,
+      ENT_CNT: 0,
+      SCHEDULE_TIME: '1000',
+      GRP_RSV_CNT: 0,
+      PERSON_CNT: 75
+    },
+  ...
+}
+*/
+```
+
+이제 `JSON` 대신 `FormData` 형식의 데이터를 포함해 요청을 전송하면, 성공적으로 응답이 돌아오는 모습입니다. 🙂
+
+### multipart/form-data 형식의 boundary 값
+
+잠깐 위의 코드를 다시 돌아보면 이렇게 생긴 코드가 있었습니다.
+
+```js
+headers: { "Content-Type": `multipart/form-data; boundary=${formData._boundary}` },
+```
+
+위에서 잠깐 언급했지만, `multipart/form-data`는 여러 형식의 요청 본문을 하나로 묶어 전송하기 위한 형식이었는데요, 이렇게 여러 데이터를 하나로 묶은 결과물을 다시 각각의 데이터로 구분해 분리하기 위한 구분자가 바로 `boundary` 값이 됩니다.
+
+#
+
+`FormData` 객체를 사용하면 간단히 이 `boundary` 값을 `_boundary` 라는 프로퍼티로 추출할 수 있으며, 이를 요청 헤더에 포함해 전송하면 됩니다.
+
+### 요약
+
+- 클라이언트와 서버에 명시된 `Content-type` 이 일치하지 않으면, 올바르지 않은 응답이 돌아올 수 있습니다.
+- `multipart/form-data` 타입을 만족하려면 브라우저(또는 노드)의 `FormData` 객체를 활용할 수 있습니다.
