@@ -23,7 +23,7 @@ const Hero = (props: Props) => {
           </span>
           <p className="profile-description">🍵 민트초코단의 간부이기도 하죠! 😎</p>
           <ButtonContainer>
-            <ProjectButton>프로젝트 소개</ProjectButton>
+            <ProjectButton>이 페이지의 번들 분석하기</ProjectButton>
             <ProjectButton>프로젝트 소개</ProjectButton>
           </ButtonContainer>
         </Profile>

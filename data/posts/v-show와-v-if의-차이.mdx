@@ -1,0 +1,107 @@
+---
+title: v-show와 v-if의 차이 알아보기
+date: "2021-08-21"
+description: 조건부 렌더링을 위한 v-show와 v-if는 서로 어떤 점이 다를까요?
+category: vue
+thumbnailUrl: "/thumbnails/vue.svg"
+tags: ["Vue", "프론트엔드"]
+---
+
+## 조건부 렌더링
+
+뷰(Vue.js)에서는 특정 조건을 만족할 때만 컴포넌트나 블록을 렌더링하는 **조건부 렌더링** 을 위해 `v-if` 와 `v-show` 라는 두 종류의 지시자(directive)를 사용합니다.
+
+```html
+<!-- 두 블록은 isVisible이 참일 때만 화면에 나타납니다. -->
+<div id="root">
+  <div v-show="isVisible">v-show를 사용한 블록</div>
+  <div v-if="isVisible">v-if를 사용한 블록</div>
+</div>
+```
+
+그런데, 왜 뷰는 동일한 역할을 수행하는 지시자를 둘이나 구현해둔 걸까요?
+
+## v-if 지시자
+
+사실 두 지시자는 엄밀히 다른 방식으로 조건부 렌더링을 수행합니다.  
+먼저 `v-if` 지시자를 볼까요?
+
+### 1. Vue 컴포넌트 코드
+
+```html
+<!-- index.html 코드 부분 -->
+<div id="root">
+  <div v-if="isVisible">v-if를 사용한 블록</div>
+</div>
+```
+
+### 2. 개발자 도구에서 확인한 DOM 트리 렌더링 결과
+
+- `isVisible === true` 일 때
+
+```html
+<div id="root" data-v-app="">
+  <div>v-if를 사용한 블록</div>
+</div>
+```
+
+- `isVisible === false` 일 때
+
+```html
+<div id="root" data-v-app="">
+  <!--v-if-->
+</div>
+```
+
+`v-if` 지시자는 조건이 참일 때는 블록을 새로 생성해 DOM 트리에 추가하고, 조건이 거짓으로 변하면 해당 블록을 DOM 트리에서 완전히 삭제합니다.
+
+또한, 초기 렌더링 시 조건이 거짓이라면 **렌더링 단계부터 DOM 트리에 포함하지 않는다는** 특징이 있습니다.
+
+## v-show 지시자
+
+`v-if`가 조건부 렌더링 과정에서 DOM 트리를 직접 조작했다면 `v-show`는 조건이 참일 때는 정상적으로 블록을 렌더링하고, 조건이 거짓일 때는 해당 블록에 `display: none` 스타일을 인라인으로 적용합니다.
+
+### 1. Vue 컴포넌트 코드
+
+```html
+<!-- index.html 코드 부분 -->
+<div id="root">
+  <div v-show="isVisible">v-show를 사용한 블록</div>
+</div>
+```
+
+### 2. 개발자 도구에서 확인한 DOM 트리 렌더링 결과
+
+- `isVisible === true` 일 때
+
+```html
+<div id="root" data-v-app="">
+  <div>v-show를 사용한 블록</div>
+</div>
+```
+
+- `isVisible === false` 일 때
+
+```html
+<div id="root" data-v-app="">
+  <div style="display: none;">v-show를 사용한 블록</div>
+</div>
+```
+
+또한 `v-if` 가 초기 렌더링 시 조건이 거짓이라면 처음부터 렌더링을 수행하지 않는 것과는 달리, `v-show` 는 **일단 렌더링을 수행하고** 조건을 평가해 `display:none` 스타일을 부여할지를 결정합니다.
+
+## 결론
+
+둘의 차이는 얼핏 보면 단순히 적용 방식에만 있는 것 같지만, 상황에 따라 이 둘은 성능과도 밀접한 관련이 있습니다.
+
+#
+
+`v-if` 는 해당 블록(또는 컴포넌트)을 DOM 트리에서 제어하다 보니 전환 비용이 커 **조건이 자주 변하는 경우에는 적합하지 않지만**, 초기 렌더링 시 조건이 거짓이라면 렌더링을 아예 생략한다는 점으로 인해 **초기에 조건이 결정되고 쉽게 변하지 않는** 상황에 유리합니다.
+
+#
+
+대신 토글 메뉴처럼 런타임 단계에서 조건이 자주 변경되는 요소라면, 이런 경우에는 `v-show` 를 사용하는 것이 적합합니다. 🙂
+
+## 참조
+
+- [Vue 공식 문서 - 조건부 렌더링](https://v3.ko.vuejs.org/guide/conditional.html#v-else)
