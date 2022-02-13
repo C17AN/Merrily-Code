@@ -47,7 +47,7 @@ const category = {
   ] as Array<Category>,
   프론트엔드: [
     { displayName: "React", icon: <FaReact />, categoryName: "react" },
-    // { displayName: "Next.js", icon: <SiNextdotjs />, categoryName: "next" },
+    { displayName: "Next.js", icon: <SiNextdotjs />, categoryName: "next" },
     { displayName: "Vue", icon: <FaVuejs />, categoryName: "vue" },
     // { displayName: "Nuxt.js", icon: <SiNuxtdotjs />, categoryName: "nuxt" },
     { displayName: "TypeScript", icon: <SiTypescript />, categoryName: "typescript" },

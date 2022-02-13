@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:local": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -40,6 +41,7 @@
     "@types/react-color": "^3.0.6",
     "@types/react-slick": "^0.23.8",
     "@types/react-syntax-highlighter": "^13.5.2",
+    "cross-env": "^7.0.3",
     "eslint": "7",
     "eslint-config-next": "12.0.2",
     "gray-matter": "^4.0.3",
