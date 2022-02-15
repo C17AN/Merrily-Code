@@ -15,6 +15,10 @@ const TextArea = styled.textarea`
   &:focus {
     border-color: ${palette.blue[500]};
   }
+
+  &::placeholder {
+    color: ${palette.grey[200]};
+  }
 `;
 
 export default TextArea;

@@ -4,19 +4,28 @@ import ScrollContainer from "react-indiana-drag-scroll";
 import { palette } from "styles/palette";
 import { GuestFormProvider } from ".";
 
-interface Props {}
+export type JobPositionLabel =
+  | "프론트엔드 개발자"
+  | "백엔드 개발자"
+  | "모바일 개발자"
+  | "인프라 엔지니어"
+  | "데이터 엔지니어"
+  | "인공지능 연구원"
+  | "디자이너"
+  | "기획자";
 
-const PositionListData = [
-  { label: "프론트엔드", value: "frontend" },
-  { label: "백엔드", value: "backend" },
-  { label: "클라우드", value: "cloud" },
-  { label: "모바일", value: "mobile" },
-  { label: "인공지능", value: "ai" },
-  { label: "데이터", value: "data" },
-  { label: "디자인", value: "design" },
+const PositionListData: Array<{ label: JobPositionLabel; value: string }> = [
+  { label: "프론트엔드 개발자", value: "frontend" },
+  { label: "백엔드 개발자", value: "backend" },
+  { label: "인프라 엔지니어", value: "cloud" },
+  { label: "모바일 개발자", value: "mobile" },
+  { label: "데이터 엔지니어", value: "data" },
+  { label: "인공지능 연구원", value: "ai" },
+  { label: "디자이너", value: "design" },
+  { label: "기획자", value: "pm" },
 ];
 
-const GuestPosition = (props: Props) => {
+const GuestPosition = (props) => {
   const { guestForm, updateGuestForm } = useContext(GuestFormProvider);
 
   const handleGuestNameChange = (name: string, value: string) => {

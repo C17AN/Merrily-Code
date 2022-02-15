@@ -3,9 +3,13 @@ import React from "react";
 import Image from "next/image";
 import GuestbookProfile from "type/GuestbookProfile";
 import RoundImageWrapper from "components/common/RoundImageWrapper";
-import ProfileLabel from "../ProfileLabel";
+import PositionLabel from "../PositionLabel";
 import { palette } from "styles/palette";
 import { motion } from "framer-motion";
+import { css } from "@emotion/react";
+import Divider from "components/Portfolio/common/Divider";
+import CardBorderDecoration from "./CardBorderDecoration";
+import GuestSns from "../CreateGuestbook/GuestSns";
 
 const variants = {
   zoom: {
@@ -18,73 +22,126 @@ const ProfileCard = ({
   name,
   color,
   description,
+  techStack,
 }: GuestbookProfile) => {
   return (
     <Container variants={variants} color={color} whileHover={"zoom"}>
-      <BasicInfo>
-        <RoundImage>
-          <Image src={image} width={64} height={64} layout="fixed" alt={name} />
-        </RoundImage>
-        <div className="profile-name">{name}</div>
-      </BasicInfo>
-      <AdditionalInfo>
-        <p className="profile-description">{description}</p>
-        <LabelContainer>
-          <ProfileLabel text="프론트엔드" color="red" />
-        </LabelContainer>
-      </AdditionalInfo>
+      <CardBorderDecoration />
+      <div className="profile-info-container">
+        <BasicInfo>
+          <RoundImage>
+            <Image src={image} layout="fill" objectFit="fill" alt={name} />
+          </RoundImage>
+          <div className="profile-basic-info">
+            <div className="profile-name">{name}</div>
+            <LabelContainer>
+              <PositionLabel text="프론트엔드 개발자" color="red" />
+            </LabelContainer>
+          </div>
+        </BasicInfo>
+        <Divider />
+        <AdditionalInfo>
+          <p className="profile-message">{description}</p>
+          <GuestSns snsType="github" targetUrl="https://naver.com" />
+          <GuestSns snsType="homepage" targetUrl="https://naver.com" />
+        </AdditionalInfo>
+      </div>
     </Container>
   );
 };
 
 const Container = styled(motion.div)<GuestbookProfile>`
   display: flex;
-  padding: 1.5rem;
-  gap: 1.5rem;
-  flex: 1 20%;
+  width: 25rem;
+  min-width: 20rem;
+  max-width: 95%;
   justify-content: flex-start;
-  align-items: center;
-  background-color: ${({ color }) => color || "#ececec42"};
   backdrop-filter: blur(50px);
   border-radius: 0.5rem;
-  box-shadow: 0 8px 32px 0px ${({ color }) => (color ? color + "90" : "rgba(109, 109, 109, 0.37)")};
+  box-shadow: 0 8px 16px 0px ${({ color }) => "rgba(109, 109, 109, 0.37)"};
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
   cursor: pointer;
+  overflow: hidden;
 
-  .profile-name {
-    color: ${palette.grey[50]};
-    font-weight: 700;
-    font-size: 1.125rem;
-    margin-top: 0.75rem;
+  .profile-info-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 1.5rem;
   }
 
-  .profile-description {
-    color: ${palette.grey[50]};
+  .profile-name {
+    color: ${palette.black};
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .profile-message {
+    color: ${palette.grey[500]};
     font-size: 0.875rem;
-    line-height: 1.5;
+    line-height: 1.65;
     white-space: pre-line;
+    margin-bottom: 0.5rem;
   }
 
   @media (max-width: 768px) {
-    flex: 1;
+    & {
+      flex: 1;
+    }
+
+    .profile-name {
+      font-size: 1rem;
+    }
+
+    .profile-info-container {
+      margin: 1rem;
+    }
   }
 `;
 
 const LabelContainer = styled.ul`
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
+
+  @media (max-width: 768px) {
+    & {
+      margin-top: 0.5rem;
+    }
+  }
 `;
 
-const RoundImage = styled(RoundImageWrapper)`
-  border: 2px solid ${palette.grey[100]};
+const RoundImage = styled.div`
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: 64px;
+  height: 64px;
+
+  @media (max-width: 768px) {
+    & {
+      width: 48px;
+      height: 48px;
+    }
+  }
 `;
 
 const BasicInfo = styled.section`
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  gap: 1.25rem;
+
+  .profile-basic-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0.5rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .profile-basic-info {
+      margin: 0.25rem 0;
+    }
+  }
 `;
 
 const AdditionalInfo = styled.section`

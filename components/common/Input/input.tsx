@@ -13,6 +13,10 @@ const Input = styled.input<{ width?: string | number; height?: string | number }
   width: ${({ width = "100%" }) => computeSize(width)};
   height: ${({ height = "2rem" }) => computeSize(height)};
 
+  &::placeholder {
+    color: ${palette.grey[200]};
+  }
+
   &:focus {
     border-color: ${palette.blue[500]};
   }

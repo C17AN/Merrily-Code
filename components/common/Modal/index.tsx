@@ -92,7 +92,7 @@ const BackDrop = styled.div`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 15;
+  z-index: 20;
 `;
 
 const Container = styled(motion.div)<{

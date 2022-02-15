@@ -16,6 +16,7 @@ const GuestName = () => {
     <Container>
       <p>이름 (닉네임)</p>
       <Input
+        placeholder="Ex. Ethan Kim"
         name={"guestName"}
         value={guestForm["guestName"]}
         autoComplete="off"

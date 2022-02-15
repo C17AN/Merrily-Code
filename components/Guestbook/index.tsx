@@ -32,7 +32,7 @@ const Guestbook = () => {
         </Button>
       </SubTitle>
       <Divider />
-      <GlassDisplayContainer>
+      <ProfileCardList>
         <ProfileCard
           image="/images/avatar.png"
           name="찬민"
@@ -41,9 +41,13 @@ const Guestbook = () => {
             "안녕하세요, 찬민입니다.\n저랑 차 한잔 어떠세요asaddsadsadasdsadasadss?\n사양은 안돼요!"
           }
         />
-        <ProfileCard name="찬민" description="안녕하세요, 찬민입니다" color="#34ebc9" />
+        <ProfileCard
+          name="Ethan, Kim (김찬민)"
+          description="안녕하세요, 찬민입니다"
+          color="#34ebc9"
+        />
         <ProfileCard name="찬민" description="안녕하세요, 찬민입니다" color="#eb3477" />
-      </GlassDisplayContainer>
+      </ProfileCardList>
       {isCreateModalOpen && (
         <Modal
           title="방명록 추가하기"
@@ -103,10 +107,10 @@ const TitleDescription = styled.h6`
   line-height: 1.5;
 `;
 
-const GlassDisplayContainer = styled.div`
+const ProfileCardList = styled.div`
   padding: 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 2rem;
   flex-wrap: wrap;
   border-radius: 0.5rem;

@@ -17,6 +17,7 @@ const GuestMessage = () => {
       <p>메시지 남기기 (최대 100자)</p>
       <TextArea
         maxLength={100}
+        placeholder="Ex. 즐거운 하루 보내세요!"
         name="guestMessage"
         value={guestForm["guestMessage"]}
         onChange={handleGuestNameChange}
