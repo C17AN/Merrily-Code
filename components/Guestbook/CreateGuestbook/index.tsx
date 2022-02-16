@@ -28,7 +28,8 @@ type GuestBookForm =
   | "guestImage"
   | "guestTag"
   | "guestAddress"
-  | "guestColor";
+  | "primaryColor"
+  | "secondaryColor";
 
 export const GuestFormProvider = createContext<any>(null);
 
@@ -41,7 +42,8 @@ const CreateGuestbook = () => {
     guestTag: "",
     guestImage: "/images/avatar-blank.png",
     guestAddress: "",
-    guestColor: "",
+    primaryColor: "",
+    secondaryColor: "",
   });
 
   const showBasicInfo = () => {
@@ -72,11 +74,13 @@ const CreateGuestbook = () => {
           updateGuestForm,
         }}
       >
-        {currentMenu === GuestbookCreateMenu.BASIC_INFO ? (
-          <BasicGuestInfo handleMenuChange={showAdditionalInfo} />
-        ) : (
-          <AdditionalGuestInfo handleMenuChange={showBasicInfo} />
-        )}
+        <div className="menu-switch__button">
+          {currentMenu === GuestbookCreateMenu.BASIC_INFO ? (
+            <BasicGuestInfo handleMenuChange={showAdditionalInfo} />
+          ) : (
+            <AdditionalGuestInfo handleMenuChange={showBasicInfo} />
+          )}
+        </div>
       </GuestFormProvider.Provider>
     </Container>
   );
@@ -84,6 +88,12 @@ const CreateGuestbook = () => {
 
 const Container = styled(motion.section)`
   overflow: hidden;
+  /* position: relative; */
+
+  .menu-switch__button {
+    /* position: absolute; */
+    /* bottom: 1.25rem; */
+  }
 `;
 
 export default CreateGuestbook;

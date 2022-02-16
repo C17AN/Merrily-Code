@@ -36,17 +36,16 @@ const Guestbook = () => {
         <ProfileCard
           image="/images/avatar.png"
           name="찬민"
-          color="#2727ff"
-          description={
-            "안녕하세요, 찬민입니다.\n저랑 차 한잔 어떠세요asaddsadsadasdsadasadss?\n사양은 안돼요!"
-          }
+          primaryColor="#2727ff"
+          description={"안녕하세요, 세바스찬입니다!\n블로그 잘 보고가요!"}
         />
         <ProfileCard
           name="Ethan, Kim (김찬민)"
           description="안녕하세요, 찬민입니다"
-          color="#34ebc9"
+          primaryColor="#34ebc9"
+          secondaryColor="#2f851a"
         />
-        <ProfileCard name="찬민" description="안녕하세요, 찬민입니다" color="#eb3477" />
+        <ProfileCard name="찬민" description="안녕하세요, 찬민입니다" primaryColor="#eb3477" />
       </ProfileCardList>
       {isCreateModalOpen && (
         <Modal

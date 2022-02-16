@@ -2,14 +2,13 @@ import styled from "@emotion/styled";
 import React from "react";
 import Image from "next/image";
 import GuestbookProfile from "type/GuestbookProfile";
-import RoundImageWrapper from "components/common/RoundImageWrapper";
 import PositionLabel from "../PositionLabel";
 import { palette } from "styles/palette";
 import { motion } from "framer-motion";
-import { css } from "@emotion/react";
 import Divider from "components/Portfolio/common/Divider";
 import CardBorderDecoration from "./CardBorderDecoration";
 import GuestSns from "../CreateGuestbook/GuestSns";
+import { IoMdOpen } from "react-icons/io";
 
 const variants = {
   zoom: {
@@ -20,13 +19,14 @@ const variants = {
 const ProfileCard = ({
   image = "/images/avatar-blank.png",
   name,
-  color,
+  primaryColor,
+  secondaryColor,
   description,
   techStack,
 }: GuestbookProfile) => {
   return (
-    <Container variants={variants} color={color} whileHover={"zoom"}>
-      <CardBorderDecoration />
+    <Container variants={variants} whileHover={"zoom"}>
+      <CardBorderDecoration primaryColor={primaryColor} secondaryColor={secondaryColor} />
       <div className="profile-info-container">
         <BasicInfo>
           <RoundImage>
@@ -35,17 +35,20 @@ const ProfileCard = ({
           <div className="profile-basic-info">
             <div className="profile-name">{name}</div>
             <LabelContainer>
-              <PositionLabel text="프론트엔드 개발자" color="red" />
+              <PositionLabel text="프론트엔드 개발자" color="red" backgroundColor="blue" />
             </LabelContainer>
           </div>
         </BasicInfo>
         <Divider />
         <AdditionalInfo>
           <p className="profile-message">{description}</p>
-          <GuestSns snsType="github" targetUrl="https://naver.com" />
-          <GuestSns snsType="homepage" targetUrl="https://naver.com" />
+          <div>
+            <GuestSns snsType="github" targetUrl="https://naver.com" />
+            <GuestSns snsType="homepage" targetUrl="https://naver.com" />
+          </div>
         </AdditionalInfo>
       </div>
+      <ModifyIcon />
     </Container>
   );
 };
@@ -58,7 +61,7 @@ const Container = styled(motion.div)<GuestbookProfile>`
   justify-content: flex-start;
   backdrop-filter: blur(50px);
   border-radius: 0.5rem;
-  box-shadow: 0 8px 16px 0px ${({ color }) => "rgba(109, 109, 109, 0.37)"};
+  box-shadow: 0 8px 16px 0px rgba(109, 109, 109, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
@@ -148,6 +151,15 @@ const AdditionalInfo = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+const ModifyIcon = styled(IoMdOpen)`
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  fill: ${palette.grey[200]};
+  width: 1.25rem;
+  height: 1.25rem;
 `;
 
 export default ProfileCard;
