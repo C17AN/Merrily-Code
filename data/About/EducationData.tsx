@@ -11,8 +11,8 @@ const EducationData: InfoItemProps[] = [
   {
     icon: "/images/toeic-logo.jpeg",
     title: "TOEIC",
-    description: "855점",
-    endedAt: "2019.02",
+    description: "885점",
+    endedAt: "2022.02",
   },
   {
     icon: "/images/qnet-logo.png",
