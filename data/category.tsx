@@ -25,26 +25,10 @@ import { GiMusicalNotes } from "react-icons/gi";
 import { IoLanguage } from "react-icons/io5";
 import { BiGitPullRequest, BiNote } from "react-icons/bi";
 import { MdOutlineConstruction, MdOutlineRouter } from "react-icons/md";
-import Category from "type/Category";
+import Category, { MainCategory } from "type/Category";
 
-const category = {
-  "포스트 모아보기": [
-    {
-      displayName: "전체 포스트",
-      icon: <BiNote />,
-      categoryName: "all",
-    },
-    {
-      displayName: "번역 포스트",
-      icon: <IoLanguage />,
-      categoryName: "translate",
-    },
-    // {
-    //   displayName: "개발 기록 포스트",
-    //   icon: <MdOutlineConstruction />,
-    //   categoryName: "development",
-    // },
-  ] as Array<Category>,
+const category: Record<MainCategory, Category | Category[]> = {
+  "전체 포스트": { displayName: "전체 포스트", categoryName: "all" } as Category,
   프론트엔드: [
     { displayName: "React", icon: <FaReact />, categoryName: "react" },
     { displayName: "Next.js", icon: <SiNextdotjs />, categoryName: "next" },

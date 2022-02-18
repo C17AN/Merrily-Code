@@ -26,6 +26,7 @@ import Divider from "components/Portfolio/common/Divider";
 import Tag from "components/Blog/PostList/common/Tag";
 import TagList from "components/Blog/PostList/common/TagList";
 import useUtterances from "hooks/useUtterances";
+import PostProfile from "components/Blog/PostProfile";
 
 type PostPageProps = {
   frontMatter: FrontMatter;
@@ -60,6 +61,7 @@ const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
       <Divider />
       <MDXRemote {...mdxSource} components={components} />
       <Divider />
+      <PostProfile />
     </Container>
   );
 };

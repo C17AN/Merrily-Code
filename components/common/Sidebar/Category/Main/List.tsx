@@ -1,16 +1,30 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useState } from "react";
+import Category, { MainCategory } from "type/Category";
 import MainCategoryItem from "./Item";
 
 type MainCategoryList = {
-  mainCategoryList: Array<string>;
+  mainCategoryList: MainCategory[];
 };
 
 const MainCategoryList = ({ mainCategoryList }: MainCategoryList) => {
+  const [selectedMainCategory, setSelectedMainCategory] = useState<MainCategory | null>(null);
+
+  const selectMainCategory = (category: MainCategory) => {
+    setSelectedMainCategory(category);
+  };
+
   return (
     <Container>
-      {mainCategoryList.map((category) => {
-        return <MainCategoryItem key={category} name={category} />;
+      {mainCategoryList.map((categoryName) => {
+        return (
+          <MainCategoryItem
+            key={categoryName}
+            mainCategoryName={categoryName}
+            selectMainCategory={selectMainCategory}
+            selectedMainCategory={selectedMainCategory}
+          />
+        );
       })}
     </Container>
   );

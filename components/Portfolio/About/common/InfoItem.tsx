@@ -19,7 +19,6 @@ const InfoItem = ({ icon, title, description, startedAt, endedAt, targetUrl }: I
 
   useEffect(() => {
     isMobile ? setResponsiveLogoSize(36) : setResponsiveLogoSize(48);
-    console.log(isMobile ? 36 : 48);
   }, [isMobile]);
 
   const setInfoYearText = (): string => {
