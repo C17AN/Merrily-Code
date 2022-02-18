@@ -4,10 +4,12 @@ export type User = {
 };
 
 export type Profile = {
-  name: string;
-  email: string;
-  image: string;
-  sns: SNS;
+  name?: string;
+  nickName?: string;
+  description?: string;
+  email?: string;
+  image?: string;
+  sns?: SNS;
 };
 
 export type SNSName = "github" | "facebook" | "linkedIn" | "instagram" | "homepage";
