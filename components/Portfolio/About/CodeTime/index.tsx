@@ -9,7 +9,7 @@ import Divider from "components/Portfolio/common/Divider";
 import TimeCounter from "./TimeCounter";
 import { AiFillClockCircle } from "react-icons/ai";
 import { FaGithubAlt } from "react-icons/fa";
-import GitHubCalendar from "react-github-calendar";
+import Contribution from "../Contribution";
 
 type CodeType = "wakatime" | "github";
 
@@ -39,12 +39,12 @@ const CodeTime = () => {
         <div className="button-container">
           <AiFillClockCircle
             size={28}
-            color={palette.black}
+            color={selectedCodingType === "wakatime" ? palette.black : palette.grey[200]}
             onClick={() => setSelectedCodingType("wakatime")}
           />
           <FaGithubAlt
             size={28}
-            color={palette.grey[200]}
+            color={selectedCodingType === "github" ? palette.black : palette.grey[200]}
             onClick={() => setSelectedCodingType("github")}
           />
         </div>
@@ -64,10 +64,10 @@ const CodeTime = () => {
               </>
             ) : (
               <></>
-            )}{" "}
+            )}
           </>
         ) : (
-          <GitHubCalendar username="c17an" />
+          <Contribution userName="c17an" />
         )}
       </Content>
     </Container>
