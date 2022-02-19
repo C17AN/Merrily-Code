@@ -36,6 +36,13 @@ const ActivityData: InfoItemProps[] = [
     startedAt: "2021.03",
     endedAt: "2021.06",
   },
+  {
+    icon: "/images/university-logo.jpg",
+    title: "산학프로젝트 과목 조교",
+    description: "한국항공대학교",
+    startedAt: "2022.03",
+    endedAt: "2022.06",
+  },
 ];
 
 export default ActivityData;
