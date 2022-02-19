@@ -9,11 +9,15 @@ import Divider from "components/Portfolio/common/Divider";
 import TimeCounter from "./TimeCounter";
 import { AiFillClockCircle } from "react-icons/ai";
 import { FaGithubAlt } from "react-icons/fa";
+import GitHubCalendar from "react-github-calendar";
+
+type CodeType = "wakatime" | "github";
 
 const CodeTime = () => {
   const [totalCodingSecond, setTotalCodingSecond] = useState<null | number>(null);
   const [startingDate, setStartingDate] = useState<null | string>(null);
   const [endingDate, setEndingDate] = useState<null | string>(null);
+  const [selectedCodingType, setSelectedCodingType] = useState<CodeType>("wakatime");
 
   const getWakaTimeData = async () => {
     const result = await axios.get(endpoints.WAKATIME);
@@ -33,23 +37,37 @@ const CodeTime = () => {
       <TitleContainer>
         <SubTitle>👉🏻 Code Journey</SubTitle>
         <div className="button-container">
-          <AiFillClockCircle size={28} color={palette.black} />
-          <FaGithubAlt size={28} color={palette.grey[200]} />
+          <AiFillClockCircle
+            size={28}
+            color={palette.black}
+            onClick={() => setSelectedCodingType("wakatime")}
+          />
+          <FaGithubAlt
+            size={28}
+            color={palette.grey[200]}
+            onClick={() => setSelectedCodingType("github")}
+          />
         </div>
       </TitleContainer>
       <Divider />
       <Content>
-        {totalCodingSecond && startingDate && endingDate ? (
+        {selectedCodingType === "wakatime" ? (
           <>
-            <TimeMarathon current={totalCodingSecond / 3600} goal={10000} />
-            <TimeCounter
-              startingDate={startingDate}
-              endingDate={endingDate}
-              totalCodingSecond={totalCodingSecond}
-            />
+            {totalCodingSecond && startingDate && endingDate ? (
+              <>
+                <TimeMarathon current={totalCodingSecond / 3600} goal={10000} />
+                <TimeCounter
+                  startingDate={startingDate}
+                  endingDate={endingDate}
+                  totalCodingSecond={totalCodingSecond}
+                />
+              </>
+            ) : (
+              <></>
+            )}{" "}
           </>
         ) : (
-          <></>
+          <GitHubCalendar username="c17an" />
         )}
       </Content>
     </Container>
