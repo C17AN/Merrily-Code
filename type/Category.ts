@@ -17,6 +17,7 @@ type Category = {
   icon: ReactNode;
   displayName: string;
   categoryName: string;
+  description?: string;
 };
 
 export default Category;

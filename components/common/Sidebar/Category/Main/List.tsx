@@ -10,7 +10,7 @@ type MainCategoryList = {
 const MainCategoryList = ({ mainCategoryList }: MainCategoryList) => {
   const [selectedMainCategory, setSelectedMainCategory] = useState<MainCategory | null>(null);
 
-  const selectMainCategory = (category: MainCategory) => {
+  const selectMainCategory = (category: MainCategory | null) => {
     setSelectedMainCategory(category);
   };
 

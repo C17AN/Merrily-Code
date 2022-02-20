@@ -17,14 +17,14 @@ import {
 } from "react-icons/si";
 import { DiAndroid, DiApple, DiGoogleCloudPlatform, DiMysql, DiRedis } from "react-icons/di";
 import { RiComputerFill } from "react-icons/ri";
-import { AiFillDatabase, AiTwotoneExperiment } from "react-icons/ai";
-import { GiFamilyTree, GiPlayerNext, GiWifiRouter } from "react-icons/gi";
+import { AiFillDatabase, AiOutlineConsoleSql, AiTwotoneExperiment } from "react-icons/ai";
+import { GiComputing, GiFamilyTree, GiPlayerNext, GiWifiRouter } from "react-icons/gi";
 import { BsCodeSlash, BsHddNetworkFill, BsKeyboard } from "react-icons/bs";
 import { IoMdRestaurant } from "react-icons/io";
 import { GiMusicalNotes } from "react-icons/gi";
-import { IoLanguage } from "react-icons/io5";
+import { IoHardwareChipSharp, IoLanguage } from "react-icons/io5";
 import { BiGitPullRequest, BiNote } from "react-icons/bi";
-import { MdOutlineConstruction, MdOutlineRouter } from "react-icons/md";
+import { MdOutlineConstruction, MdOutlineDesignServices, MdOutlineRouter } from "react-icons/md";
 import Category, { MainCategory } from "type/Category";
 
 const category: Record<MainCategory, Category | Category[]> = {
@@ -35,14 +35,16 @@ const category: Record<MainCategory, Category | Category[]> = {
     { displayName: "Vue", icon: <FaVuejs />, categoryName: "vue" },
     // { displayName: "Nuxt.js", icon: <SiNuxtdotjs />, categoryName: "nuxt" },
     { displayName: "TypeScript", icon: <SiTypescript />, categoryName: "typescript" },
-    { displayName: "프론트엔드 테스팅", icon: <AiTwotoneExperiment />, categoryName: "testing" },
+    { displayName: "UI Library", icon: <MdOutlineDesignServices />, categoryName: "general" },
+    { displayName: "FE Laboratory", icon: <AiTwotoneExperiment />, categoryName: "tech-fe" },
     // { displayName: "최적화", icon: <SiTypescript />, categoryName: "optimization" },
   ] as Array<Category>,
   백엔드: [
     { displayName: "Node.js", icon: <FaNodeJs />, categoryName: "nodejs" },
     { displayName: "Nest.js", icon: <SiNestjs />, categoryName: "nestjs" },
-    { displayName: "Redis", icon: <DiRedis />, categoryName: "redis" },
-    { displayName: "MongoDB", icon: <SiMongodb />, categoryName: "mongodb" },
+    // { displayName: "Redis", icon: <DiRedis />, categoryName: "redis" },
+    // { displayName: "MongoDB", icon: <SiMongodb />, categoryName: "mongodb" },
+    { displayName: "SQL", icon: <AiOutlineConsoleSql />, categoryName: "sql" },
   ] as Array<Category>,
   모바일: [
     { displayName: "Flutter", icon: <SiFlutter />, categoryName: "flutter" },
@@ -52,10 +54,12 @@ const category: Record<MainCategory, Category | Category[]> = {
     { displayName: "AWS", icon: <FaAws />, categoryName: "aws" },
     { displayName: "Azure", icon: <SiAzuredevops />, categoryName: "azure" },
     { displayName: "Google Cloud", icon: <DiGoogleCloudPlatform />, categoryName: "gcp" },
+    { displayName: "Cloud Technology", icon: <GiComputing />, categoryName: "tech-cloud" },
   ] as Array<Category>,
   데브옵스: [
     { displayName: "Docker", icon: <FaDocker />, categoryName: "docker" },
     { displayName: "Kubernetes", icon: <SiKubernetes />, categoryName: "kubernetes" },
+    { displayName: "Microservice", icon: <IoHardwareChipSharp />, categoryName: "microservice" },
     { displayName: "CI / CD ", icon: <BsHddNetworkFill />, categoryName: "cicd" },
   ] as Array<Category>,
   오픈소스: [

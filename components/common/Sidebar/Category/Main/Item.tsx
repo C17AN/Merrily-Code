@@ -10,7 +10,7 @@ import Category, { MainCategory } from "type/Category";
 type MainCategoryItemProps = {
   mainCategoryName: MainCategory;
   selectedMainCategory: MainCategory | null;
-  selectMainCategory: (category: MainCategory) => void;
+  selectMainCategory: (category: MainCategory | null) => void;
 };
 
 const allPost = "전체 포스트";
@@ -30,6 +30,10 @@ const MainCategoryItem = ({
       const { categoryName } = subCategoryList;
       route.push(`/category/${categoryName}`);
       selectMainCategory(allPost);
+      return;
+    }
+    if (isSelected) {
+      selectMainCategory(null);
       return;
     }
     selectMainCategory(mainCategoryName);
