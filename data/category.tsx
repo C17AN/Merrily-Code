@@ -75,7 +75,7 @@ const category: Record<MainCategory, Category | Category[]> = {
     },
   ] as Array<Category>,
   컴퓨터공학: [
-    { displayName: "운영체제", icon: <RiComputerFill />, categoryName: "os" },
+    { displayName: "운영체제 / 컴퓨터 구조", icon: <RiComputerFill />, categoryName: "os" },
     { displayName: "데이터베이스", icon: <AiFillDatabase />, categoryName: "database" },
     { displayName: "자료구조", icon: <GiFamilyTree />, categoryName: "ds" },
     { displayName: "네트워크", icon: <GiWifiRouter />, categoryName: "network" },
