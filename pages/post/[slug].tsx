@@ -1,4 +1,5 @@
 import React, { ReactPropTypes } from "react";
+import Head from "next/head";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -54,19 +55,28 @@ const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
   const isUtterancesActive = useUtterances(".post-container");
 
   return (
-    <Container className="post-container">
-      <Title>{title}</Title>
-      <Description>{description}</Description>
-      <TagList tagList={tags} />
-      <Divider />
-      <MDXRemote {...mdxSource} components={components} />
-      <Divider />
-      <PostProfile />
-    </Container>
+    <>
+      <Head>
+        <meta property="og:image" content={thumbnailUrl} />
+        <meta property="og:title" content={title} />
+      </Head>
+      <Container className="post-container">
+        <Title>{title}</Title>
+        <Description>{description}</Description>
+        <TagList tagList={tags} />
+        <Divider />
+        <MDXRemote {...mdxSource} components={components} />
+        <Divider />
+        <PostProfile />
+      </Container>
+    </>
   );
 };
 
 const Container = styled.div`
+  max-width: 80rem;
+  margin: 0 auto;
+
   p,
   div {
     color: #555;
