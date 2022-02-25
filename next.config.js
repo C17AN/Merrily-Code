@@ -13,6 +13,6 @@ const mdxPlugin = require('@next/mdx')({
 module.exports = withPlugins([mdxPlugin, withBundleAnalyzer], {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   images: {
-    domains: ['drive.google.com', 'github.com']
+    domains: ['drive.google.com', 'github.com', 'd3i7lyqkyp9zxr.cloudfront.net']
   },
 })

@@ -11,7 +11,7 @@ type Image = {
 const Image = ({ src, alt, title: size }: Image) => {
   return (
     <Container width={size}>
-      <NextImage src={src} layout="fill" alt={alt} title={alt} quality={75} />
+      <NextImage src={src} layout="fill" alt={alt} title={alt} quality={75} priority />
       {alt?.length && <figcaption>{alt}</figcaption>}
     </Container>
   );
