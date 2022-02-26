@@ -9,6 +9,10 @@ const Blockquote = styled.blockquote`
   color: ${palette.grey[100]};
   font-size: 0.875rem;
   line-height: 1.4;
+
+  strong {
+    color: ${palette.black};
+  }
 `;
 
 export default Blockquote;
