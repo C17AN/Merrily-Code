@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }) {
         <title>즐겁게, 코드</title>
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="google-site-verification" content="c1j88i3K1g6h6tJiaoy7s61WvO8y07gMnkyLC2pj3Fg" />
+        <meta name="naver-site-verification" content="977dc6e2dff6c96c043a9901e51a55caebe7286e" />
         <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
       </Head>

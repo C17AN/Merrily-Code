@@ -57,6 +57,9 @@ const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
   return (
     <>
       <Head>
+        <title>즐겁게, 코드 | {title}</title>
+        <meta name="author" content="C17AN" />
+        <meta name="description" content={description} />
         <meta property="og:image" content={thumbnailUrl} />
         <meta property="og:title" content={title} />
       </Head>
