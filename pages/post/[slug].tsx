@@ -77,7 +77,7 @@ const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
 };
 
 const Container = styled.div`
-  max-width: 80rem;
+  max-width: 60rem;
   margin: 0 auto;
 
   p,
@@ -114,10 +114,6 @@ const Description = styled.h3`
     line-height: 1.25;
     margin: 0.5rem 0 0.75rem 0;
   }
-`;
-
-const MetaData = styled.section`
-  margin: 1rem 0;
 `;
 
 export const getStaticPaths = async () => {
