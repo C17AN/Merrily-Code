@@ -5,6 +5,7 @@ import path from "path";
 import matter from "gray-matter";
 import styled from "@emotion/styled";
 import FrontMatter from "type/FrontMatter";
+import { useRouter } from "next/router";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import {
@@ -28,6 +29,7 @@ import Tag from "components/Blog/PostList/common/Tag";
 import TagList from "components/Blog/PostList/common/TagList";
 import useUtterances from "hooks/useUtterances";
 import PostProfile from "components/Blog/PostProfile";
+import endpoints from "constants/endpoints";
 
 type PostPageProps = {
   frontMatter: FrontMatter;
@@ -52,13 +54,14 @@ const components = {
 
 const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
   const { title, tags, date, description, category, thumbnailUrl } = frontMatter;
-  const isUtterancesActive = useUtterances(".post-container");
+  const canonicalURL = endpoints.BASE_URL + useRouter().asPath;
 
   return (
     <>
       <Head>
         <title>즐겁게, 코드 | {title}</title>
         <meta name="author" content="C17AN" />
+        <link rel="canonical" href={canonicalURL} />
         <meta name="description" content={description} />
         <meta property="og:image" content={thumbnailUrl} />
         <meta property="og:title" content={title} />
