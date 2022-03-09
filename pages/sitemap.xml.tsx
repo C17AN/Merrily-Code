@@ -13,7 +13,7 @@ export const getServerSideProps = async ({ res }) => {
   const filenames = fs.readdirSync(postsDirectory);
 
   const dynamicPaths = filenames.map((filename) => {
-    return `${BASE_URL}/posts/${filename.split(".")[0]}`;
+    return `${BASE_URL}/post/${filename.split(".")[0]}`;
   });
 
   const allPaths = [BASE_URL, ...dynamicPaths];

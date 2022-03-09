@@ -54,7 +54,7 @@ const components = {
 
 const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
   const { title, tags, date, description, category, thumbnailUrl } = frontMatter;
-  const canonicalURL = endpoints.BASE_URL + useRouter().asPath;
+  const canonicalURL = endpoints.BASE_URL + decodeURI(useRouter().asPath);
 
   return (
     <>
