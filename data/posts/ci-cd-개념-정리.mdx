@@ -1,0 +1,54 @@
+---
+title: CI/CD 기초 개념 정리
+date: "2022-03-13"
+description: 데브옵스의 핵심인 CI/CD가 무엇인지 정리한 포스트입니다.
+category: cicd
+thumbnailUrl: "/thumbnails/cicd.svg"
+tags: ["DevOps", "CI/CD"]
+---
+
+예전부터 CI/CD라는 말을 들어오긴 했지만, 아직 남에게 설명할 수 있을 정도로 확실한 개념을 잡지 못한 것 같아 이번 글을 통해 정리해보려 합니다.  
+아래 이미지는 AWS에서 제공하는 이미지로, CI/CD를 한눈에 살펴볼 수 있는 좋은 참고자료라 생각해 첨부했습니다.
+
+![출처: AWS - 지속적 전달이란 무엇입니까?](/posts/ci-cd-개념-정리/0.png)
+
+## CI/CD란?
+
+어플리케이션이 프러덕션 환경에 배포되려면 빌드 및 배포를 거쳐야 하는데요, CI/CD는 **코드의 커밋(푸시) - 빌드 - 테스트 - 배포** 하는 하나의 사이클을 의미한다고 할 수 있습니다.
+
+## CI (Continuous Integration)
+
+> ✅ "지속적 통합" 이라는 너무 포괄적인 번역 때문에 실제 의미가 애매하게 느껴질 수도 있는데요,  
+> 'Continuous' 를 여기서는 **'자동화'** 라고 해석하면 더 이해하기 쉬울 듯 합니다.
+
+CI는 코드의 **자동화된 빌드 및 테스트** 단계를 의미하며, **Github**, **AWS CodeCommit** 등의 리포지토리에 코드를 커밋(푸시)했을 때 수행하는 일련의 모든 자동화된 빌드 및 테스트를 CI 과정의 일부라 볼 수 있습니다.
+
+#
+
+[Git Hooks](https://git-scm.com/book/ko/v2/Git%EB%A7%9E%EC%B6%A4-Git-Hooks)나 [Husky](https://typicode.github.io/husky/#/) 등을 사용해 로컬 환경에서 커밋 시 테스트를 트리거하는 것도 CI의 일부가 될 수 있고, **Github Page** 나 **Vercel**에 등의 플랫폼에서 코드를 자동으로 빌드하는 것도 CI의 일부가 될 수 있습니다.
+
+#
+
+CI의 궁극적인 목적은 \*배포용 빌드 결과물을 자동으로 생성하기 위한 것으로, 자동화된 빌드 및 테스트를 믿고 개발자는 개발에 집중할 수 있고, 배포 단계로 넘어가기 이전에 버그를 조기에 발견할 수 있다는 장점이 있습니다.
+
+> ✅ CI를 거쳐 생성된 배포용 빌드 파일을 **아티팩트(Artifact)**라고 부르기도 합니다.
+
+이처럼 CI는 "지속적 통합" 이라는 말처럼 애매한 개념이 아니라 코드의 커밋(푸시)이 일어났을 때 빌드 또는 테스트를 **자동으로** 수행하는 프로세스를 의미한다고 생각하면 되겠습니다.
+
+## CD (Continuous Delivery / Deployment)
+
+CD는 CI를 통해 생성된 아티팩트를 컨테이너화하거나, 이미지로 패키징하거나 또는 다른 플랫폼에 배포하는 작업을 자동화한 과정입니다.
+
+#
+
+대부분의 경우에는 배포 테스트를 진행하기 위해 **프러덕션 환경을 모방한 Staging(스테이징) 환경을 마련해 두고**, 스테이징에서 프러덕션 환경으로 즉시 코드를 배포하는지 여부가 **Continuous Delivery** 냐, **Continuous Deployment** 냐를 결정합니다.
+
+- `Continuous Deployment` : 아티팩트 생성 -> 스테이징 환경으로 전달 -> 테스팅 이후 **자동으로** 프러덕션 환경 배포
+- `Continuous Delivery` : 아티팩트 생성 -> 스테이징 환경으로 전달 -> 테스팅 이후 **수동으로** 프러덕션 환경 배포
+
+---
+
+### 참고
+
+- [Udemy: DevOps Project - 2022: CI/CD with Jenkins Ansible Kubernetes](https://www.udemy.com/course/valaxy-devops/)
+- [AWS: 지속적 통합이란 무엇입니까?](https://aws.amazon.com/ko/devops/continuous-integration/)
