@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import React, { useEffect } from "react";
+import React from "react";
 import Category from "./Category";
 import EmailCard from "./EmailCard";
 import SNSList from "./SNS/List";
-import { palette } from "styles/palette";
 import ControlButtons from "./ControlButtons";
+import { palette } from "styles/palette";
 import { motion } from "framer-motion";
 
 const animationVariants = {
@@ -36,10 +36,6 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
 };
 
 const Container = styled.div`
-  /* height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0; */
   z-index: 15;
 `;
 

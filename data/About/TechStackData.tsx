@@ -115,6 +115,16 @@ const TechStackData = {
         icon: "/icons/tech/devops/docker.svg",
         descriptionList: [],
       },
+      {
+        name: "kubernetes",
+        icon: "/icons/tech/devops/kubernetes.svg",
+        descriptionList: [],
+      },
+      {
+        name: "terraform",
+        icon: "/icons/tech/devops/terraform.png",
+        descriptionList: [],
+      },
     ] as TechStack[],
   },
   mobile: {

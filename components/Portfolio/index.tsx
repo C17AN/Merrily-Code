@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Talk from "components/common/Talk";
+// import Talk from "components/common/Talk";
 import React from "react";
 import About from "./About";
 import Hero from "./Hero";
@@ -9,7 +9,7 @@ const Portfolio = () => {
     <Container>
       <Hero />
       <About />
-      <Talk />
+      {/* <Talk /> */}
     </Container>
   );
 };

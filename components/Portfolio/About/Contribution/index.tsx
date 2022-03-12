@@ -27,20 +27,10 @@ const calendarLabel = {
   },
 };
 
-// const calendarTheme = {
-//   level0: "#fafafa",
-//   level1: "#c4d9ed",
-//   level2: "#7a8ec7",
-//   level3: "#1c89bb",
-//   level4: "#383d59",
-// };
-
 const calendarBlockSettings = {
   blockMargin: 4,
   blockRadius: 8,
   blockSize: 11,
 };
-
-const CustomStyle = {};
 
 export default Contribution;

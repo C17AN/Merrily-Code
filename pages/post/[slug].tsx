@@ -54,6 +54,7 @@ const components = {
 
 const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
   const { title, tags, date, description, category, thumbnailUrl } = frontMatter;
+  const isUtterancesActive = useUtterances(".post-container");
   const canonicalURL = endpoints.BASE_URL + decodeURI(useRouter().asPath);
 
   return (

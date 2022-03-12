@@ -5,7 +5,7 @@ import TeckStackList from "./List";
 import Image from "next/image";
 import useTechStackCategory from "hooks/useTechStackCategory";
 import TechStackDescription from "./Description";
-import TechStack from "type/TechStack";
+import TechStackType from "type/TechStack";
 import { palette } from "styles/palette";
 import TechStackData from "data/About/TechStackData";
 
@@ -16,11 +16,11 @@ export const DescriptionContext = createContext<any>(null);
 const TechStack = () => {
   const { techName, techCode, setTechSlideIndex } = useTechStackCategory(0);
   const { frontEnd } = TechStackData;
-  const [selectedTechStack, setSelectedTechStack] = useState<TechStack | null>(
+  const [selectedTechStack, setSelectedTechStack] = useState<TechStackType | null>(
     frontEnd.techStackList[0]
   );
 
-  const selectTechStack = (techStackData: TechStack) => {
+  const selectTechStack = (techStackData: TechStackType) => {
     setSelectedTechStack(() => techStackData);
   };
 
