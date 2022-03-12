@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import useIsMobile from "hooks/useIsMobile";
 import computeSize from "lib/utils/computeSize";
-import React, { MouseEvent, ReactNode } from "react";
+import React, { MouseEvent, ReactNode, useEffect } from "react";
 import ButtonVariant from "type/variants/Button";
 import Button from "../Button";
 
@@ -43,6 +43,18 @@ const Modal = ({
   confirmText = "확인",
 }: ModalProps) => {
   const isMobile = useIsMobile();
+  const preventScroll = () => {
+    window.scrollTo(0, 0);
+  };
+  useEffect(() => {
+    preventScroll();
+    window.addEventListener("scroll", preventScroll);
+
+    return () => {
+      window.removeEventListener("scroll", preventScroll);
+    };
+  }, []);
+
   const handleClose = (e: MouseEvent<HTMLElement>) => {
     closeModal();
   };
@@ -108,7 +120,7 @@ const Container = styled(motion.div)<{
   height: ${({ height }) => computeSize(height)};
   border-radius: 0.75rem;
   padding: 1.5rem;
-  z-index: 20;
+  z-index: 999;
 `;
 
 const ModalFooter = styled.footer`

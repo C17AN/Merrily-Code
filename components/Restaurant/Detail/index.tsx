@@ -1,9 +1,17 @@
+import styled from "@emotion/styled";
+import Modal from "components/common/Modal";
 import React from "react";
+import { Restaurant } from "type/Restaurant";
 
-interface Props {}
-
-const RestaurantDetailModal = ({}: Props) => {
-  return <div></div>;
+type RestaurantReviewModalBodyProps = {
+  reviewData: Restaurant;
 };
 
-export default RestaurantDetailModal;
+const RestaurantReviewModalBody = ({ reviewData }: RestaurantReviewModalBodyProps) => {
+  const { title } = reviewData;
+  return <Container>{title}</Container>;
+};
+
+const Container = styled.div``;
+
+export default RestaurantReviewModalBody;
