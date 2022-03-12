@@ -5,8 +5,13 @@ import RestaurantCategoryList from "./Category/List";
 import RestaurantList from "./List";
 import Map from "./Map";
 import Divider from "components/Portfolio/common/Divider";
+import { Restaurant as RestaurantType } from "type/Restaurant";
 
-const Restaurant = () => {
+type RestaurantProps = {
+  restaurantReviewList: RestaurantType[];
+};
+
+const Restaurant = ({ restaurantReviewList }: RestaurantProps) => {
   return (
     <Container>
       <Title>🍖 막간을 틈탄 맛집 소개!</Title>
@@ -14,7 +19,7 @@ const Restaurant = () => {
       <Map />
       <RestaurantSearch />
       <RestaurantCategoryList />
-      <RestaurantList />
+      <RestaurantList restaurantReviewList={restaurantReviewList} />
     </Container>
   );
 };

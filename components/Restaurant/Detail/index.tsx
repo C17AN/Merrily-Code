@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {}
 
-const RestaurantDetailModal = (props: Props) => {
+const RestaurantDetailModal = ({}: Props) => {
   return <div></div>;
 };
 

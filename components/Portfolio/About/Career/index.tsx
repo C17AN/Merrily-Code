@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import InfoList from "../common/InfoList";
-import CareerData from "data/About/CareerData";
+import CareerData from "data/about/CareerData";
 import Title from "components/Portfolio/common/Title";
 
 const Career = () => {

@@ -7,7 +7,7 @@ import useTechStackCategory from "hooks/useTechStackCategory";
 import TechStackDescription from "./Description";
 import TechStackType from "type/TechStack";
 import { palette } from "styles/palette";
-import TechStackData from "data/About/TechStackData";
+import TechStackData from "data/about/TechStackData";
 
 export type TechCategory = "frontEnd" | "backEnd" | "mobile" | "devOps" | "cloud";
 

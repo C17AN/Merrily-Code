@@ -2,20 +2,34 @@ import React from "react";
 import Divider from "components/Portfolio/common/Divider";
 import RestaurantListItem from "./Item";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
+import { Restaurant } from "type/Restaurant";
 
-interface Props {}
+type RestaurantListProps = {
+  restaurantReviewList: Restaurant[];
+};
 
-const RestaurantList = (props: Props) => {
+const RestaurantList = ({ restaurantReviewList }: RestaurantListProps) => {
   return (
     <div>
       <ListTitle>
         <Title>전체 목록</Title>
         <Divider />
       </ListTitle>
-      <ContentList>
-        <RestaurantListItem />
-        <RestaurantListItem />
-        <RestaurantListItem />
+      <ContentList layout>
+        {restaurantReviewList.map((review) => {
+          const { id, title, thumbnail, location, imageList } = review;
+          return (
+            <RestaurantListItem
+              key={title}
+              title={title}
+              thumbnail={thumbnail}
+              id={id}
+              location={location}
+              imageList={imageList}
+            />
+          );
+        })}
       </ContentList>
     </div>
   );
@@ -27,10 +41,12 @@ const Title = styled.h2`
 
 const ListTitle = styled.div``;
 
-const ContentList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+const ContentList = styled(motion.ul)`
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-gap: 1rem;
 `;
 
 export default RestaurantList;

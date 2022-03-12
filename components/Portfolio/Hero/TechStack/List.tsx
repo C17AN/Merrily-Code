@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import Slider from "react-slick";
 import Slide from "./Slide";
-import TechStackData from "data/About/TechStackData";
+import TechStackData from "data/about/TechStackData";
 import { palette } from "styles/palette";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

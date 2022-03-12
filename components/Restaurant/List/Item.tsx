@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 import React from "react";
+import Image from "next/image";
 import { palette } from "styles/palette";
+import { Restaurant } from "type/Restaurant";
 
-interface Props {}
-
-const RestaurantListItem = (props: Props) => {
+const RestaurantListItem = ({ title, thumbnail }: Restaurant) => {
   return (
     <Container>
       <div>
-        <Title>치킨의 자존심, 깐부치킨</Title>
+        {/* <Image src={thumbnail} width={300} height={300} alt={title} /> */}
+        <Title>{title}</Title>
         <Description>깐부치킨 그는 과연 신인가</Description>
       </div>
     </Container>

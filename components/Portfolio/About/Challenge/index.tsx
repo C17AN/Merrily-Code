@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Title from "components/Portfolio/common/Title";
 import InfoList from "../common/InfoList";
-import ChallengeData from "data/About/ChallengeData";
+import ChallengeData from "data/about/ChallengeData";
 
 const Challenge = () => {
   return (
