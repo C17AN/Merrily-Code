@@ -1,0 +1,119 @@
+---
+title: EC2 인스턴스 접속 및 젠킨스 설치 방법 정리하기
+date: "2022-03-13"
+description: 로컬 터미널에서 AWS EC2 인스턴스에 접속하고, CI 구축을 위한 젠킨스를 설치해 봅니다.
+category: aws
+thumbnailUrl: "/thumbnails/aws.svg"
+tags: ["AWS", "EC2"]
+---
+
+![](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/0.svg "200px")
+
+CI/CD 파이프라인을 구축할 때 **[Jenkins](https://www.jenkins.io/)** 라는 도구를 사용하면 간단히 [CI](https://aws.amazon.com/ko/devops/continuous-integration/)를 구성할 수 있는데요, 이번 글에서는 EC2 인스턴스에 젠킨스를 설치하는 과정을 정리해보도록 하겠습니다.
+
+> ✅ 본 글에서는 Linux 기반의 EC2 인스턴스가 생성된 상태라고 가정합니다.  
+> 또한, 인스턴스와 함께 생성된 `.pem` 확장자의 프라이빗 키가 위치한 경로를 알고 있어야 합니다.
+
+## EC2 보안 그룹 추가하기
+
+시작하기 앞서, 젠킨스는 기본적으로 인스턴스의 8080번 포트를 사용하기 때문에 해당 포트를 사용할 수 있도록 **보안 그룹**에 추가해줘야 합니다.
+
+> 🚨 만약 EC2 생성 시 8080번 포트의 보안 그룹 설정을 완료했다면 이 과정을 생략하셔도 됩니다.
+
+![](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/8.png)
+
+EC2를 생성했다면 해당 인스턴스에 접근할 수 있는 보안 그룹 역시 자동으로 생성되었을 텐데요, 내부적으로 8080번 포트를 개방하기 위해 인바운드 설정을 추가해야 합니다.  
+이를 위해 기존에 생성된 보안 그룹을 선택한 다음, 하단의 **인바운드 규칙 편집** 버튼을 눌러 8080번 포트의 인바운드 규칙을 추가합니다.
+
+![](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/10.png)
+
+![](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/9.png)
+
+규칙 유형을 TCP & 8080번 포트로 지정한 다음, **규칙 저장** 을 클릭해 포트 설정을 완료합니다.
+
+## SSH 프로토콜로 로컬 터미널에서 EC2 접속하기
+
+![EC2 관리 콘솔에서 인스턴스를 선택한 후, 상단의 [연결] 을 눌러 웹 기반 터미널을 출력할 수도 있긴 합니다.](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/1.png "700px")
+
+생성한 인스턴스를 AWS에서 제공하는 웹 기반 터미널에서 제어하는 것도 가능하지만 로컬에 위치한 파일을 업로드하는 과정이 다소 까다롭기도 하고, 비교적 익숙한 로컬 개발 환경을 사용하는 것을 선호해 먼저 로컬 터미널을 EC2에 연결하는 방법부터 소개하도록 하겠습니다.
+
+#
+
+[AWS 공식 문서](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)에서는 SSH를 사용해 EC2에 접속할 때 다음과 같은 커맨드를 사용할 것을 안내하고 있습니다.
+
+```shell
+ssh -i [pem 키 경로] [임의의 사용자명]@[EC2 인스턴스 퍼블릭 DNS 주소]
+```
+
+![](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/2.png)
+
+따라서 `pem` 키를 로컬 터미널에 드래그해 복사한 후, 여러분이 사용할 임의의 이름과 인스턴스 상세 정보를 클릭해 나타나는 DNS 주소를 입력합니다.
+
+```
+The authenticity of host 'ec2-3-39-24-51.ap-northeast-2.compute.amazonaws.com (3.39.24.51)' can't be established.
+ED25519 key fingerprint is SHA256:[프라이빗 키].
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+```
+
+![EC2 터미널로 접속된 모습](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/3.png)
+
+그러면 위와 같은 질문이 나타나고, yes를 터미널에 입력하면 EC2에 접속되어 로컬 터미널을 EC2 터미널로 사용할 수 있게 됩니다.
+
+---
+
+### 🚨 Tip) WARNING: UNPROTECTED PRIVATE KEY FILE! (Permissions 0644) 오류가 나타날 때
+
+![](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/4.png)
+
+프라이빗 키 (`.pem`) 파일이 누구나 접근할 수 있는 상태일 경우에는 보안상 문제로 인해 EC2 접속이 차단되는데요,  
+ 만약 해당 오류가 발생한다면 다음 커맨드로 파일 접근 권한을 축소하면 됩니다.
+
+```shell
+chmod 400 [프라이빗 키 경로]
+```
+
+## 루트 사용자로 전환하기
+
+이제 EC2 인스턴스로 접속은 마쳤으니, EC2에 젠킨스 및 의존성 패키지를 설치하기 위해 루트 사용자로 전환해야 합니다.
+
+![사용자명이 root로 전환된 모습](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/5.png)
+
+루트 사용자 전환은 `sudo su -` 커맨드로 수행할 수 있으며, 전환되면 위와 같이 사용자명이 `root` 로 변경됩니다.
+
+## 젠킨스 의존성 파일 설치하기
+
+젠킨스는 [설치 가이드 링크](https://pkg.jenkins.io/redhat-stable/)에 적힌 대로 커맨드를 실행해 설치할 수 있습니다.
+
+```shell
+# 젠킨스 저장소의 파일을 yum 저장소 목록에 추가합니다.
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+# 젠킨스의 전자 서명 공개키를 임포트합니다.
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+```
+
+하지만 아직은 자바가 설치되어 있지 않아 `yum install jenkins` 커맨드로 젠킨스가 제대로 설치되지 않습니다.
+
+#
+
+이 때, EC2에서 사용하는 리눅스는 AWS에서 약간의 마개조를 가한 [AWS Linux](https://aws.amazon.com/ko/amazon-linux-2/?refid=4c74fd91-5632-4f18-ac76-a6c66c92e185&amazon-linux-whats-new.sort-by=item.additionalFields.postDateTime&amazon-linux-whats-new.sort-order=desc) 라는 커널을 사용하고 있어 `amazon-linux-extras` 라는 별도의 패키지 매니저를 사용할 수 있습니다.
+
+```shell
+sudo amazon-linux-extras install epel
+sudo amazon-linux-extras install java-openjdk11=latest
+```
+
+> ✅ `amazon-linux-extras` 에서 제공하는 패키지 목록은 `amazon-linux-extras list` 커맨드로 확인할 수 있습니다.
+
+## 젠킨스 설치, 실행하기
+
+이제 `yum install jenkins` 커맨드로 젠킨스를 설치한 다음, 설치가 끝나면 `service jenkins status` 커맨드로 젠킨스 설치 여부를 확인할 수 있습니다.
+
+![첫 설치 시, inactive(dead) 가 출력되는 것이 정상입니다.](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/6.png)
+
+설치가 확인되면 `service jenkins start` 커맨드로 젠킨스를 실행할 수 있으며, 웹 브라우저를 사용해 EC2 퍼블릭 IPv4 주소 + 8080번 포트로 접속하면 젠킨스가 실행된 것을 확인할 수 있습니다.
+
+![](/posts/EC2-인스턴스-접속-및-젠킨스-설치방법-정리하기/7.png)
+
+이걸로 EC2 인스턴스 위애 젠킨스 설치가 완료된 모습입니다.
