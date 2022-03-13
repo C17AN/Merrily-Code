@@ -8,9 +8,9 @@ import ButtonVariant from "type/variants/Button";
 import Button from "../Button";
 
 type ModalProps = {
-  title: string;
   body: ReactNode;
-  answerType: "single" | "multi";
+  answerType?: "single" | "multi";
+  title?: string;
   width?: string | number;
   height?: string | number;
   closeModal: () => void;

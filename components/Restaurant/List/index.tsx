@@ -35,10 +35,10 @@ const RestaurantList = ({ restaurantReviewList }: RestaurantListProps) => {
       </ContentList>
       {selectedReview && (
         <Modal
-          title={selectedReview.title}
           closeModal={() => setSelectedReview(null)}
           answerType="single"
           width={900}
+          height={600}
           body={<RestaurantReviewModalBody reviewData={selectedReview} />}
           onCancel={() => setSelectedReview(null)}
         />
@@ -59,6 +59,11 @@ const ContentList = styled(motion.ul)`
   -ms-grid-columns: repeat(auto-fit, minmax(30%, 1fr));
   grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
   grid-gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export default RestaurantList;
