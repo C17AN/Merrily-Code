@@ -1,4 +1,12 @@
-import { FaAws, FaDocker, FaNodeJs, FaReact, FaRegHandshake, FaVuejs } from "react-icons/fa";
+import {
+  FaAws,
+  FaDocker,
+  FaLinux,
+  FaNodeJs,
+  FaReact,
+  FaRegHandshake,
+  FaVuejs,
+} from "react-icons/fa";
 import {
   SiAzuredevops,
   SiDart,
@@ -19,12 +27,13 @@ import { DiAndroid, DiApple, DiGoogleCloudPlatform, DiMysql, DiRedis } from "rea
 import { RiComputerFill } from "react-icons/ri";
 import { AiFillDatabase, AiOutlineConsoleSql, AiTwotoneExperiment } from "react-icons/ai";
 import { GiComputing, GiFamilyTree, GiPlayerNext, GiWifiRouter } from "react-icons/gi";
-import { BsCodeSlash, BsHddNetworkFill, BsKeyboard } from "react-icons/bs";
+import { BsCodeSlash, BsFileEarmarkCodeFill, BsHddNetworkFill, BsKeyboard } from "react-icons/bs";
 import { IoMdRestaurant } from "react-icons/io";
 import { GiMusicalNotes } from "react-icons/gi";
 import { IoHardwareChipSharp, IoLanguage } from "react-icons/io5";
 import { BiGitPullRequest, BiNote } from "react-icons/bi";
 import { MdOutlineConstruction, MdOutlineDesignServices, MdOutlineRouter } from "react-icons/md";
+import { VscCircuitBoard } from "react-icons/vsc";
 import Category, { MainCategory } from "type/Category";
 
 const category: Record<MainCategory, Category | Category[]> = {
@@ -51,16 +60,17 @@ const category: Record<MainCategory, Category | Category[]> = {
     { displayName: "React Native", icon: <DiAndroid />, categoryName: "rn" },
   ] as Array<Category>,
   클라우드: [
+    { displayName: "Architecture", icon: <VscCircuitBoard />, categoryName: "architecture" },
     { displayName: "AWS", icon: <FaAws />, categoryName: "aws" },
     { displayName: "Azure", icon: <SiAzuredevops />, categoryName: "azure" },
+    { displayName: "Docker", icon: <FaDocker />, categoryName: "docker" },
     { displayName: "Google Cloud", icon: <DiGoogleCloudPlatform />, categoryName: "gcp" },
-    { displayName: "Cloud Technology", icon: <GiComputing />, categoryName: "tech-cloud" },
+    { displayName: "Kubernetes", icon: <SiKubernetes />, categoryName: "kubernetes" },
   ] as Array<Category>,
   데브옵스: [
-    { displayName: "Docker", icon: <FaDocker />, categoryName: "docker" },
-    { displayName: "Kubernetes", icon: <SiKubernetes />, categoryName: "kubernetes" },
-    { displayName: "Microservice", icon: <IoHardwareChipSharp />, categoryName: "microservice" },
     { displayName: "CI / CD ", icon: <BsHddNetworkFill />, categoryName: "cicd" },
+    { displayName: "IAC", icon: <BsFileEarmarkCodeFill />, categoryName: "iac" },
+    { displayName: "Linux", icon: <FaLinux />, categoryName: "linux" },
   ] as Array<Category>,
   오픈소스: [
     {

@@ -1,0 +1,141 @@
+---
+title: 이벤트 핸들러, 제대로 제거하고 계셨나요?
+date: "2021-12-31"
+description: 개발 중 이벤트 핸들러를 제대로 제거하지 않아 생겼던 이슈를 소개합니다.
+category: react
+thumbnailUrl: "/thumbnails/react.svg"
+tags: ["프론트엔드", "리액트"]
+---
+
+하루는 자바스크립트 단에서 화면 사이즈를 기반으로 모바일 여부를 검사하는 `useIsMobile` 훅을 제작하고 있었습니다.
+
+```jsx
+import { useEffect, useState } from "react";
+
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  const handleScreenResize = () => {
+    setScreenWidth(window.innerWidth);
+    screenWidth > 768 ? setIsMobile(false) : setIsMobile(true);
+  };
+
+  useEffect(() => {
+    handleScreenResize();
+    window.addEventListener("resize", handleScreenResize);
+  }, [screenWidth]);
+
+  return isMobile;
+};
+
+export default useIsMobile;
+```
+
+어떤가요? 얼핏 보기엔 꽤나 그럴싸해 보이지 않나요? (물론 제게만 그럴수도 있습니다 하하하! 😆)  
+하지만 이 코드에는 문제가 하나 있었습니다.
+
+![](/posts/이벤트-핸들러는-반드시-제거하자/0.gif)
+
+콘솔을 찍어보니 화면을 조정할 때마다 `true`와 `false` 값이 번갈아가며 출력되고 있었는데요, 안에서 대체 무슨 일이 일어난 걸까요?
+
+```jsx
+import { useEffect, useState } from "react";
+
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  const handleScreenResize = () => {
+    setScreenWidth(window.innerWidth);
+    screenWidth > 768 ? setIsMobile(false) : setIsMobile(true);
+    console.log(screenWidth); // 추가한 부분
+  };
+
+  useEffect(() => {
+    handleScreenResize();
+    window.addEventListener("resize", handleScreenResize);
+  }, [screenWidth]);
+
+  return isMobile;
+};
+
+export default useIsMobile;
+```
+
+![611 613, 611 612 614, 611 612 613 615, ... 이런 식으로 출력값이 점점 늘어나고 있는 모습입니다.](/posts/이벤트-핸들러는-반드시-제거하자/0.gif)
+
+이후 추가적인 확인을 위해 화면 사이즈를 변경할 때마다 그 값을 콘솔에 출력해보니, 이전까지 출력되었던 모든 너비값들이 모두 저장되어 있었고, 이 모든 값들이 다시 평가되는 과정에서 `true`와 `false` 값이 섞여 출력되는 것임을 알 수 있었습니다. 🙂
+
+#
+
+그럼 이 코드의 어떤 부분에 문제가 있었던 걸까요?
+
+맞습니다! 바로 `useEffect` 내부에서 이벤트 핸들러 함수를 등록할 때 이를 초기화해주지 않은 것이 문제였는데요, 지금까지의 함수 동작 과정을 한번 살펴보겠습니다.
+
+```jsx
+const BaseLayout = ({ children }: BaseLayoutProps) => {
+// 1. useIsMobile 훅이 호출됩니다.
+const isMobile = useIsMobile();
+...
+}
+```
+
+```jsx
+import { useEffect, useState } from "react";
+
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  // 3. 이벤트 핸들러 내부에서 상태 업데이트가 일어나, 컴포넌트가 재렌더링됩니다.
+  // 즉, 핸들러가 초기화되지 않은 상태에서 1번 단계로 돌아가 위 과정을 반복합니다.
+  const handleScreenResize = () => {
+    setScreenWidth(window.innerWidth);
+    screenWidth > 768 ? setIsMobile(false) : setIsMobile(true);
+  };
+
+  // 2. 이펙트 내부에서 이벤트 핸들러가 등록됩니다.
+  useEffect(() => {
+    handleScreenResize();
+    window.addEventListener("resize", handleScreenResize);
+  }, [screenWidth]);
+
+  return isMobile;
+};
+
+export default useIsMobile;
+```
+
+따라서 리사이징을 감지해 상태를 업데이트한 후, 해당 이벤트 핸들러를 무효화해야 원하는 결과를 얻을 수 있게 됩니다.
+
+```jsx
+import { useEffect, useState } from "react";
+
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  const handleScreenResize = () => {
+    setScreenWidth(window.innerWidth);
+    screenWidth > 768 ? setIsMobile(false) : setIsMobile(true);
+    // 리사이징이 수행된 다음, 이벤트 핸들러를 제거합니다.
+    window.removeEventListener("resize", handleScreenResize);
+  };
+
+  useEffect(() => {
+    handleScreenResize();
+    window.addEventListener("resize", handleScreenResize);
+  }, [screenWidth]);
+
+  return isMobile;
+};
+
+export default useIsMobile;
+```
+
+![768px 이하일때는 (isMobile이) true, 이상일 경우에는 false를 출력하는 모습입니다!](/posts/이벤트-핸들러는-반드시-제거하자/2.gif)
+
+여러분들도 이벤트 핸들러를 등록하는 로직을 작성할 때, 핸들러가 필요 없어질 때는 꼭 핸들러를 제거해야 함을 잊지 말아주세요!
+
+- 혹시 동작 과정에 잘못된 내용이나 추가할 내용이 있다면, 댓글로 피드백을 남겨주시면 감사히 배우겠습니다! 😆
