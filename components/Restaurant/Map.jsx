@@ -1,16 +1,6 @@
 import React from "react";
-import dynamic from "next/dynamic";
 import useNaverMapReady from "hooks/useNaverMapReady";
-const RenderAfterNavermapsLoaded = dynamic(
-  async () => await import("react-naver-maps").then((module) => module.RenderAfterNavermapsLoaded),
-  { ssr: false }
-);
-const NaverMap = dynamic(() => import("react-naver-maps").then((module) => module.NaverMap), {
-  ssr: false,
-});
-const Marker = dynamic(() => import("react-naver-maps").then((module) => module.Marker), {
-  ssr: false,
-});
+import { Marker, NaverMap, RenderAfterNavermapsLoaded } from "components/common/NaverMap";
 
 const Map = () => {
   const isNaverMapReady = useNaverMapReady(RenderAfterNavermapsLoaded, NaverMap, Marker);
