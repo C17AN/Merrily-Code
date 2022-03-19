@@ -56,15 +56,19 @@ const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
   const { title, tags, date, description, category, thumbnailUrl } = frontMatter;
   const isUtterancesActive = useUtterances(".post-container");
   const canonicalURL = endpoints.BASE_URL + decodeURI(useRouter().asPath);
+  const ogImageUrl = endpoints.BASE_URL + thumbnailUrl;
+  const ogSiteName = "즐겁게, 코드";
 
   return (
     <>
       <Head>
         <title>즐겁게, 코드 | {title}</title>
-        <meta name="author" content="C17AN" />
         <link rel="canonical" href={canonicalURL} />
+        <meta name="author" content="C17AN" />
         <meta name="description" content={description} />
-        <meta property="og:image" content={thumbnailUrl} />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:site_name" content={ogSiteName} />
+        <meta property="og:description" content={description} />
         <meta property="og:title" content={title} />
       </Head>
       <Container className="post-container">
