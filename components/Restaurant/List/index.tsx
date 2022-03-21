@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { Restaurant } from "type/Restaurant";
 import Modal from "components/common/Modal";
 import RestaurantReviewModalBody from "../Detail";
+import ButtonVariant from "type/variants/Button";
+import { palette } from "styles/palette";
 
 type RestaurantListProps = {
   restaurantReviewList: Restaurant[];
@@ -36,11 +38,16 @@ const RestaurantList = ({ restaurantReviewList }: RestaurantListProps) => {
       {selectedReview && (
         <Modal
           closeModal={() => setSelectedReview(null)}
-          answerType="single"
+          answerType="multi"
           width={900}
           height={600}
+          rightText="닫기"
+          leftText="공유하기"
+          onLeftButtonClick={() => {}}
+          leftButtonVariant={ModalCancelButtonVariant}
+          rightButtonVariant={ModalConfirmButtonVariant}
           body={<RestaurantReviewModalBody reviewData={selectedReview} />}
-          onCancel={() => setSelectedReview(null)}
+          onRightButtonClick={() => setSelectedReview(null)}
         />
       )}
     </div>
@@ -65,5 +72,17 @@ const ContentList = styled(motion.ul)`
     flex-direction: column;
   }
 `;
+
+const ModalCancelButtonVariant: ButtonVariant = {
+  color: palette.white,
+  backgroundColor: palette.red[100],
+  hoverBackgroundColor: palette.red[300],
+};
+
+const ModalConfirmButtonVariant: ButtonVariant = {
+  color: palette.white,
+  backgroundColor: palette.green[400],
+  hoverBackgroundColor: palette.green[300],
+};
 
 export default RestaurantList;

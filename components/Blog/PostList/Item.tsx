@@ -46,7 +46,6 @@ const PostItem = ({
   postIndex,
 }: PostItemProps) => {
   const parsedDate = parseDate(date);
-
   return (
     <Link href={`/post/${filename}`} passHref>
       <Container

@@ -14,12 +14,12 @@ type ModalProps = {
   width?: string | number;
   height?: string | number;
   closeModal: () => void;
-  cancelText?: string;
-  confirmText?: string;
+  leftText?: string;
+  rightText?: string;
   leftButtonVariant?: ButtonVariant;
   rightButtonVariant?: ButtonVariant;
-  onCancel?: () => void;
-  onConfirm?: () => void;
+  onRightButtonClick?: () => void;
+  onLeftButtonClick?: () => void;
 };
 
 const variants = {
@@ -35,12 +35,12 @@ const Modal = ({
   closeModal,
   leftButtonVariant,
   rightButtonVariant,
-  onCancel,
-  onConfirm,
+  onRightButtonClick,
+  onLeftButtonClick,
   width = 300,
   height = 300,
-  cancelText = "취소",
-  confirmText = "확인",
+  leftText = "취소",
+  rightText = "확인",
 }: ModalProps) => {
   const isMobile = useIsMobile();
   const preventScroll = () => {
@@ -72,19 +72,19 @@ const Modal = ({
         isMobile={isMobile}
       >
         <h2>{title}</h2>
-        <>{body}</>
+        <ModalBody>{body}</ModalBody>
         <ModalFooter>
           {answerType === "single" ? (
-            <Button {...rightButtonVariant} onClick={onCancel}>
-              {confirmText}
+            <Button {...rightButtonVariant} onClick={onRightButtonClick}>
+              {rightText}
             </Button>
           ) : (
             <>
-              <Button {...leftButtonVariant} onClick={onCancel}>
-                {cancelText}
+              <Button {...leftButtonVariant} onClick={onRightButtonClick}>
+                {leftText}
               </Button>
-              <Button {...rightButtonVariant} onClick={onConfirm}>
-                {confirmText}
+              <Button {...rightButtonVariant} onClick={onLeftButtonClick}>
+                {rightText}
               </Button>
             </>
           )}
@@ -119,17 +119,27 @@ const Container = styled(motion.div)<{
   width: ${({ isMobile, width }) => (isMobile ? "300px" : computeSize(width))};
   height: ${({ height }) => computeSize(height)};
   border-radius: 0.75rem;
+  overflow-y: scroll;
   padding: 1.5rem;
   z-index: 999;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 `;
 
+const ModalBody = styled.main``;
+
 const ModalFooter = styled.footer`
-  position: absolute;
   display: flex;
+  justify-content: flex-end;
   gap: 1rem;
-  bottom: 1.25rem;
-  right: 1.25rem;
-  margin-top: auto;
+  margin-top: 1rem;
 `;
 
 export default Modal;

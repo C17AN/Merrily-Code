@@ -55,12 +55,12 @@ const Guestbook = () => {
           width={420}
           height={450}
           closeModal={closeCreateModal}
-          cancelText="취소하기"
-          confirmText="방명록 남기기"
+          leftText="취소하기"
+          rightText="방명록 남기기"
           leftButtonVariant={ModalCancelButtonVariant}
           rightButtonVariant={ModalConfirmButtonVariant}
-          onCancel={() => {}}
-          onConfirm={() => {}}
+          onRightButtonClick={() => {}}
+          onLeftButtonClick={() => {}}
         />
       )}
     </Container>

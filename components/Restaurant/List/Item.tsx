@@ -18,7 +18,7 @@ const animateVariant = {
 };
 
 const RestaurantListItem = ({ reviewData, selectReviewId }: RestaurantListItemProps) => {
-  const { id, title, thumbnail, location } = reviewData;
+  const { id, title, thumbnail, location, description } = reviewData;
 
   return (
     <Container onClick={() => selectReviewId(id)} variants={animateVariant} whileHover="zoom">
@@ -27,8 +27,8 @@ const RestaurantListItem = ({ reviewData, selectReviewId }: RestaurantListItemPr
           <Image src={thumbnail} layout="fill" alt={title} objectFit="cover" />
         </Thumbnail>
         <Title>{title}</Title>
-        <p className="location">{location}</p>
-        <Description>깐부치킨 그는 과연 신인가</Description>
+        <Description>{description}</Description>
+        <Location>{location}</Location>
       </div>
     </Container>
   );
@@ -39,11 +39,6 @@ const Container = styled(motion.div)`
   border-radius: 0.5rem;
   padding: 1.5rem;
   cursor: pointer;
-
-  .location {
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
-  }
 `;
 
 const Thumbnail = styled.div`
@@ -74,6 +69,11 @@ const Title = styled.h2`
 const Description = styled.h3`
   font-size: 0.875rem;
   color: ${palette.grey[300]};
+  margin-bottom: 0.75rem;
+`;
+const Location = styled.p`
+  font-size: 0.875rem;
+  margin: 0.5rem 0;
 `;
 
 export default RestaurantListItem;
