@@ -1,12 +1,16 @@
 {
   "id": 1,
-  "title": "15,000원으로 족발 무한리필? - 홍대 이공족발 리뷰",
-  "location": "홍대",
+  "title": "홍대 이공족발 리뷰",
+  "description": "15,000원으로 족발을 무한으로?",
+  "visitedAt": "2022년 2월 20일",
+  "location": "서울특별시 마포구 서교동 어울마당로 70 2층",
   "thumbnail": "https://d3i7lyqkyp9zxr.cloudfront.net/restaurant/%EC%9D%B4%EA%B3%B5%EC%A1%B1%EB%B0%9C-%EB%A6%AC%EB%B7%B0/0.JPG",
   "imageList": [
     "https://d3i7lyqkyp9zxr.cloudfront.net/restaurant/%EC%9D%B4%EA%B3%B5%EC%A1%B1%EB%B0%9C-%EB%A6%AC%EB%B7%B0/0.JPG",
     "https://d3i7lyqkyp9zxr.cloudfront.net/restaurant/%EC%9D%B4%EA%B3%B5%EC%A1%B1%EB%B0%9C-%EB%A6%AC%EB%B7%B0/0.JPG",
     "https://d3i7lyqkyp9zxr.cloudfront.net/restaurant/%EC%9D%B4%EA%B3%B5%EC%A1%B1%EB%B0%9C-%EB%A6%AC%EB%B7%B0/0.JPG",
     "https://d3i7lyqkyp9zxr.cloudfront.net/restaurant/%EC%9D%B4%EA%B3%B5%EC%A1%B1%EB%B0%9C-%EB%A6%AC%EB%B7%B0/0.JPG"
-  ]
+  ],
+  "price": "약 15,000원",
+  "review": "다른 무한리필 식당에서 그래왔듯 퀄리티를 기대하지는 않았지만, 의외로 괜찮은 고기 퀄리티에 놀랐습니다!\n다만 사람이 붐빌 경우에는 꼬들살이 금방 동날 위험(?)이 있으니 조심하세요!"
 }
