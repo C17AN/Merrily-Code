@@ -23,7 +23,7 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
   };
 
   return (
-    <Container isOpen={isSidebarOpen}>
+    <Container isSidebarOpen={isSidebarOpen}>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebarVisible} />
       <Content>
         <Header toggleSidebar={toggleSidebarVisible} />
@@ -34,11 +34,11 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
   );
 };
 
-const Container = styled.div<{ isOpen: boolean }>`
+const Container = styled.div<{ isSidebarOpen: boolean }>`
   display: flex;
   min-height: 100%;
   @media (max-width: 768px) {
-    overflow: ${({ isOpen }) => isOpen && "hidden"};
+    overflow: ${({ isSidebarOpen }) => isSidebarOpen && "hidden"};
   }
 `;
 
@@ -52,6 +52,7 @@ const Content = styled.div`
 const PageContent = styled.div`
   padding: 3rem 5rem;
   color: ${palette.grey[700]};
+  flex: 1;
 
   @media (max-width: 768px) {
     & {
