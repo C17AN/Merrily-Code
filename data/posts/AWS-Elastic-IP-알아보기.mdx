@@ -1,0 +1,38 @@
+---
+title: AWS Elastic IP 알아보기
+date: "2022-03-23"
+description: EC2에 고정된 퍼블릭 IP를 부여해주는 Elastic IP를 소개합니다.
+category: aws
+thumbnailUrl: "/thumbnails/aws.svg"
+tags: ["AWS", "EC2"]
+---
+
+![](https://d3i7lyqkyp9zxr.cloudfront.net/logos/aws.png "400px")
+
+EC2 인스턴스를 실행하면 자동으로 인스턴스에 접근할 수 있는 퍼블릭 IP와 프라이빗 IP를 부여받는데요, 이렇게 부여받은 퍼블릭 IP는 **매 실행마다 다시 배정된다는** 가변성이 존재합니다.
+
+![인스턴스 중지 이전의 퍼블릭 IP](https://d3i7lyqkyp9zxr.cloudfront.net/AWS-Elastic-IP-알아보기/0.png)
+
+![인스턴스를 중지 후 다시 실행했더니, 퍼블릭 IP가 변경된 모습입니다.](https://d3i7lyqkyp9zxr.cloudfront.net/AWS-Elastic-IP-알아보기/1.png)
+
+그러다 보니 SSH를 통해 재실행한 EC2에 접속할 때마다 변경된 주소를 입력해야 하기도 하고 배포 및 빌드 과정에서 IP 주소가 필요하다면 매번 설정을 변경해야 한다는 불편이 존재했는데요, 오늘 소개할 탄력적 IP(Elastic IP)를 사용하면 인스턴스에 불변적인 IP를 부여할 수 있습니다.
+
+## 탄력적 IP (Elastic IP)
+
+탄력적 IP는 인스턴스에 불변적인 IPv4 주소를 부여해 주는데요, 탄력적 IP를 부여받은 인스턴스는 **중지 후 재실행** 을 거치고도 퍼블릭 IP가 유지됩니다.  
+따라서, CI/CD를 구성할 때 등 배포 서버 퍼블릭 IP의 불변성이 보장되어야 하는 경우에는 탄력적 IP를 적용하면 인스턴스 주소의 불변을 보장받을 수 있습니다.
+
+![탄력적 IP를 부여받으면 중지 상태에서도 해당 주소가 보존됩니다.](https://d3i7lyqkyp9zxr.cloudfront.net/AWS-Elastic-IP-알아보기/2.png)
+
+#
+
+하지만 탄력적 IP에는 단점도 존재하는데요, 바로 **AWS 계정당 최대 5개** 까지만 발급이 가능하다는 점입니다.
+
+> ✅ **더 알아보기**
+>
+> #
+>
+> IPv4 주소는 전체 수량이 한정되어 고갈된 자원인 만큼 낭비할 수 없는데요, 따라서 AWS에서는 최대 5개의 IP 주소를 발급해주고 있습니다.  
+> 또한, 낭비를 막기 위한 차원에서 탄력적 IP는 실행중인 인스턴스에 연결된 상태에서는 무료이나 중지중인 인스턴스 또는 인스턴스에 연결되지 않은 경우에는 [시간당 약 6원](https://docs.rightscale.com/cm/dashboard/clouds/aws/ec2_elastic_ips.html)의 요금이 부과됩니다.
+
+따라서 5개 이상의 인스턴스에 적용하는 것은 불가능해, 모든 인스턴스에 탄력적 IP를 적용하는 방법은 권장되지 않습니다.
