@@ -4,7 +4,7 @@ import RestaurantSearch from "./Search";
 import RestaurantCategoryList from "./Category/List";
 import RestaurantList from "./List";
 import Map from "./Map";
-import Divider from "components/Portfolio/common/Divider";
+import Divider from "components/common/Divider";
 import { Restaurant as RestaurantType } from "type/Restaurant";
 
 type RestaurantProps = {

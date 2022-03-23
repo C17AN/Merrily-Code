@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Title from "components/Portfolio/common/Title";
+import Title from "components/Home/Portfolio/common/Title";
 import InfoList from "../common/InfoList";
 import EducationData from "data/about/EducationData";
 

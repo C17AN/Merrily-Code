@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Modal from "components/common/Modal";
-import Divider from "components/Portfolio/common/Divider";
+import Divider from "components/common/Divider";
 import Image from "next/image";
 import React from "react";
 import Slider from "react-slick";

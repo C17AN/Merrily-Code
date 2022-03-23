@@ -11,7 +11,16 @@ type Image = {
 const Image = ({ src, alt, title: size }: Image) => {
   return (
     <Container width={size}>
-      <NextImage src={src} layout="fill" alt={alt} title={alt} quality={75} priority />
+      <NextImage
+        src={src}
+        layout="fill"
+        alt={alt}
+        title={alt}
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8Ug8AAk0BZU1+kw8AAAAASUVORK5CYII="
+        quality={75}
+        priority
+      />
       {alt?.length && <figcaption>{alt}</figcaption>}
     </Container>
   );

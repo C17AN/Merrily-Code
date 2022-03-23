@@ -5,7 +5,7 @@ import GuestbookProfile from "type/GuestbookProfile";
 import PositionLabel from "../PositionLabel";
 import { palette } from "styles/palette";
 import { motion } from "framer-motion";
-import Divider from "components/Portfolio/common/Divider";
+import Divider from "components/common/Divider";
 import CardBorderDecoration from "./CardBorderDecoration";
 import GuestSns from "../CreateGuestbook/GuestSns";
 import { IoMdOpen } from "react-icons/io";

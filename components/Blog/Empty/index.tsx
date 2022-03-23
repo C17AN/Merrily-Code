@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import useCategoryHeader from "hooks/useCategoryHeader";
-import Divider from "components/Portfolio/common/Divider";
+import Divider from "components/common/Divider";
 import { palette } from "styles/palette";
 
 const PostEmpty = () => {

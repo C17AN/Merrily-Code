@@ -1,4 +1,4 @@
-import { InfoItemProps } from "components/Portfolio/About/common/InfoItem";
+import { InfoItemProps } from "components/Home/Portfolio/About/common/InfoItem";
 
 const ChallengeData: InfoItemProps[] = [
   {

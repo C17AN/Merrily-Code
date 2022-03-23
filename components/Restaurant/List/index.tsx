@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Divider from "components/Portfolio/common/Divider";
+import Divider from "components/common/Divider";
 import RestaurantListItem from "./Item";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";

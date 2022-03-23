@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import InfoList from "../common/InfoList";
 import CareerData from "data/about/CareerData";
-import Title from "components/Portfolio/common/Title";
+import Title from "components/Home/Portfolio/common/Title";
 
 const Career = () => {
   return (

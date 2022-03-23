@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import styled from "@emotion/styled";
-import SubTitle from "components/Portfolio/common/SubTitle";
+import SubTitle from "components/Home/Portfolio/common/SubTitle";
 import TeckStackList from "./List";
 import Image from "next/image";
 import useTechStackCategory from "hooks/useTechStackCategory";

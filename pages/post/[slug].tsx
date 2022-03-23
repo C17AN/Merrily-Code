@@ -1,4 +1,4 @@
-import React, { ReactPropTypes } from "react";
+import React from "react";
 import Head from "next/head";
 import fs from "fs";
 import path from "path";
@@ -24,7 +24,7 @@ import {
   Li,
 } from "components/Blog/Template";
 import { palette } from "styles/palette";
-import Divider from "components/Portfolio/common/Divider";
+import Divider from "components/common/Divider";
 import Tag from "components/Blog/PostList/common/Tag";
 import TagList from "components/Blog/PostList/common/TagList";
 import useUtterances from "hooks/useUtterances";

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import SubTitle from "components/Portfolio/common/SubTitle";
-import Divider from "./Divider";
+import SubTitle from "./SubTitle";
+import Divider from "components/common/Divider";
 
 type TitleProps = {
   iconPath?: string;

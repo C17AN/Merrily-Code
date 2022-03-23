@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import PostItem from "./Item";
 import useCategoryHeader from "hooks/useCategoryHeader";
-import Divider from "components/Portfolio/common/Divider";
+import Divider from "components/common/Divider";
 import Post from "type/Post";
 import { palette } from "styles/palette";
 

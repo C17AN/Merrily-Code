@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import Divider from "components/Portfolio/common/Divider";
+import Divider from "components/common/Divider";
 import ProfileCard from "./ProfileCard";
 import Button from "components/common/Button";
 import Modal from "components/common/Modal";
