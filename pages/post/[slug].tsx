@@ -101,6 +101,10 @@ const Container = styled.div`
     border-radius: 0.25rem;
     font-family: menlo, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
   }
+
+  pre > code {
+    padding: 0 !important;
+  }
 `;
 
 const Title = styled.h1`

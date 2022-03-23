@@ -1,0 +1,90 @@
+---
+title: 백준 21921번 - 블로그
+date: "2022-03-23"
+description: 슬라이딩 윈도우 문제 풀이 기록입니다.
+category: boj
+thumbnailUrl: "/thumbnails/boj.svg"
+tags: ["Python", "슬라이딩 윈도우"]
+---
+
+[문제 링크 : [백준 21921번 : 블로그]](https://www.acmicpc.net/problem/21921)
+
+#
+
+투 포인터와 유사한 **슬라이딩 윈도우** 유형의 문제입니다.
+
+> ✅ **TIP**
+>
+> #
+>
+> 투 포인터가 **두 개의 포인터**를 조작해가며 구간의 합 등을 구해내는 유형이었다면, 슬라이딩 윈도우는 특정 포인터부터 **정해진 길이**만큼의 구간에서 원하는 계산을 수행하는 알고리즘입니다.
+
+### 정답 코드 - Python
+
+```python
+N, X = map(int, input().split())
+A = [0]
+A.extend(map(int, input().split()))
+
+maxValueCount = 0
+maxValue = 0
+
+for i in range(1, N + 1):
+    # 누적합 배열을 생성합니다.
+    A[i] = A[i - 1] + A[i]
+
+# 전체 배열의 합을 구하는 경우
+if N == X:
+    if A[N] == 0:
+        print("SAD")
+    else:
+        print(A[N])
+        print(1)
+
+else:
+    for i in range(X - 1, N + 1):
+        # 누적합 배열을 통해 i부터 X만큼의 구간의 합을 구합니다.
+        tempSum = A[i] - A[i - X]
+        if tempSum > maxValue:
+            maxValue = tempSum
+            maxValueCount = 1
+        elif tempSum == maxValue:
+            maxValueCount += 1
+
+    if maxValue == 0:
+        print("SAD")
+    else:
+        print(maxValue)
+        print(maxValueCount)
+```
+
+### 제출 결과
+
+![](https://d3i7lyqkyp9zxr.cloudfront.net/백준-21921번-블로그/0.png)
+
+### 반례 테스트케이스
+
+아마 66% 구간에서 <span style = {{color:'#dd4124'}}>"틀렸습니다"</span>을 만난다면 다음 반례를 시도해 보세요. 🙂
+
+```python
+입력 1)
+1 1
+1
+
+기댓값 1)
+1
+1
+```
+
+```python
+입력 2)
+5 2
+1 5 1 5 1
+
+기댓값 2)
+4
+6
+```
+
+아마 두 번째 케이스에서 3 6이 출력된다면 누적합을 통해 구간의 합을 구하는 부분이 잘못되었을 수 있습니다.  
+너무 낙심하진 마시고, 커피 한모금 하신 뒤 다시 확인해보시면 금방 해결될거에요! 🙂
