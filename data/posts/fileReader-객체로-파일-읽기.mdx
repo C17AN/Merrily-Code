@@ -1,0 +1,119 @@
+---
+title: FileReader 객체로 파일 내용 읽기
+date: "2022-03-25"
+description: FileReader 객체를 통해 업로드한 파일 내용을 읽는 방법을 소개합니다.
+category: javascript
+thumbnailUrl: "/thumbnails/javascript.svg"
+tags: ["javascript", "프론트엔드"]
+---
+
+## TL;DR
+
+- 파일 읽기는 `FileReader` 객체의 `readAsText()` 등의 메서드를 활용해 수행한다.
+- 읽어들인 파일을 사용하기 위해서는 `FileReader` 객체의 `onload` 또는 `onloadend` 메서드를 오버라이딩한다.
+
+---
+
+개발을 하다 보면 종종 `input` 태그를 통해 외부에서 **파일**을 불러와야 할 때가 있는데요, `input` 태그에서는 해당 파일의 형식, 이름 등의 메타데이터만을 알 뿐 그 내용은 알지 못합니다.
+
+#
+
+이처럼 `input` 태그에서는 파일을 업로드하는 인터페이스만을 제공하고 파일의 실제 **내용을 읽는 것은** `FileReader` 라는 객체의 역할인데요, 오늘은 `FileReader` 객체를 사용해 파일 내용을 불러오는 방법을 간단히 소개해보겠습니다.
+
+## FileReader 객체
+
+`FileReader` 객체는 `<input type = "file">` 태그를 통해 입력받은 파일(File) 객체의 내용을 읽을 수 있습니다.
+
+![input 태그로 불러온 File 프로토타입 객체의 형태 (예시)](https://d3i7lyqkyp9zxr.cloudfront.net/fileReader-객체로-파일-읽기/0.png "600px")
+
+`FileReader` 객체는 `new` 라는 키워드를 사용해 정의할 수 있으며, 정의한 `FileReader` 객체에 파일을 읽는 메서드를 결합해 파일을 읽습니다.
+
+#
+
+**[예시]**
+
+```js
+let dataReader = new FileReader();
+// FileReader 객체는 File 프로토타입의 객체를 인자로 받습니다.
+dataReader.readAsText(file);
+```
+
+파일을 읽는 메서드의 종류는 다음과 같습니다.
+
+- `readAsText` : 인코딩을 수행하지 않고 텍스트로 읽어들입니다.
+- `readAsDataURL` : `base64` 기반 인코딩을 수행한 후 텍스트로 읽어들입니다.
+- `readAsArrayBuffer` : `ArrayBuffer` 객체로 변환한 후 읽어들입니다. (주로 오디오, 비디오 등의 스트림 데이터를 다루는데 사용합니다)
+
+## FileReader 이벤트의 흐름
+
+그런데 `readAsText`, `readAsDataURL` 등의 함수에는 리턴값이 존재하지 않는 모습인데요, 그럼 불러온 데이터를 어떻게 처리해야 할까요?
+
+![함수의 원형을 살펴보면 리턴값이 존재하지 않는 모습입니다.](https://d3i7lyqkyp9zxr.cloudfront.net/fileReader-객체로-파일-읽기/2.png)
+
+여기서 두 번째 개념인 `FileReader`의 이벤트 흐름에 대한 이해가 필요한데요, `FileReader` 객체가 파일을 읽어들인 이후에는 다음 이벤트들이 발생합니다.
+
+#
+
+- `loadstart` - 파일을 읽어들이기 시작할 때 발생
+- `load` - 파일 읽기에 성공했을 때 발생 (해당 이벤트 발생 시점부터 내용을 읽어들일 수 있습니다.)
+- `loadend`- 파일 읽기 작업이 종료될 때 발생 (성공 / 실패에 무관하게 발생합니다.)
+
+> ✅ **TIP!**
+>
+> #
+>
+> 파일을 읽는 순서 이벤트 이외에도 파일을 읽는 과정의 **상태** 를 표현하는 `progress`, `error`, `abort` 이벤트 역시 존재합니다.
+
+이들 중 파일 내용에 접근할 수 있는 이벤트는 `load` 와 `loadend` 이벤트로, 해당 이벤트가 호출되면 `FileReader` 객체의 `onload()`, `onloadend()` 메서드가 각각 호출됩니다.
+
+#
+
+```js
+const reader = new FileReader();
+
+// 2. 파일 이벤트 흐름에 따라  파일 읽기에 성공하면 onload 메서드에 오버라이딩한 함수가 실행된다.
+reader.onload = (e) => {
+  // 파일 내용은 e.target.result 속성에 담긴다.
+  console.log(e.target.result);
+};
+// 1. 파일을 읽기 시작하면 파일 이벤트 흐름이 시작된다. (loadstart - load - loadend)
+reader.readAsText(file);
+```
+
+이 `onload()`, `onloadend()` 메서드에는 읽어들인 파일 내용이 포함되어 있으니, 이 안에서 수행하고자 하는 동작을 재정의하면 파일 읽기가 완료됩니다.
+
+### input 태그로 입력받은 파일의 내용을 `readAsText` 함수로 읽는 전체 과정 예시
+
+#
+
+```js
+<input type="file" onchange="handleUpload" />
+
+function readFile(file) {
+  let initialDataReader = new FileReader();
+  // 3. 파일을 읽는 데 성공하면 함수를 트리거합니다.
+  initialDataReader.onload = (e) => {
+    let readFile = e.target;
+    // 실제 파일 정보는 e.target.result 에 담깁니다.
+    const fileResult = readFile.result;
+    console.log(fileResult)
+  };
+  // 2. readAsText 함수가 호출됩니다.
+  const res = initialDataReader.readAsText(file);
+},
+
+// 1. 파일을 input 태그를 통해 파일을 업로드하면 호출됩니다.
+function handleUpload(e) {
+  const uploadedFile = e.target.files[0];
+  readFile(uploadedFile);
+},
+```
+
+비동기 작업을 수행할 때 콜백이나 프라미스가 아닌 트리거 메서드를 오버라이딩하는 방법은 다소 낯선 모습인데요, 이런 점을 고려해서인지 최근에는 `Blob.text()` 처럼 프라미스 기반으로 파일을 읽을 수 있는 방법이 추가되었다고 합니다.
+
+#
+
+혹시 `FileReader` 객체에 더 궁금한 내용이 있다면 아래 링크를 참조해보시면 좋을 듯 합니다. 🙂
+
+- [MDN - FileReader API](https://developer.mozilla.org/ko/docs/Web/API/FileReader)
+- [MDN - FileReader 이벤트 흐름](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/loadstart_event)
