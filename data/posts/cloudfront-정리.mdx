@@ -1,0 +1,59 @@
+---
+title: AWS Cloudfront 정리하기
+date: "2022-03-29"
+description: Cloudfront의 역할을 간단히 정리합니다.
+category: aws
+thumbnailUrl: "/thumbnails/aws.svg"
+tags: ["AWS", "Cloudfront"]
+---
+
+![](https://d3i7lyqkyp9zxr.cloudfront.net/logos/aws.png "400px")
+
+[Amazon Cloudfront](https://aws.amazon.com/ko/cloudfront/?nc=sn&loc=0)는 AWS에서 제공하는 CDN(Content Delivery Network) 서비스로, 캐싱을 통해 리소스의 **읽기 성능** 을 개선하는 것을 목표로 합니다.
+
+#
+
+Cloudfront 엣지는 세계적으로 약 200여 군데에 위치하며, 읽기 성능 개선 외에도 AWS Shield나 AWS Web Application Firewall 과 결합해 DDoS 방어 용도로도 사용할 수 있습니다.
+
+![출처 : AWS Cloudfront 공식 문서](https://d3i7lyqkyp9zxr.cloudfront.net/cloudfront-정리/0.png "700px")
+
+Cloudfront의 핵심 원리는 사용자가 다른 리전에 있는 리소스(Ex. S3 버킷 리소스)에 접근할 때, Cloudfront는 이를 사용자에게 전달함과 동시에 **해당 사용자가 위치한 엣지에 캐싱합니다**.
+
+> ✅ 캐싱된 데이터가 보존되는 기간(TTL)은 Cloudfront에서 직접 설정할 수 있습니다.
+
+따라서 다음 요청부터는 **사용자가 속한 엣지에 캐시된 데이터** 를 수신하게 되고, 리전간의 물리적 거리 차이로 생기게 되는 읽기 성능 하락을 방지할 수 있습니다.
+
+## Origin
+
+Cloudfront는 크게 두 가지로 구분되는 **Origin(컨텐츠가 저장되는 서비스)** 에 사용할 수 있습니다.
+
+### S3 버킷 오리진
+
+![](https://d3i7lyqkyp9zxr.cloudfront.net/cloudfront-정리/1.png "420px")
+
+Cloudfront를 S3 버킷에 적용하면 버킷에 업로드된 파일을 엣지에 캐싱해 다른 리전으로부터의 읽기 성능이 개선됩니다.  
+또한, [Origin Access Identity(OAI)](https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html) 를 통해 버킷 리소스 URL로의 직접적인 접근을 차단하는 등 보안을 적용할 수도 있습니다.
+
+### 커스텀 오리진
+
+S3 버킷 리소스 외에도 **로드밸런서나 EC2 인스턴스, S3에 배포된 정적 웹사이트, HTTP로 배포된 모든 백엔드 API**에도 적용할 수 있고, 이들을 **커스텀 오리진** 이라 부릅니다.
+
+#
+
+버킷 오리진처럼 읽기 성능을 개선하는 목적으로 사용하는 것은 유사하지만, 두 오리진 타입은 내부적으로 `S3OriginConfig` 과 `CustomOriginConfig` 타입으로 분명히 구분되므로 두 오리진의 차이를 알고 계시면 좋을 듯 합니다.
+
+## Cloudfront와 S3 교차 리전 복제(Cross Region Replication, CRR) 비교
+
+다른 리전으로부터의 읽기 속도를 향상시키는 목적은 S3의 **교차 리전 복제**와 유사하지만, 다음과 같은 차이가 존재합니다.
+
+### Cloudfront
+
+- 글로벌 엣지 네트워크를 통해 전 세계 어디에서든 활용할 수 있다.
+- 약 1일의 TTL동안 캐시된 데이터가 보존된다.
+- 변화가 적은 캐싱의 특성 상, 정적인 컨텐츠를 제공하기에 적합하다.
+
+### S3 교차 리전 복제
+
+- 읽기 성능이 필요한 리전에 S3 스토리지를 복제해야 한다.
+- 글로벌이 아닌 소수의 리전에서 사용할 때 적합하다.
+- 자주 변하는 컨텐츠가 빠른 속도로 제공되어야 할 때 적합하다.
