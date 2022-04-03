@@ -63,7 +63,7 @@ const PostPage = ({ frontMatter, mdxSource }: PostPageProps) => {
     <>
       <Head>
         <title>즐겁게, 코드 | {title}</title>
-        <link rel="canonical" href={canonicalURL} />
+        {/* <link rel="canonical" href={canonicalURL} /> */}
         <meta name="author" content="C17AN" />
         <meta name="description" content={description} />
         <meta property="og:image" content={ogImageUrl} />
